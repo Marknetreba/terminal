@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.sql.Date;
 
 @Entity
 @Table(name = "CLIENTS")
@@ -22,9 +23,16 @@ public class Clients implements Serializable {
   private String phone3;
   private String pager;
   private Long pol;
-  private java.sql.Timestamp bdate;
+  private Date bdate;
   private String doctors;
   private String fullname;
+  
+  //Additional params
+  public Long bhour;
+  public Long bmin;
+  public Long fhour;
+  public Long fmin;
+  
   private Long nomilk;
   private String comment;
   private Long clientdis;
@@ -323,11 +331,11 @@ public class Clients implements Serializable {
     this.pol = pol;
   }
 
-  public java.sql.Timestamp getBdate() {
+  public Date getBdate() {
     return bdate;
   }
 
-  public void setBdate(java.sql.Timestamp bdate) {
+  public void setBdate(Date bdate) {
     this.bdate = bdate;
   }
 

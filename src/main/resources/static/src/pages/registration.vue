@@ -10,7 +10,7 @@
           <tab title="Идентификация по номеру телефона">
               <label>Введите номер телефона: </label>
               <form-input v-model="num" type="tel" class="registration-half_phone-label" placeholder="Мобильный номер телефона"/>
-              <keyboard class="registration-half_keyboard" v-model="num" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
+              <keyboard class="registration-half_keyboard" v-model="num" layouts="123|456|789|+0{Удалить:backspace}"></keyboard>
               <button class="btn btn-info btn-lg" @click="searchByNum">Поиск</button>
           </tab>
 
@@ -66,10 +66,12 @@
         text: '',
         show: false,
         items: [
-          {fullname: ''}
+          {fullname: ''},
+          {bdate: ''}
           ],
         fields:{
           fullname:{label: "Имя пациента", sortable: true},
+          bdate:{label: "Дата рождения", sortable: true}
           }
         }
     },
@@ -104,7 +106,7 @@
 
       searchByNum(){
         this.show = true
-        this.$http.get('/schedule/{phone}', {params: {phone: this.num}}).then(response => {
+        this.$http.get('/schedulePhone/{phone}', {params: {phone: this.num}}).then(response => {
           this.items = response.data
           console.log(this.items)
         })
