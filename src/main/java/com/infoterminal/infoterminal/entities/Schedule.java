@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "SCHEDULE")
@@ -17,7 +18,7 @@ public class Schedule  implements Serializable {
   @JoinColumn(name = "DCODE", table = "DOCTOR")
   private Long dcode;
   
-  private java.sql.Timestamp workdate;
+  private Date workdate;
   private Long bhour;
   private Long bmin;
   private Long fhour;
@@ -141,11 +142,11 @@ public class Schedule  implements Serializable {
     this.dcode = dcode;
   }
 
-  public java.sql.Timestamp getWorkdate() {
+  public Date getWorkdate() {
     return workdate;
   }
 
-  public void setWorkdate(java.sql.Timestamp workdate) {
+  public void setWorkdate(Date workdate) {
     this.workdate = workdate;
   }
 

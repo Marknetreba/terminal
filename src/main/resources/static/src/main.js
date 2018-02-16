@@ -5,8 +5,6 @@ import App from './App'
 import router from './router/index'
 import VueResource from 'vue-resource'
 
-
-//TODO: Fix mask
 Vue.config.productionTip = false;
 
 //Vue-resource config

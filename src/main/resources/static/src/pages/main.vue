@@ -30,7 +30,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   button {
-    font-size: 30px;
+    font-size: 40px;
     margin-top: 20px;
   }
 

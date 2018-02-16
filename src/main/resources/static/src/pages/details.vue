@@ -1,13 +1,17 @@
 <template>
-  <div class="details">
-    <card header="Детали пациента"
-          header-text-variant="white"
-          header-bg-variant="info">
-      <b_table striped hover :items="items" :fields="fields" @row-clicked="">
-      </b_table>
-    </card>
-    <button class="btn btn-info btn-lg" @click="goBack">Назад</button>
-    <button class="btn btn-success btn-lg" @click="checkIncome">Отметиться о приеме</button>
+  <div class="main_details">
+    <div class="options">
+      <card header="Детали пациента"
+            header-text-variant="white"
+            header-bg-variant="info">
+        <b_table striped hover :items="items" :fields="fields" @row-clicked="">
+        </b_table>
+      </card>
+      <button class="btn btn-info btn-lg" @click="goBack">Назад</button>
+      <button class="btn btn-success btn-lg" @click="checkIncome">Отметиться о приеме</button>
+      <button class="btn btn-success btn-lg" @click="checkIncome">Отметиться на все приемы</button>
+    </div>
+    <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg"></div>
   </div>
 </template>
 
@@ -47,5 +51,7 @@
 </script>
 
 <style scoped>
-
+  .main_details {
+    display: flex;
+  }
 </style>

@@ -61,13 +61,13 @@ public class TerminalController {
         return schedule;
     }
     
-    @RequestMapping(value ="/schedule/{name}")
+    @RequestMapping(value ="/schedule/{name}/{date}")
     @ResponseBody
-    public List getPacientsByName(@PathVariable(required = true) String name) throws SQLException {
+    public List getPacientsByName(@PathVariable(required = true) String name, @PathVariable(required = true) String date) throws SQLException {
         String query = "select sh.SCHEDID,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3 from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "inner join CHAIRS ch on (ch.CHID = sh.CHID)\n" +
-                "where sh.FILIAL = '8' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%') ";
+                "where WORKDATE = '" +date+ "' and sh.FILIAL = '8' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%') ";
 
         List schedule = template.query(query, new BeanPropertyRowMapper<>(Clients.class));
 

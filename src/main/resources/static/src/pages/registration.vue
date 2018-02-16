@@ -1,5 +1,6 @@
 <template>
   <div class="registration">
+    <alert dismissible :show="error" variant="primary">Записей не найдено</alert>
     <div class="registration-half">
       <card no-body
             header="Выберите удобный вам способ аутентификации"
@@ -20,8 +21,7 @@
 
               <keyboard class="registration-half_keyboard" v-model="text"
                                   :layouts="[
-                  'йцукенгшщзъ|фывапролджэ|{Shift:goto:1}ячсмитьбю|{Пробел:space}{Удалить:backspace}',
-                  'ЙЦУКЕНГШЩЗХЪ|ФЫВАПРОЛДЖЭ|{Shift:goto:0}ЯЧСМИТЬБЮ|{Пробел:space}{Удалить:backspace}'
+                  'ЙЦУКЕНГШЩЗХЪ|ФЫВАПРОЛДЖЭ|ЯЧСМИТЬБЮ|{Очистить:clear}{Пробел:space}{Удалить:backspace}'
               ]"></keyboard>
               <button class="btn btn-info btn-lg" @click="searchByText">Поиск</button>
           </tab>
@@ -31,19 +31,20 @@
       <div class="registration-iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"/></div>
     </div>
 
-    <modal v-model="show" size="lg" centered title="Выберите пациента из списка">
+    <loading :show="progress" :label="label"></loading>
 
+    <modal v-model="show" size="lg" centered title="Выберите пациента из списка">
       <b_table striped hover :items="items" :fields="fields" @row-clicked="goDetails">
       </b_table>
       <div slot="modal-footer" class="modal-footer">
         <button class="btn btn-info">Ок</button><button class="btn btn-dark" @click="show = false">Закрыть</button>
       </div>
     </modal>
-
   </div>
 </template>
 
 <script>
+  import alert from 'bootstrap-vue/es/components/alert/alert'
   import Card from "bootstrap-vue/es/components/card/card";
   import Tabs from "bootstrap-vue/src/components/tabs/tabs";
   import Tab from "bootstrap-vue/es/components/tabs/tab";
@@ -57,11 +58,18 @@
   import Img from "bootstrap-vue/es/components/image/img";
   import Keyboard from "vue-keyboard";
   import router from '../router/index';
+  import loading from 'vue-full-loading';
+  import moment from 'moment';
+  import _ from 'lodash';
 
   export default {
     data() {
       return {
+        error: false,
+        label: "Пожалуйста, подождите...",
+        progress: false,
         response: [],
+        time: moment().format('DD.MM.YYYY'),
         num: '',
         text: '',
         show: false,
@@ -77,6 +85,8 @@
     },
 
     components: {
+      moment,
+      alert,
       Keyboard,
       Img,
       b_table,
@@ -89,26 +99,45 @@
       Tab,
       Tabs,
       Card,
+      loading
     },
 
     name: "Registration",
-    computed: {
-    },
+    computed: {},
     methods: {
-
       searchByText() {
-        this.show = true;
-        this.$http.get('/schedule/{name}', {params: {name: this.text}}).then(response => {
-          this.items = response.data
-          console.log(this.items)
+        this.progress=true;
+        this.$http.get('/schedule/{name}/{date}', {params: {name: this.text, date: this.time}}).then(response => {
+          if (response) {
+            this.show = true;
+            this.progress = false;
+            this.items = response.data;
+          }
+          else {
+            this.error = true
+          }
+        })
+          .catch(error => {
+            this.progress = false;
+            console.log(error)
         })
       },
 
-      searchByNum(){
-        this.show = true
+      searchByNum() {
+        this.progress = true
         this.$http.get('/schedulePhone/{phone}', {params: {phone: this.num}}).then(response => {
-          this.items = response.data
-          console.log(this.items)
+          if (response) {
+            this.show = true;
+            this.progress = false;
+            this.items = response.data;
+          }
+          else {
+            this.error = true
+          }
+        })
+          .catch (error=> {
+            this.progress = false;
+            console.log(error)
         })
       },
 
@@ -120,7 +149,8 @@
 </script>
 <style scoped>
   button {
-    margin-top: 5px
+    margin-top: 5px;
+    font-size: 30px;
   }
 
   label {
@@ -138,7 +168,8 @@
   }
 
   .registration-half_keyboard {
-    margin-top: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
     font-size: 25px;
   }
 
@@ -148,6 +179,7 @@
 
   .registration-half {
     display: flex;
+    height: 100%;
   }
 
   .registration-iframe {
