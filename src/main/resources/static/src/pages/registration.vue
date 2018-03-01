@@ -1,6 +1,5 @@
 <template>
   <div class="registration">
-    <alert dismissible :show="error" variant="primary">Записей не найдено</alert>
     <div class="registration-half">
       <card no-body
             header="Выберите удобный вам способ аутентификации"
@@ -28,7 +27,7 @@
 
         </tabs>
       </card>
-      <div class="registration-iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"/></div>
+      <div class="registration-iframe"><img src="../assets/ded.jpg" style="width: 100%"/></div>
     </div>
 
     <loading :show="progress" :label="label"></loading>
@@ -37,9 +36,14 @@
       <b_table striped hover :items="items" :fields="fields" @row-clicked="goDetails">
       </b_table>
       <div slot="modal-footer" class="modal-footer">
-        <button class="btn btn-info">Ок</button><button class="btn btn-dark" @click="show = false">Закрыть</button>
+        <button class="btn btn-dark" @click="show = false">Закрыть</button>
       </div>
     </modal>
+
+    <div class="fixed-bottom" style="right: unset!important;">
+      <a>ID филиала: {{macAddress}}</a>
+    </div>
+
   </div>
 </template>
 
@@ -65,7 +69,7 @@
   export default {
     data() {
       return {
-        error: false,
+        macAddress: '',
         label: "Пожалуйста, подождите...",
         progress: false,
         response: [],
@@ -104,6 +108,11 @@
 
     name: "Registration",
     computed: {},
+    created() {
+      this.id = window.location.href;
+      this.macAddress = this.id.substring(this.id.indexOf("?"),this.id.indexOf('#'));
+      console.log(window.location)
+    },
     methods: {
       searchByText() {
         this.progress=true;
@@ -113,9 +122,6 @@
             this.progress = false;
             this.items = response.data;
           }
-          else {
-            this.error = true
-          }
         })
           .catch(error => {
             this.progress = false;
@@ -124,15 +130,20 @@
       },
 
       searchByNum() {
-        this.progress = true
+        this.progress = true;
         this.$http.get('/schedulePhone/{phone}', {params: {phone: this.num}}).then(response => {
           if (response) {
-            this.show = true;
-            this.progress = false;
-            this.items = response.data;
-          }
-          else {
-            this.error = true
+            response.data.forEach(i => {
+              this.$http.get('/schedule/{name}/{date}', {params: {name: i.fullname, date: this.time}}).then(response => {
+                if (response.data.length>0) {
+                  console.log(response.data);
+                  this.show = true;
+                  this.progress = false;
+                  //TODO: Fix, when many pacients were found
+                  this.items = response.data;
+                }
+              })
+            })
           }
         })
           .catch (error=> {
@@ -141,7 +152,10 @@
         })
       },
 
-      goDetails(){
+      goDetails(item){
+        this.$store.dispatch('registration/data', item);
+        console.log(item);
+        console.log(this.$store);
         router.push("Details")
       }
     }

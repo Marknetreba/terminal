@@ -11,7 +11,7 @@
       <button class="btn btn-success btn-lg" @click="checkIncome">Отметиться о приеме</button>
       <button class="btn btn-success btn-lg" @click="checkIncome">Отметиться на все приемы</button>
     </div>
-    <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg"></div>
+    <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>
   </div>
 </template>
 
@@ -27,12 +27,9 @@
       name: "Details",
       data() {
         return {
-          items:[
-            {time:''},
-            {chname:''},
-            {doc:''}
-          ],
+          items: this.$store.getters['registration/getData'],
           fields:{
+            fullname:{label: 'Имя пациенат', sortable: true},
             time:{label: 'Время приема', sortable: true},
             chname:{label: 'Кабинет врача', sortable: true},
             doc:{label: 'ФИО врача', sortable: true}
@@ -53,5 +50,8 @@
 <style scoped>
   .main_details {
     display: flex;
+  }
+  .options,.details_iframe {
+    flex:1
   }
 </style>
