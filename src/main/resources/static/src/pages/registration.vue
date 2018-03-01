@@ -153,9 +153,7 @@
       },
 
       goDetails(item){
-        this.$store.dispatch('registration/data', item);
-        console.log(item);
-        console.log(this.$store);
+        this.$store.dispatch('registration/data', Array.of(item));
         router.push("Details")
       }
     }

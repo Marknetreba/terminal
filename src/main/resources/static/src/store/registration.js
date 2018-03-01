@@ -5,7 +5,7 @@ const registration = {
   namespaced: true,
 
   state: {
-    registration: []
+    registration: {}
   },
 
   mutations: {

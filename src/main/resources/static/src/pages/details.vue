@@ -27,7 +27,7 @@
       name: "Details",
       data() {
         return {
-          items: this.$store.getters['registration/getData'],
+          items: [],
           fields:{
             fullname:{label: 'Имя пациенат', sortable: true},
             time:{label: 'Время приема', sortable: true},
@@ -36,8 +36,11 @@
           }
         }
       },
+      created() {
+          this.items = this.$store.getters['registration/getData']
+      },
       methods: {
-        goBack(){
+        goBack() {
           router.push("Registration")
         },
         checkIncome() {
