@@ -76,7 +76,9 @@ public class TerminalController {
     
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     @ResponseBody
-    public void submitIncoming(){}
+    public void submitIncoming(){
+        System.out.println("Отметься уже о приеме");
+    }
 
 //    @RequestMapping(value = "/{id}")
 //    @ResponseBody
