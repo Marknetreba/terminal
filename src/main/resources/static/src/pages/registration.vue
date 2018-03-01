@@ -110,7 +110,7 @@
     computed: {},
     created() {
       this.id = window.location.href;
-      this.macAddress = this.id.substring(this.id.indexOf("?"),this.id.indexOf('#'));
+      this.macAddress = this.id.substring(this.id.indexOf("?"),this.id.indexOf(''));
       console.log(window.location)
     },
     methods: {

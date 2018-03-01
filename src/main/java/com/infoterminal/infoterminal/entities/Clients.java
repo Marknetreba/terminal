@@ -28,10 +28,13 @@ public class Clients implements Serializable {
   private String fullname;
   
   //Additional params
-  public Long bhour;
-  public Long bmin;
-  public Long fhour;
-  public Long fmin;
+  private Long bhour;
+  private Long bmin;
+  private Long fhour;
+  private Long fmin;
+  private String chname;
+  private String time;
+  private String docname;
   
   private Long nomilk;
   private String comment;
@@ -248,8 +251,7 @@ public class Clients implements Serializable {
   private Long newborncode;
   private String lpucheckreq;
 
-  public Clients() {
-  }
+  public Clients() {}
 
   public Long getPcode() {
     return pcode;
@@ -2065,6 +2067,62 @@ public class Clients implements Serializable {
 
   public void setLpucheckreq(String lpucheckreq) {
     this.lpucheckreq = lpucheckreq;
+  }
+
+  public Long getBhour() {
+    return bhour;
+  }
+
+  public void setBhour(Long bhour) {
+    this.bhour = bhour;
+  }
+
+  public Long getBmin() {
+    return bmin;
+  }
+
+  public void setBmin(Long bmin) {
+    this.bmin = bmin;
+  }
+
+  public Long getFhour() {
+    return fhour;
+  }
+
+  public void setFhour(Long fhour) {
+    this.fhour = fhour;
+  }
+
+  public Long getFmin() {
+    return fmin;
+  }
+
+  public void setFmin(Long fmin) {
+    this.fmin = fmin;
+  }
+
+  public String getChname() {
+    return chname;
+  }
+
+  public void setChname(String chname) {
+    this.chname = chname;
+  }
+
+  public String getTime() {
+    return time;
+  }
+
+  public void setTime(String time) {
+    this.time = time;
+  }
+
+  public String getDocname() {
+    return docname;
+  }
+
+  public void setDocname(String docname) {
+    this.docname = docname;
   }
 
   @Override
