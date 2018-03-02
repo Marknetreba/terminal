@@ -155,7 +155,7 @@
       },
 
       goDetails(item) {
-        time = this.time;
+        let time = this.time;
         this.$store.dispatch('registration/getPacients', Array.of(this.items), time);
         router.push("Details")
       }
