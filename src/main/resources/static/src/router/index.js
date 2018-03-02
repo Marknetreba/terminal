@@ -8,7 +8,6 @@ import error from '../pages/error.vue'
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
   routes: [
     { path: '/', name: 'main', component: main },
     { path: '/registration', name: 'Registration', component: registration },

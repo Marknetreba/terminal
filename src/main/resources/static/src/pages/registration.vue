@@ -27,13 +27,14 @@
 
         </tabs>
       </card>
-      <div class="registration-iframe"><img src="../assets/ded.jpg" style="width: 100%"/></div>
+      <div class="registration-iframe"><img src="../assets/ded.jpg" style="width: 100%; height: 100%"/></div>
     </div>
 
     <loading :show="progress" :label="label"></loading>
 
     <modal v-model="show" size="lg" centered title="Выберите пациента из списка">
-      <b_table striped hover :items="items" :fields="fields" @row-clicked="goDetails">
+      <b_table striped hover
+               :filter="filter" :items="items" :fields="fields" @row-clicked="goDetails">
       </b_table>
       <div slot="modal-footer" class="modal-footer">
         <button class="btn btn-dark" @click="show = false">Закрыть</button>
@@ -84,7 +85,7 @@
         fields:{
           fullname:{label: "Имя пациента", sortable: true},
           bdate:{label: "Дата рождения", sortable: true}
-          }
+          },
         }
     },
 
@@ -110,17 +111,18 @@
     computed: {},
     created() {
       this.id = window.location.href;
-      this.macAddress = this.id.substring(this.id.indexOf("?"),this.id.indexOf(''));
+      this.macAddress = this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'));
       console.log(window.location)
     },
     methods: {
       searchByText() {
         this.progress=true;
-        this.$http.get('/schedule/{name}/{date}', {params: {name: this.text, date: this.time}}).then(response => {
+        this.$http.get('/pacient/{name}/{date}', {params: {name: this.text, date: this.time}}).then(response => {
           if (response) {
             this.show = true;
             this.progress = false;
             this.items = response.data;
+            console.log(this.items)
           }
         })
           .catch(error => {
@@ -152,8 +154,9 @@
         })
       },
 
-      goDetails(item){
-        this.$store.dispatch('registration/data', Array.of(item));
+      goDetails(item) {
+        time = this.time;
+        this.$store.dispatch('registration/getPacients', Array.of(this.items), time);
         router.push("Details")
       }
     }
@@ -185,6 +188,10 @@
     font-size: 25px;
   }
 
+  .registration {
+    height: 100%;
+  }
+
   /*.tab-content>.active {*/
     /*display: flex;*/
   /*}*/
@@ -195,6 +202,7 @@
   }
 
   .registration-iframe {
+    height: 100%;
     flex: 1;
   }
 </style>
