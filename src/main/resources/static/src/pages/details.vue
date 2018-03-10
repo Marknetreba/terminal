@@ -7,7 +7,7 @@
             header-text-variant="white"
             header-bg-variant="info">
 
-        <a>Пациент: {{items.fullname}}</a><br/>
+        <a>Пациент: {{items[0].fullname}}</a><br/>
 
         <b_table class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="show = true">
           <template slot="time" slot-scope="data">
@@ -22,6 +22,7 @@
 
       <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
       <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Отметиться на все приемы</button>
+      <button class="btn btn-primary btn-lg mt-3" @click="takeImage">Фото</button>
     </div>
 
     <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>
@@ -29,7 +30,7 @@
     <modal v-model="show" size="lg" centered title="Детали приема">
       <div slot="modal-footer" class="modal-footer">
         <button class="btn btn-success btn-lg" @click="checkIncome">Отметиться на прием</button>
-        <button class="btn btn-dark" @click="show = false">Закрыть</button>
+        <button class="btn btn-dark btn-lg" @click="show = false">Закрыть</button>
       </div>
     </modal>
   </div>
@@ -69,8 +70,13 @@
         },
         checkIncome() {
           this.$http.post('/submit').then(response => {
-            console.log("Пришел нах")
+            console.log("Пришел нах", response)
           });
+        },
+        takeImage() {
+          this.$http.get('/photo').then(response => {
+            console.log("Video",response)
+          })
         }
       }
     }

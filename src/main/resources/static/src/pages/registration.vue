@@ -133,16 +133,20 @@
 
       searchByNum() {
         this.progress = true;
+        this.pacients = [];
         this.$http.get('/schedulePhone/{phone}', {params: {phone: this.num}}).then(response => {
           if (response) {
             response.data.forEach(i => {
-              this.$http.get('/schedule/{name}/{date}', {params: {name: i.fullname, date: this.time}}).then(response => {
+              this.$http.get('/pacient/{name}/{date}', {params: {name: i.fullname, date: this.time}}).then(response => {
+
                 if (response.data.length>0) {
-                  console.log(response.data);
                   this.show = true;
                   this.progress = false;
-                  //TODO: Fix, when many pacients were found
-                  this.items = response.data;
+
+                  this.pacients.push(response.data[0]);
+                  console.log("Responce data", response.data);
+                  console.log("Pacients", this.pacients);
+                  this.items = this.pacients;
                 }
               })
             })
@@ -155,9 +159,16 @@
       },
 
       goDetails(item) {
-        let time = this.time;
-        this.$store.dispatch('registration/getPacients', Array.of(this.items), time);
-        router.push("Details")
+        console.log(item);
+        this.progress = true;
+        this.$http.get('/schedule/{name}/{date}', {params: {name: item.fullname, date: this.time}}).then(response => {
+          if(response){
+            this.$store.dispatch('registration/data', response.data);
+            this.progress = false;
+          }
+        }).then ( () => {
+          router.push("Details");
+        })
       }
     }
   }

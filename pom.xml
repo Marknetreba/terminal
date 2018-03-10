@@ -9,7 +9,14 @@
 	<packaging>war</packaging>
 
 	<name>infoterminal</name>
-	<description>Spring Boot</description>
+	<description>Spring Boot and VueJs App</description>
+
+	<developers>
+		<developer>
+			<name>Mark Netreba</name>
+			<email>mark.netreba@mail.ru</email>
+		</developer>
+	</developers>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -82,7 +89,20 @@
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+		<dependency>
+			<groupId>xuggle</groupId>
+			<artifactId>xuggle-xuggler</artifactId>
+			<version>5.4</version>
+		</dependency>
 	</dependencies>
+
+	<repositories>
+		<repository>
+			<id>xuggle repo</id>
+			<url>https://files.liferay.com/mirrors/xuggle.googlecode.com/svn/trunk/repo/share/java/</url>
+		</repository>
+	</repositories>
+
 
 	<build>
 		<plugins>

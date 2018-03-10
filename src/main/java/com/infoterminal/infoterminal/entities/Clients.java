@@ -32,6 +32,7 @@ public class Clients implements Serializable {
   private String chname;
   private String time;
   private String docname;
+  private Long clvisit;
 
   public Clients() {}
 
@@ -170,6 +171,14 @@ public class Clients implements Serializable {
 
   public void setDocname(String docname) {
     this.docname = docname;
+  }
+
+  public Long getClvisit() {
+    return clvisit;
+  }
+
+  public void setClvisit(Long clvisit) {
+    this.clvisit = clvisit;
   }
   
 }

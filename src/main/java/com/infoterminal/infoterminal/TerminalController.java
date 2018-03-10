@@ -3,18 +3,24 @@ package com.infoterminal.infoterminal;
 import com.infoterminal.infoterminal.entities.Clients;
 import com.infoterminal.infoterminal.entities.Filials;
 import com.infoterminal.infoterminal.jpa.FilialsRepo;
+import com.xuggle.mediatool.IMediaListener;
+import com.xuggle.mediatool.IMediaReader;
+import com.xuggle.mediatool.MediaListenerAdapter;
+import com.xuggle.mediatool.ToolFactory;
+import com.xuggle.mediatool.event.IVideoPictureEvent;
+import com.xuggle.xuggler.IError;
+import com.xuggle.xuggler.demos.VideoImage;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.awt.image.BufferedImage;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class TerminalController {
@@ -75,6 +81,41 @@ public class TerminalController {
     @ResponseBody
     public void submitIncoming(){
         System.out.println("Отметься уже о приеме");
+        String query = "select * from CF_SCHEDULE_UPDATE()";
+        template.query(query, new BeanPropertyRowMapper<>(Clients.class));
+    }
+
+    @RequestMapping(value = "/photo", method = RequestMethod.GET)
+    @ResponseBody
+    public BufferedImage takePhoto() {
+
+        BufferedImage[] image = new BufferedImage[1];
+
+        IMediaListener mediaListener = new MediaListenerAdapter() {
+            @Override
+            public void onVideoPicture(IVideoPictureEvent event) {
+                try {
+                    image[0] = event.getImage();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        };
+
+        IMediaReader mediaReader = ToolFactory.makeReader("rtsp://admin:admin@192.168.128.51:554/RVi/1/1");
+        mediaReader.setBufferedImageTypeToGenerate(BufferedImage.TYPE_3BYTE_BGR);
+        mediaReader.setQueryMetaData(false);
+        mediaReader.addListener(mediaListener);
+
+        while (true) {
+            IError err = mediaReader.readPacket();
+            if (err != null) {
+                System.out.println("Error: " + err);
+                break;
+            }
+        }
+
+        return image[0];
     }
 
 //    @RequestMapping(value = "/{id}")
