@@ -23,11 +23,6 @@ const registration = {
   actions: {
     data({commit}, data) {
       commit('setData', data)
-    },
-    getPacients({commit}, data, time) {
-      this.$http.get('/schedule/{name}/{date}', {params: {name: data.fullname, date: time}}).then(response => {
-        commit('setData', response.data)
-      })
     }
   }
 

@@ -124,6 +124,9 @@
             this.items = response.data;
             console.log(this.items)
           }
+          else if (response.data.length === 0) {
+            this.progress=false;
+          }
         })
           .catch(error => {
             this.progress = false;
@@ -135,6 +138,7 @@
         this.progress = true;
         this.pacients = [];
         this.$http.get('/schedulePhone/{phone}', {params: {phone: this.num}}).then(response => {
+          console.log(response);
           if (response) {
             response.data.forEach(i => {
               this.$http.get('/pacient/{name}/{date}', {params: {name: i.fullname, date: this.time}}).then(response => {
@@ -142,14 +146,17 @@
                 if (response.data.length>0) {
                   this.show = true;
                   this.progress = false;
-
                   this.pacients.push(response.data[0]);
-                  console.log("Responce data", response.data);
-                  console.log("Pacients", this.pacients);
                   this.items = this.pacients;
+                }
+                else {
+                  this.progress=false;
                 }
               })
             })
+          }
+          else {
+            this.progress=false;
           }
         })
           .catch (error=> {
