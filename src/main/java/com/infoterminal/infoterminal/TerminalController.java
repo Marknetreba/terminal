@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 import java.awt.image.BufferedImage;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class TerminalController {
@@ -33,12 +32,17 @@ public class TerminalController {
     
     @Autowired
     FilialsRepo filialsRepo;
+
+//    public DataSource configure(){
+//        return dataSource;
+//    }
     
     @RequestMapping(value = "/filials")
     @ResponseBody
     public List<Filials> getFilials() throws SQLException {
         
-        List<Filials> filials = filialsRepo.findAll();
+        String query = "SELECT * from FILIALS WHERE FILID='55'";
+        List<Filials> filials = template.query(query, new BeanPropertyRowMapper<>(Filials.class));
         return filials;
     }
     
@@ -81,7 +85,11 @@ public class TerminalController {
     @ResponseBody
     public void submitIncoming(){
         System.out.println("Отметься уже о приеме");
-        String query = "select * from CF_SCHEDULE_UPDATE()";
+        String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','990000023','55','550938647','55','PDNTP','550164554','550000438','15.03.2018','990008904','8','0','8','30','510000022',\n" +
+                "null,null,null,null,null,null,null,null,null,null,'55',\n" +
+                "null,null,null,null,null,null,null,null,null,null,\n" +
+                "null,null,null,null,null,null,null,null,null,null,\n" +
+                "null,null,null,'1',null,'3',null,'1')";
         template.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
 
