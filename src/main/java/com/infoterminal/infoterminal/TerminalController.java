@@ -3,27 +3,31 @@ package com.infoterminal.infoterminal;
 import com.infoterminal.infoterminal.entities.Clients;
 import com.infoterminal.infoterminal.entities.Filials;
 import com.infoterminal.infoterminal.jpa.FilialsRepo;
+
 import com.xuggle.mediatool.IMediaListener;
 import com.xuggle.mediatool.IMediaReader;
 import com.xuggle.mediatool.MediaListenerAdapter;
 import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
 import com.xuggle.xuggler.IError;
-import com.xuggle.xuggler.demos.VideoImage;
-import org.apache.tomcat.jdbc.pool.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.sql.DataSource;
 import java.awt.image.BufferedImage;
-import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class TerminalController {
 
+    @Qualifier("dataSource")
     @Autowired
     DataSource dataSource;
     
@@ -32,65 +36,67 @@ public class TerminalController {
     
     @Autowired
     FilialsRepo filialsRepo;
-
-//    public DataSource configure(){
-//        return dataSource;
-//    }
-    
-    @RequestMapping(value = "/filials")
-    @ResponseBody
-    public List<Filials> getFilials() throws SQLException {
-        
-        String query = "SELECT * from FILIALS WHERE FILID='55'";
-        List<Filials> filials = template.query(query, new BeanPropertyRowMapper<>(Filials.class));
-        return filials;
-    }
     
     @RequestMapping(value ="/schedulePhone/{phone}")
     @ResponseBody
-    public List getPacientsByPhone(@PathVariable(required = true) String phone) throws SQLException {
+    public List getPacientsByPhone(@PathVariable(required = true) String phone) {
         String query = "select * from get_client_by_phone ('" + phone+"')";
-        
-        List schedule = template.query(query, new BeanPropertyRowMapper<>(Clients.class));
-        return schedule;
+
+        return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
     
     @RequestMapping(value = "/pacient/{name}/{date}")
     @ResponseBody
-    public List getPacient(@PathVariable(required = true) String name, @PathVariable(required = true) String date) throws SQLException{
+    public List getPacient(@PathVariable(required = true) String name, @PathVariable(required = true) String date) {
         String query = "select DISTINCT cl.fullname,cl.bdate from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "where WORKDATE='" +date+ "' and sh.FILIAL='8' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%')\n" +
                 "ORDER BY FULLNAME, BDATE";
-        
-        List client = template.query(query, new BeanPropertyRowMapper<>(Clients.class));
-        return client;
+
+        return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
     
     @RequestMapping(value ="/schedule/{name}/{date}")
     @ResponseBody
-    public List getPacientsByName(@PathVariable(required = true) String name, @PathVariable(required = true) String date) throws SQLException {
-        String query = "select sh.SCHEDID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3 from SCHEDULE sh\n" +
+    public List getPacientsByName(@PathVariable(required = true) String name, @PathVariable(required = true) String date) {
+        String query = "select sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3 from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "inner join doctor doc on (doc.dcode = sh.dcode)\n" +
                 "inner join CHAIRS ch on (ch.CHID = sh.CHID)\n" +
                 "where WORKDATE = '" +date+ "' and sh.FILIAL = '8' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%') ";
 
-        List schedule = template.query(query, new BeanPropertyRowMapper<>(Clients.class));
+        return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
+    }
 
-        return schedule;
+    private DataSource database() {
+        ArrayList<Filials> filials = new ArrayList<>(this.getFilials());
+        String url = "jdbc:firebirdsql://"+filials.get(0).getDbipaddr()+"/"+filials.get(0).getDbalias()+"?charSet=Cp1251&encoding=win1251";
+        System.out.println(url);
+
+        return DataSourceBuilder.create().username("CHEA").password("PDNTP").url(url)
+                .driverClassName("org.firebirdsql.jdbc.FBDriver").build();
+    }
+    
+    private List<Filials> getFilials() {
+
+        String query = "SELECT * from FILIALS WHERE FILID='55'";
+        return template.query(query, new BeanPropertyRowMapper<>(Filials.class));
     }
     
     @RequestMapping(value = "/submit", method = RequestMethod.POST)
     @ResponseBody
-    public void submitIncoming(){
-        System.out.println("Отметься уже о приеме");
-        String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','990000023','55','550938647','55','PDNTP','550164554','550000438','15.03.2018','990008904','8','0','8','30','510000022',\n" +
+    public void submitIncoming() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(this.database());
+        List<Clients> doctshedule = template.query("SELECT * FROM DOCTSHEDULE WHERE WDATE = '15.03.2018' and DCODE = '550000438'", new BeanPropertyRowMapper<>(Clients.class));
+        Long shedident = doctshedule.get(0).getShedident();
+
+        String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','990000023','55','550938647','55','PDNTP',"+shedident+",'550000438','15.03.2018','990008904','8','0','8','30','510000022',\n" +
                 "null,null,null,null,null,null,null,null,null,null,'55',\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,'1',null,'3',null,'1')";
-        template.query(query, new BeanPropertyRowMapper<>(Clients.class));
+
+        jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
 
     @RequestMapping(value = "/photo", method = RequestMethod.GET)

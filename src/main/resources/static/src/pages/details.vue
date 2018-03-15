@@ -28,6 +28,14 @@
     <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>
 
     <modal v-model="show" size="lg" centered title="Детали приема">
+      <b_table class="mt-3" striped hover :items="items" :fields="fields">
+        <template slot="time" slot-scope="data">
+          {{data.item.bhour}}:{{data.item.bmin}}
+        </template>
+        <template slot="chname" slot-scope="data">
+          {{data.item.chname}}
+        </template>
+      </b_table>
       <div slot="modal-footer" class="modal-footer">
         <button class="btn btn-success btn-lg" @click="checkIncome">Отметиться на прием</button>
         <button class="btn btn-dark btn-lg" @click="show = false">Закрыть</button>

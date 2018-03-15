@@ -1,6 +1,6 @@
 //GET ALL PACIENTS BY DATE AND FILIAL ID
 
-select sh.SCHEDID,sh.filial,doc.fullname,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,sh.clvisit from SCHEDULE sh
+select sh.SCHEDID,sh.CASHID,sh.filial,doc.dcode,ch.CHID,doc.fullname,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,sh.clvisit from SCHEDULE sh
 inner join clients cl on (cl.pcode = sh.pcode)
 inner join doctor doc on (doc.dcode = sh.dcode)
 inner join CHAIRS ch on (ch.CHID = sh.CHID)
@@ -21,3 +21,7 @@ null,null,null,'1',null,'3',null,'1')
 //GET FILIAL'S DB PATH
 
 SELECT FILID, DBALIAS, DBPATH, DBIPADDR, DBPORT from FILIALS WHERE FILID='55'
+
+//GET SHEDIDENT
+
+SELECT SCHEDIDENT FROM DOCTSHEDULE WHERE WDATE = '15.03.2018' and DCODE = '550000438'

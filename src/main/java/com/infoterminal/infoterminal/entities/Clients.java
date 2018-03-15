@@ -32,9 +32,16 @@ public class Clients implements Serializable {
   private String chname;
   private String time;
   private String docname;
-  private Long clvisit;
+  private Integer clvisit;
+  private Integer schedid;
+  private Long cashid;
+  private Long dcode;
+  private Long chid;
+  private Long shedident;
+
 
   public Clients() {}
+
 
   public Long getPcode() {
     return pcode;
@@ -173,12 +180,49 @@ public class Clients implements Serializable {
     this.docname = docname;
   }
 
-  public Long getClvisit() {
+  public Integer getClvisit() {
     return clvisit;
   }
 
-  public void setClvisit(Long clvisit) {
+  public void setClvisit(Integer clvisit) {
     this.clvisit = clvisit;
   }
-  
+
+  public Integer getSchedid() { return schedid; }
+
+  public void setSchedid(Integer schedid) {
+    this.schedid = schedid;
+  }
+
+  public Long getCashid() {
+    return cashid;
+  }
+
+  public void setCashid(Long cashid) {
+    this.cashid = cashid;
+  }
+
+  public Long getDcode() {
+    return dcode;
+  }
+
+  public void setDcode(Long dcode) {
+    this.dcode = dcode;
+  }
+
+  public Long getChid() {
+    return chid;
+  }
+
+  public void setChid(Long chid) {
+    this.chid = chid;
+  }
+
+  public Long getShedident() {
+    return shedident;
+  }
+
+  public void setShedident(Long shedident) {
+    this.shedident = shedident;
+  }
 }
