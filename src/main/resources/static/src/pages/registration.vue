@@ -33,8 +33,7 @@
     <loading :show="progress" :label="label"></loading>
 
     <modal v-model="show" size="lg" centered title="Выберите пациента из списка">
-      <b_table striped hover
-               :filter="filter" :items="items" :fields="fields" @row-clicked="goDetails">
+      <b_table striped hover :items="items" :fields="fields" @row-clicked="goDetails">
       </b_table>
       <div slot="modal-footer" class="modal-footer">
         <button class="btn btn-dark" @click="show = false">Закрыть</button>

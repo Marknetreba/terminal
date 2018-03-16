@@ -9,34 +9,38 @@
 
         <a>Пациент: {{items[0].fullname}}</a><br/>
 
-        <b_table class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="show = true">
+        <b_table class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
           <template slot="time" slot-scope="data">
             {{data.item.bhour}}:{{data.item.bmin}}
           </template>
           <template slot="chname" slot-scope="data">
             {{data.item.chname}}
           </template>
+          <!--<template slot="top_row" slot-scope="data">-->
+            <!--<button class="btn btn-primary btn-lg" @click.stop="checkIncome(data.item)">Отметиться о приходе</button>-->
+          <!--</template>-->
         </b_table>
 
       </card>
 
       <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
       <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Отметиться на все приемы</button>
-      <button class="btn btn-primary btn-lg mt-3" @click="takeImage">Фото</button>
+      <button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>
     </div>
 
     <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>
 
     <modal v-model="show" size="lg" centered title="Детали приема">
       <list-group>
-        <list_group_item>Имя пациента: {{items[0].fullname}}</list_group_item>
-        <list_group_item>Имя врача: {{items[0].docname}}</list_group_item>
-        <list_group_item>Номер кабинета: {{items[0].chname}}</list_group_item>
-        <list_group_item variant="success">Посетил: {{items[0].clvisit}}</list_group_item>
+        <list_group_item><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>
+        <list_group_item><strong>Дата рождения:</strong> {{table.bdate}}</list_group_item>
+        <list_group_item><strong>Ф.И.О врача:</strong> {{table.docname}}</list_group_item>
+        <list_group_item><strong>Номер кабинета:</strong> {{table.chname}}</list_group_item>
+        <list_group_item><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>
       </list-group>
       <div slot="modal-footer" class="modal-footer">
-        <button class="btn btn-success btn-lg" @click="checkIncome">Отметиться на прием</button>
-        <button class="btn btn-dark btn-lg" @click="show = false">Закрыть</button>
+        <button class="btn btn-success btn-lg" @click="checkIncome">Я пришел(ла)</button>
+        <button class="btn btn-warning btn-lg" @click="show = false">Закрыть</button>
       </div>
     </modal>
   </div>
@@ -65,6 +69,7 @@
             chname:{label: 'Кабинет врача', sortable: true},
             docname:{label: 'ФИО врача', sortable: true}
           },
+          table:[],
           show: false
         }
       },
@@ -77,14 +82,23 @@
           router.push("Registration")
         },
         checkIncome() {
-          this.$http.post('/submit').then(response => {
+          console.log(this.table);
+          this.$http.post('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{shedid}/{cashid}/{chid}/{date}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
+            fhour:this.table.fhour, fmin:this.table.fmin, shedid:this.table.shedid, cashid:this.table.cashid, chid: this.table.chid, date: ""}})
+            .then(response => {
             console.log("Пришел нах", response)
+            //router.push('Reservation')
           });
         },
         takeImage() {
           this.$http.get('/photo').then(response => {
-            console.log("Video",response)
+            console.log("Photo",response)
           })
+        },
+        itemClick(item) {
+          this.table = item;
+          console.log(this.table);
+          this.show = true;
         }
       }
     }

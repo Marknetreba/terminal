@@ -2,7 +2,6 @@ package com.infoterminal.infoterminal;
 
 import com.infoterminal.infoterminal.entities.Clients;
 import com.infoterminal.infoterminal.entities.Filials;
-import com.infoterminal.infoterminal.jpa.FilialsRepo;
 
 import com.xuggle.mediatool.IMediaListener;
 import com.xuggle.mediatool.IMediaReader;
@@ -33,9 +32,7 @@ public class TerminalController {
     
     @Autowired
     JdbcTemplate template;
-    
-    @Autowired
-    FilialsRepo filialsRepo;
+
     
     @RequestMapping(value ="/schedulePhone/{phone}")
     @ResponseBody
@@ -47,7 +44,8 @@ public class TerminalController {
     
     @RequestMapping(value = "/pacient/{name}/{date}")
     @ResponseBody
-    public List getPacient(@PathVariable(required = true) String name, @PathVariable(required = true) String date) {
+    public List getPacient(@PathVariable(required = true) String name,
+                           @PathVariable(required = true) String date) {
         String query = "select DISTINCT cl.fullname,cl.bdate from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "where WORKDATE='" +date+ "' and sh.FILIAL='55' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%')\n" +
@@ -58,7 +56,8 @@ public class TerminalController {
     
     @RequestMapping(value ="/schedule/{name}/{date}")
     @ResponseBody
-    public List getPacientsByName(@PathVariable(required = true) String name, @PathVariable(required = true) String date) {
+    public List getPacientsByName(@PathVariable(required = true) String name,
+                                  @PathVariable(required = true) String date) {
         String query = "select sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3, sh.clvisit from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "inner join doctor doc on (doc.dcode = sh.dcode)\n" +
@@ -83,16 +82,26 @@ public class TerminalController {
         return template.query(query, new BeanPropertyRowMapper<>(Filials.class));
     }
     
-    @RequestMapping(value = "/submit", method = RequestMethod.POST)
+    @RequestMapping(value = "/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{shedid}/{cashid}/{chid}/{date}", method = RequestMethod.POST)
     @ResponseBody
-    public void submitIncoming() {
+    public void submitIncoming(@PathVariable(required=true) Long dcode,
+                               @PathVariable(required=true) Long pcode,
+                               @PathVariable(required=true) Long bhour,
+                               @PathVariable(required=true) Long bmin,
+                               @PathVariable(required=true) Long fhour,
+                               @PathVariable(required=true) Long fmin,
+                               @PathVariable(required=true) Integer shedid,
+                               @PathVariable(required=true) Long cashid,
+                               @PathVariable(required = true) Long chid,
+                               @PathVariable(required = true) String date)
+    {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(this.database());
         List<Clients> doctshedule = template.query("SELECT * FROM DOCTSHEDULE WHERE WDATE = '16.03.2018' and DCODE = '550000438'", new BeanPropertyRowMapper<>(Clients.class));
         Clients shedident = doctshedule.get(0);
         System.out.println(shedident);
         
         String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','990000023','55','550938875','55','PDNTP','550164559','550000438','16.03.2018','990008904','8','0','8','30','510000022',\n" +
-                "null,null,null,null,null,null,null,null,null,null,'55',\n" +
+                "null,null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
