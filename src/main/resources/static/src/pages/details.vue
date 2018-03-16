@@ -28,14 +28,12 @@
     <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>
 
     <modal v-model="show" size="lg" centered title="Детали приема">
-      <b_table class="mt-3" striped hover :items="items" :fields="fields">
-        <template slot="time" slot-scope="data">
-          {{data.item.bhour}}:{{data.item.bmin}}
-        </template>
-        <template slot="chname" slot-scope="data">
-          {{data.item.chname}}
-        </template>
-      </b_table>
+      <list-group>
+        <list_group_item>Имя пациента: {{items[0].fullname}}</list_group_item>
+        <list_group_item>Имя врача: {{items[0].docname}}</list_group_item>
+        <list_group_item>Номер кабинета: {{items[0].chname}}</list_group_item>
+        <list_group_item variant="success">Посетил: {{items[0].clvisit}}</list_group_item>
+      </list-group>
       <div slot="modal-footer" class="modal-footer">
         <button class="btn btn-success btn-lg" @click="checkIncome">Отметиться на прием</button>
         <button class="btn btn-dark btn-lg" @click="show = false">Закрыть</button>
@@ -52,10 +50,12 @@
     import router from '../router/index';
     import b_table from "bootstrap-vue/src/components/table/_table";
     import modal from "bootstrap-vue/es/components/modal/_modal";
+    import list_group from "bootstrap-vue/es/components/list-group/list-group";
+    import list_group_item from "bootstrap-vue/es/components/list-group/list-group-item";
 
     export default {
       components: {
-        modal, Button, Card, b_table, b_checkbox},
+        modal, Button, Card, b_table, b_checkbox, list_group, list_group_item},
       name: "Details",
       data() {
         return {

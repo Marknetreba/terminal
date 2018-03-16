@@ -50,7 +50,7 @@ public class TerminalController {
     public List getPacient(@PathVariable(required = true) String name, @PathVariable(required = true) String date) {
         String query = "select DISTINCT cl.fullname,cl.bdate from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
-                "where WORKDATE='" +date+ "' and sh.FILIAL='8' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%')\n" +
+                "where WORKDATE='" +date+ "' and sh.FILIAL='55' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%')\n" +
                 "ORDER BY FULLNAME, BDATE";
 
         return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
@@ -59,11 +59,11 @@ public class TerminalController {
     @RequestMapping(value ="/schedule/{name}/{date}")
     @ResponseBody
     public List getPacientsByName(@PathVariable(required = true) String name, @PathVariable(required = true) String date) {
-        String query = "select sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3 from SCHEDULE sh\n" +
+        String query = "select sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3, sh.clvisit from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "inner join doctor doc on (doc.dcode = sh.dcode)\n" +
                 "inner join CHAIRS ch on (ch.CHID = sh.CHID)\n" +
-                "where WORKDATE = '" +date+ "' and sh.FILIAL = '8' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%') ";
+                "where WORKDATE = '" +date+ "' and sh.FILIAL = '55' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%') ";
 
         return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
@@ -87,14 +87,16 @@ public class TerminalController {
     @ResponseBody
     public void submitIncoming() {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(this.database());
-        List<Clients> doctshedule = template.query("SELECT * FROM DOCTSHEDULE WHERE WDATE = '15.03.2018' and DCODE = '550000438'", new BeanPropertyRowMapper<>(Clients.class));
-        Long shedident = doctshedule.get(0).getShedident();
-
-        String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','990000023','55','550938647','55','PDNTP',"+shedident+",'550000438','15.03.2018','990008904','8','0','8','30','510000022',\n" +
+        List<Clients> doctshedule = template.query("SELECT * FROM DOCTSHEDULE WHERE WDATE = '16.03.2018' and DCODE = '550000438'", new BeanPropertyRowMapper<>(Clients.class));
+        Clients shedident = doctshedule.get(0);
+        System.out.println(shedident);
+        
+        String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','990000023','55','550938875','55','PDNTP','550164559','550000438','16.03.2018','990008904','8','0','8','30','510000022',\n" +
                 "null,null,null,null,null,null,null,null,null,null,'55',\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
-                "null,null,null,'1',null,'3',null,'1')";
+                "null,null,null,null,null,null,null,null,null,null,\n" +
+                "null,null,null,'1',null,'3','16.03.2018 08:10:00','1')";
 
         jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
