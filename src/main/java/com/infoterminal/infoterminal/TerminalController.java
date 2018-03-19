@@ -82,7 +82,7 @@ public class TerminalController {
         return template.query(query, new BeanPropertyRowMapper<>(Filials.class));
     }
     
-    @RequestMapping(value = "/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{shedid}/{cashid}/{chid}/{date}", method = RequestMethod.POST)
+    @RequestMapping(value = "/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{shedid}/{cashid}/{chid}/{date}")
     @ResponseBody
     public void submitIncoming(@PathVariable(required=true) Long dcode,
                                @PathVariable(required=true) Long pcode,
@@ -105,7 +105,7 @@ public class TerminalController {
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
-                "null,null,null,'1',null,'3','16.03.2018 08:10:00','1')";
+                "null,null,null,'1',null,'3','16.03.2018 08:10:00','0')";
 
         jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }

@@ -7,7 +7,9 @@
             header-text-variant="white"
             header-bg-variant="info">
 
-        <a>Пациент: {{items[0].fullname}}</a><br/>
+        <a>{{items[0].fullname}}, Вам сегодня
+          предстоит несколько приемов у
+          специалистов Здоровенка!</a><br/>
 
         <b_table class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
           <template slot="time" slot-scope="data">
@@ -29,6 +31,8 @@
     </div>
 
     <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>
+
+    <!--<loading :show="progress" :label="label"></loading>-->
 
     <modal v-model="show" size="lg" centered title="Детали приема">
       <list-group>
@@ -56,6 +60,7 @@
     import modal from "bootstrap-vue/es/components/modal/_modal";
     import list_group from "bootstrap-vue/es/components/list-group/list-group";
     import list_group_item from "bootstrap-vue/es/components/list-group/list-group-item";
+    import moment from 'moment';
 
     export default {
       components: {
@@ -70,7 +75,9 @@
             docname:{label: 'ФИО врача', sortable: true}
           },
           table:[],
-          show: false
+          show: false,
+          label: "Пожалуйста, подождите...",
+          progress: false
         }
       },
       created() {
@@ -83,11 +90,13 @@
         },
         checkIncome() {
           console.log(this.table);
-          this.$http.post('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{shedid}/{cashid}/{chid}/{date}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
-            fhour:this.table.fhour, fmin:this.table.fmin, shedid:this.table.shedid, cashid:this.table.cashid, chid: this.table.chid, date: ""}})
+          //this.progress = true;
+          this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
+            fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY')}})
             .then(response => {
-            console.log("Пришел нах", response)
-            //router.push('Reservation')
+              //this.progress = false;
+              console.log("Пришел ", response);
+              router.push('Reservation')
           });
         },
         takeImage() {
