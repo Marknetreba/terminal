@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @Date 14.02.18
  */
 public interface FilialsRepo extends JpaRepository<Filials, Long> {
+    Filials findByFilidIn(Long filid);
 }
