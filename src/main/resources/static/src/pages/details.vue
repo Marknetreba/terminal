@@ -61,10 +61,12 @@
     import list_group from "bootstrap-vue/es/components/list-group/list-group";
     import list_group_item from "bootstrap-vue/es/components/list-group/list-group-item";
     import moment from 'moment';
+    import loading from 'vue-full-loading';
+
 
     export default {
       components: {
-        modal, Button, Card, b_table, b_checkbox, list_group, list_group_item},
+        modal, Button, Card, b_table, b_checkbox, list_group, list_group_item, loading},
       name: "Details",
       data() {
         return {
@@ -90,12 +92,12 @@
         },
         checkIncome() {
           console.log(this.table);
-          //this.progress = true;
+          this.progress = true;
           this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
             fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY')}})
             .then(response => {
-              //this.progress = false;
-              console.log("Пришел ", response);
+              this.progress = false;
+              //console.log("Пришел ", response);
               router.push('Reservation')
           });
         },

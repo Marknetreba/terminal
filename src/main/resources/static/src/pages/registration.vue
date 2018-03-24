@@ -64,7 +64,6 @@
   import router from '../router/index';
   import loading from 'vue-full-loading';
   import moment from 'moment';
-  import _ from 'lodash';
 
   export default {
     data() {
