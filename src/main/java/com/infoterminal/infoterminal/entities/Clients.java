@@ -14,6 +14,7 @@ import java.sql.Date;
 public class Clients implements Serializable {
   @Id
   private Long pcode;
+  private String webname;
   private Long filial;
   private String lastname;
   private String firstname;
@@ -37,7 +38,7 @@ public class Clients implements Serializable {
   private Long cashid;
   private Long dcode;
   private Long chid;
-  private Long shedident;
+  private Long SCHEDIDENT;
 
 
   public Clients() {}
@@ -49,6 +50,14 @@ public class Clients implements Serializable {
 
   public void setPcode(Long pcode) {
     this.pcode = pcode;
+  }
+
+  public String getWebname() {
+    return webname;
+  }
+
+  public void setWebname(String webname) {
+    this.webname = webname;
   }
 
   public Long getFilial() {
@@ -218,11 +227,11 @@ public class Clients implements Serializable {
     this.chid = chid;
   }
 
-  public Long getShedident() {
-    return shedident;
+  public Long getSCHEDIDENT() {
+    return SCHEDIDENT;
   }
 
-  public void setShedident(Long shedident) {
-    this.shedident = shedident;
+  public void setSCHEDIDENT(Long SCHEDIDENT) {
+    this.SCHEDIDENT = SCHEDIDENT;
   }
 }

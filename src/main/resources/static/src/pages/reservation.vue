@@ -9,6 +9,8 @@
             header-text-variant="white"
             header-bg-variant="info">
 
+        <b_img class="mb-3" height="375" rounded src="../assets/vrach.jpg"/>
+
         <list-group>
           <list_group_item><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>
           <list_group_item><strong>Дата рождения:</strong> {{table.bdate}}</list_group_item>
@@ -38,10 +40,11 @@
     import Card from "bootstrap-vue/es/components/card/card";
     import moment from 'moment';
     import router from '../router/index';
+    import b_img from "bootstrap-vue/es/components/image/img"
 
     export default {
       name: "Reservation",
-      components: {list_group, list_group_item, loading, Button, Card},
+      components: {list_group, list_group_item, loading, Button, Card, b_img},
 
       data() {
         return {

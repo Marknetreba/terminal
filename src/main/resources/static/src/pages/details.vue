@@ -7,7 +7,7 @@
             header-text-variant="white"
             header-bg-variant="info">
 
-        <a>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов Здоровенка!</a><br/>
+        <a>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов</a><br/><a>{{items[0].webname}}!</a><br/>
 
         <b_table class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
           <template slot="time" slot-scope="data">
@@ -22,7 +22,6 @@
 
       <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
       <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Отметиться на все приемы</button>
-      <button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>
     </div>
 
     <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>

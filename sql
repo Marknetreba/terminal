@@ -1,9 +1,10 @@
 //GET ALL PACIENTS BY DATE AND FILIAL ID
 
-select sh.SCHEDID,sh.CASHID,sh.filial,doc.dcode,ch.CHID,doc.fullname,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate, sh.visit_uid, sh.visittime, sh.clvisit from SCHEDULE sh
+select fil.webname, sh.SCHEDID,sh.CASHID,sh.filial,doc.dcode,ch.CHID,doc.fullname,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate, sh.visit_uid, sh.visittime, sh.clvisit from SCHEDULE sh
 inner join clients cl on (cl.pcode = sh.pcode)
 inner join doctor doc on (doc.dcode = sh.dcode)
 inner join CHAIRS ch on (ch.CHID = sh.CHID)
+INNER join FILIALS fil on (fil.FILID = sh.FILIAL)
 where sh.workdate = '16.03.2018' and sh.FILIAL='55' and sh.SCHEDID = '550938875'
 
 
