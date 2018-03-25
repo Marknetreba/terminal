@@ -106,7 +106,6 @@
     },
 
     name: "Registration",
-    computed: {},
     created() {
       this.id = window.location.href;
       this.macAddress = this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'));

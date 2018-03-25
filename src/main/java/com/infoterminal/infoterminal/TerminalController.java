@@ -95,10 +95,11 @@ public class TerminalController {
                                @PathVariable(required = true) Long chid,
                                @PathVariable(required = true) String date)
     {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(this.database());
-        List<Clients> doctshedule = template.query("SELECT * FROM DOCTSHEDULE WHERE WDATE = '16.03.2018' and DCODE = '550000438'", new BeanPropertyRowMapper<>(Clients.class));
-        Clients shedident = doctshedule.get(0);
-        System.out.println(shedident);
+
+        List<Clients> doctshedule = template.query("SELECT SCHEDIDENT FROM DOCTSHEDULE WHERE WDATE = '16.03.2018' and DCODE = '550000438'", new BeanPropertyRowMapper<>(Clients.class));
+        Clients schedident = doctshedule.get(0);
+        System.out.println("DOCTSCHEDULE: "+doctshedule);
+        System.out.println("SCHEDIDENT: "+schedident);
         
         String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','990000023','55','550938875','55','PDNTP','550164559','550000438','16.03.2018','990008904','8','0','8','30','510000022',\n" +
                 "null,null,null,null,null,null,null,null,null,null,null,\n" +
@@ -107,6 +108,7 @@ public class TerminalController {
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,'1',null,'3','16.03.2018 08:10:00','0')";
 
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(this.database());
         jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
 

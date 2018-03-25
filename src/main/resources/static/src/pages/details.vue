@@ -27,22 +27,6 @@
 
     <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>
 
-    <!--<loading :show="progress" :label="label"></loading>-->
-
-    <!--<modal v-model="show" size="lg" centered title="Детали приема">-->
-      <!--<list-group>-->
-        <!--<list_group_item><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>-->
-        <!--<list_group_item><strong>Дата рождения:</strong> {{table.bdate}}</list_group_item>-->
-        <!--<list_group_item><strong>Ф.И.О врача:</strong> {{table.docname}}</list_group_item>-->
-        <!--<list_group_item><strong>Номер кабинета:</strong> {{table.chname}}</list_group_item>-->
-        <!--<list_group_item><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>-->
-      <!--</list-group>-->
-      <!--<div slot="modal-footer" class="modal-footer">-->
-        <!--<button class="btn btn-success btn-lg" @click="checkIncome">Я пришел(ла)</button>-->
-        <!--<button class="btn btn-warning btn-lg" @click="show = false">Закрыть</button>-->
-      <!--</div>-->
-    <!--</modal>-->
-
   </div>
 
 </template>
@@ -54,14 +38,11 @@
     import router from '../router/index';
     import b_table from "bootstrap-vue/src/components/table/_table";
     import modal from "bootstrap-vue/es/components/modal/_modal";
-    import list_group from "bootstrap-vue/es/components/list-group/list-group";
-    import list_group_item from "bootstrap-vue/es/components/list-group/list-group-item";
-    import loading from 'vue-full-loading';
 
 
     export default {
       components: {
-        modal, Button, Card, b_table, b_checkbox, list_group, list_group_item, loading},
+        modal, Button, Card, b_table, b_checkbox},
       name: "Details",
       data() {
         return {
@@ -77,9 +58,12 @@
           progress: false
         }
       },
-      created() {
-          this.items = this.$store.getters['registration/getData'];
-          console.log(this.items);
+      beforeRouteEnter: (to, from, next) => {
+        next(vm => {
+          vm.items = vm.$store.getters['registration/getData'];
+          console.log(vm.items);
+          }
+        )
       },
       methods: {
         goBack() {
@@ -87,11 +71,7 @@
         },
         itemClick(item) {
           router.push('Reservation');
-          this.$store.dispatch('registration/data', item);
-
-          // this.table = item;
-          // console.log(this.table);
-          // this.show = true;
+          this.$store.dispatch('reservation/data', item);
         }
       }
     }

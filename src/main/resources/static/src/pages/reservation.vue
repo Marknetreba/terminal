@@ -51,9 +51,12 @@
         }
       },
 
-      created() {
-        this.table = this.$store.getters['registration/getData'];
-        console.log(this.table);
+      beforeRouteEnter: (to, from, next) => {
+        next(vm => {
+            vm.table = vm.$store.getters['reservation/getData'];
+            console.log(vm.table);
+          }
+        )
       },
 
       methods: {
