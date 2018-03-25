@@ -7,9 +7,7 @@
             header-text-variant="white"
             header-bg-variant="info">
 
-        <a>{{items[0].fullname}}, Вам сегодня
-          предстоит несколько приемов у
-          специалистов Здоровенка!</a><br/>
+        <a>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов Здоровенка!</a><br/>
 
         <b_table class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
           <template slot="time" slot-scope="data">
@@ -18,9 +16,6 @@
           <template slot="chname" slot-scope="data">
             {{data.item.chname}}
           </template>
-          <!--<template slot="top_row" slot-scope="data">-->
-            <!--<button class="btn btn-primary btn-lg" @click.stop="checkIncome(data.item)">Отметиться о приходе</button>-->
-          <!--</template>-->
         </b_table>
 
       </card>
@@ -34,19 +29,20 @@
 
     <!--<loading :show="progress" :label="label"></loading>-->
 
-    <modal v-model="show" size="lg" centered title="Детали приема">
-      <list-group>
-        <list_group_item><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>
-        <list_group_item><strong>Дата рождения:</strong> {{table.bdate}}</list_group_item>
-        <list_group_item><strong>Ф.И.О врача:</strong> {{table.docname}}</list_group_item>
-        <list_group_item><strong>Номер кабинета:</strong> {{table.chname}}</list_group_item>
-        <list_group_item><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>
-      </list-group>
-      <div slot="modal-footer" class="modal-footer">
-        <button class="btn btn-success btn-lg" @click="checkIncome">Я пришел(ла)</button>
-        <button class="btn btn-warning btn-lg" @click="show = false">Закрыть</button>
-      </div>
-    </modal>
+    <!--<modal v-model="show" size="lg" centered title="Детали приема">-->
+      <!--<list-group>-->
+        <!--<list_group_item><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>-->
+        <!--<list_group_item><strong>Дата рождения:</strong> {{table.bdate}}</list_group_item>-->
+        <!--<list_group_item><strong>Ф.И.О врача:</strong> {{table.docname}}</list_group_item>-->
+        <!--<list_group_item><strong>Номер кабинета:</strong> {{table.chname}}</list_group_item>-->
+        <!--<list_group_item><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>-->
+      <!--</list-group>-->
+      <!--<div slot="modal-footer" class="modal-footer">-->
+        <!--<button class="btn btn-success btn-lg" @click="checkIncome">Я пришел(ла)</button>-->
+        <!--<button class="btn btn-warning btn-lg" @click="show = false">Закрыть</button>-->
+      <!--</div>-->
+    <!--</modal>-->
+
   </div>
 
 </template>
@@ -60,7 +56,6 @@
     import modal from "bootstrap-vue/es/components/modal/_modal";
     import list_group from "bootstrap-vue/es/components/list-group/list-group";
     import list_group_item from "bootstrap-vue/es/components/list-group/list-group-item";
-    import moment from 'moment';
     import loading from 'vue-full-loading';
 
 
@@ -90,26 +85,13 @@
         goBack() {
           router.push("Registration")
         },
-        checkIncome() {
-          console.log(this.table);
-          this.progress = true;
-          this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
-            fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY')}})
-            .then(response => {
-              this.progress = false;
-              //console.log("Пришел ", response);
-              router.push('Reservation')
-          });
-        },
-        takeImage() {
-          this.$http.get('/photo').then(response => {
-            console.log("Photo",response)
-          })
-        },
         itemClick(item) {
-          this.table = item;
-          console.log(this.table);
-          this.show = true;
+          router.push('Reservation');
+          this.$store.dispatch('registration/data', item);
+
+          // this.table = item;
+          // console.log(this.table);
+          // this.show = true;
         }
       }
     }

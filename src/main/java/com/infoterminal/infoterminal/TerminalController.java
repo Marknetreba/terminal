@@ -110,6 +110,12 @@ public class TerminalController {
         jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
 
+
+    @RequestMapping(value = "/notification", method = RequestMethod.POST)
+    @ResponseBody
+    public void pushNotification(){}
+
+
     @RequestMapping(value = "/photo", method = RequestMethod.GET)
     @ResponseBody
     public BufferedImage takePhoto() {
