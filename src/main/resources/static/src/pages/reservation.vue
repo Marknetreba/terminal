@@ -1,8 +1,6 @@
 <template>
   <div class="reservation">
 
-    <loading :show="progress" :label="label"></loading>
-
     <div class="reservation_details">
 
       <card header="Детали приема"
@@ -19,12 +17,9 @@
           <list_group_item><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>
         </list-group>
 
-        <alert variant="success" v-show="check">Благодарим вас за регистрацию посещения</alert>
-
       </card>
 
       <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
-      <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
       <button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>
 
     </div>
@@ -37,24 +32,19 @@
 <script>
     import list_group from "bootstrap-vue/es/components/list-group/list-group";
     import list_group_item from "bootstrap-vue/es/components/list-group/list-group-item";
-    import loading from 'vue-full-loading';
     import Button from "bootstrap-vue/es/components/button/button";
     import Card from "bootstrap-vue/es/components/card/card";
     import moment from 'moment';
     import router from '../router/index';
     import b_img from "bootstrap-vue/es/components/image/img";
-    import alert from "bootstrap-vue/es/components/alert/alert";
 
     export default {
       name: "Reservation",
-      components: {list_group, list_group_item, loading, Button, Card, b_img, alert},
+      components: {list_group, list_group_item, Button, Card, b_img},
 
       data() {
         return {
-          table: [],
-          label: "Пожалуйста, подождите...",
-          progress: false,
-          check: false
+          table: []
         }
       },
 
@@ -69,16 +59,6 @@
       methods: {
         goBack() {
           router.push("Details")
-        },
-        checkIncome() {
-          this.progress = true;
-          this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
-            fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY')}})
-            .then(response => {
-              this.progress = false;
-              this.check = true;
-              console.log("Пришел ", response);
-          });
         },
         takeImage() {
           this.$http.get('/photo').then(response => {

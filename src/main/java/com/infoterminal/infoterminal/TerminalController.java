@@ -99,16 +99,15 @@ public class TerminalController {
                                @PathVariable(required = true) Long chid,
                                @PathVariable(required = true) String date)
     {
-        List<Clients> schedident = new ArrayList<>(this.getSchedident(dcode, date));
+        List<Clients> schedident = new ArrayList<>(this.getSchedident(dcode, date+".2018"));
         System.out.println("SCHEDIDENT: "+schedident.get(0).getSCHEDIDENT());
-
-
-        String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','"+cashid+"','55','"+shedid+"','55','PDNTP','"+schedident+"','"+dcode+"','"+date+"','"+chid+"','"+bhour+"','"+bmin+"','"+fhour+"','"+fmin+"','"+pcode+"',\n" +
+        
+        String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','"+cashid+"','55','"+shedid+"','55','PDNTP','"+schedident.get(0).getSCHEDIDENT()+"','"+dcode+"','"+date+".2018"+"','"+chid+"','"+bhour+"','"+bmin+"','"+fhour+"','"+fmin+"','"+pcode+"',\n" +
                 "null,null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
-                "null,null,null,'1',null,'3','"+date+" 00:00:00','1')";
+                "null,null,null,'1',null,'3','"+date+".2018"+" 00:00:00','1')";
 
         JdbcTemplate jdbcTemplate = new JdbcTemplate(this.database());
         jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Clients.class));

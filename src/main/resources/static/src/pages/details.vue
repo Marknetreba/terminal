@@ -22,8 +22,10 @@
 
       </card>
 
+      <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
+
       <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
-      <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Отметиться на все приемы</button>
+      <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
     </div>
 
     <div class="details_iframe"><b_img src="../assets/akciya-pensionery_0.jpg"/></div>
@@ -41,11 +43,12 @@
     import modal from "bootstrap-vue/es/components/modal/_modal";
     import b_img from "bootstrap-vue/es/components/image/img";
     import loading from 'vue-full-loading';
-
+    import moment from 'moment';
+    import alert from "bootstrap-vue/es/components/alert/alert";
 
     export default {
       components: {
-        modal, Button, Card, b_table, b_checkbox, b_img, loading},
+        modal, Button, Card, b_table, b_checkbox, b_img, loading, alert},
       name: "Details",
       data() {
         return {
@@ -58,7 +61,8 @@
           table:[],
           show: false,
           label: "Пожалуйста, подождите...",
-          progress: false
+          progress: false,
+          check: false
         }
       },
       beforeRouteEnter: (to, from, next) => {
@@ -79,7 +83,7 @@
         checkIncome() {
           this.progress = true;
           this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
-              fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY')}})
+            fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY')}})
             .then(response => {
               this.progress = false;
               this.check = true;
