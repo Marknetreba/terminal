@@ -1,6 +1,8 @@
 <template>
-
   <div class="main_details">
+
+    <loading :show="progress" :label="label"></loading>
+
     <div class="options">
 
       <card header="Детали приема"
@@ -24,7 +26,7 @@
       <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Отметиться на все приемы</button>
     </div>
 
-    <div class="details_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>
+    <div class="details_iframe"><b_img src="../assets/akciya-pensionery_0.jpg"/></div>
 
   </div>
 
@@ -37,11 +39,13 @@
     import router from '../router/index';
     import b_table from "bootstrap-vue/src/components/table/_table";
     import modal from "bootstrap-vue/es/components/modal/_modal";
+    import b_img from "bootstrap-vue/es/components/image/img";
+    import loading from 'vue-full-loading';
 
 
     export default {
       components: {
-        modal, Button, Card, b_table, b_checkbox},
+        modal, Button, Card, b_table, b_checkbox, b_img, loading},
       name: "Details",
       data() {
         return {
@@ -71,6 +75,16 @@
         itemClick(item) {
           router.push('Reservation');
           this.$store.dispatch('reservation/data', item);
+        },
+        checkIncome() {
+          this.progress = true;
+          this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
+              fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY')}})
+            .then(response => {
+              this.progress = false;
+              this.check = true;
+              console.log("Пришел ", response);
+            });
         }
       }
     }

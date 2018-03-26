@@ -19,6 +19,8 @@
           <list_group_item><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>
         </list-group>
 
+        <alert variant="success" v-show="check">Благодарим вас за регистрацию посещения</alert>
+
       </card>
 
       <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
@@ -27,7 +29,7 @@
 
     </div>
 
-    <div class="reservation_iframe"><img src="../assets/akciya-pensionery_0.jpg" style="width: 100%"></div>
+    <div class="reservation_iframe"><b_img src="../assets/akciya-pensionery_0.jpg"/></div>
 
   </div>
 </template>
@@ -40,17 +42,19 @@
     import Card from "bootstrap-vue/es/components/card/card";
     import moment from 'moment';
     import router from '../router/index';
-    import b_img from "bootstrap-vue/es/components/image/img"
+    import b_img from "bootstrap-vue/es/components/image/img";
+    import alert from "bootstrap-vue/es/components/alert/alert";
 
     export default {
       name: "Reservation",
-      components: {list_group, list_group_item, loading, Button, Card, b_img},
+      components: {list_group, list_group_item, loading, Button, Card, b_img, alert},
 
       data() {
         return {
           table: [],
           label: "Пожалуйста, подождите...",
-          progress: false
+          progress: false,
+          check: false
         }
       },
 
@@ -72,6 +76,7 @@
             fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY')}})
             .then(response => {
               this.progress = false;
+              this.check = true;
               console.log("Пришел ", response);
           });
         },
