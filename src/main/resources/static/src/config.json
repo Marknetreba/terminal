@@ -1,7 +1,5 @@
 {
-  // Пример:
-  // "MAC_address":"Filial ID"
-
+  "Mac address":"Filial ID",
   "1":"1",
   "2":"2",
   "3":"3",
