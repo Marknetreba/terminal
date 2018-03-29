@@ -48,10 +48,10 @@
     import loading from 'vue-full-loading';
     import moment from 'moment';
     import alert from "bootstrap-vue/es/components/alert/alert";
+    import config from "../config.json";
 
     export default {
-      components: {
-        modal, Button, Card, b_table, b_checkbox, b_img, loading, alert},
+      components: {modal, Button, Card, b_table, b_checkbox, b_img, loading, alert, config},
       name: "Details",
       data() {
         return {
@@ -66,15 +66,17 @@
           show: false,
           label: "Пожалуйста, подождите...",
           progress: false,
-          check: false
+          check: false,
+          macAddress: ''
         }
       },
       beforeRouteEnter: (to, from, next) => {
-        next(vm => {
-          vm.items = vm.$store.getters['registration/getData'];
-          console.log(vm.items);
-          }
+          next(vm => { vm.items = vm.$store.getters['registration/getData']; }
         )
+      },
+      created() {
+        this.id = window.location.href;
+        this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
       },
       methods: {
         goBack() {
@@ -86,8 +88,8 @@
         },
         checkIncome() {
           this.progress = true;
-          this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
-            fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY')}})
+          this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}/{filial}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
+            fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY'), filial: this.macAddress}})
             .then(response => {
               this.progress = false;
               this.check = true;

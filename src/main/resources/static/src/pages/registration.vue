@@ -118,7 +118,7 @@
     methods: {
       searchByText() {
         this.progress=true;
-        this.$http.get('/pacient/{name}/{date}', {params: {name: this.text, date: this.time}}).then(response => {
+        this.$http.get('/pacient/{name}/{date}/{filial}', {params: {name: this.text, date: this.time, filial: this.macAddress}}).then(response => {
           if (response) {
             this.show = true;
             this.progress = false;
@@ -142,7 +142,7 @@
           console.log(response);
           if (response) {
             response.data.forEach(i => {
-              this.$http.get('/pacient/{name}/{date}', {params: {name: i.fullname, date: this.time}}).then(response => {
+              this.$http.get('/pacient/{name}/{date}/{filial}', {params: {name: i.fullname, date: this.time, filial: this.macAddress}}).then(response => {
 
                 if (response.data.length>0) {
                   this.show = true;
@@ -167,9 +167,8 @@
       },
 
       goDetails(item) {
-        console.log(item);
         this.progress = true;
-        this.$http.get('/schedule/{name}/{date}', {params: {name: item.fullname, date: this.time}}).then(response => {
+        this.$http.get('/schedule/{name}/{date}/{filial}', {params: {name: item.fullname, date: this.time, filial: this.macAddress}}).then(response => {
           if(response){
             this.$store.dispatch('registration/data', response.data);
             this.progress = false;

@@ -42,28 +42,30 @@ public class TerminalController {
         return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
     
-    @RequestMapping(value = "/pacient/{name}/{date}")
+    @RequestMapping(value = "/pacient/{name}/{date}/{filial}")
     @ResponseBody
     public List getPacient(@PathVariable(required = true) String name,
-                           @PathVariable(required = true) String date) {
+                           @PathVariable(required = true) String date,
+                           @PathVariable(required = true) String filial) {
         String query = "select DISTINCT cl.fullname,cl.bdate from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
-                "where WORKDATE='" +date+ "' and sh.FILIAL='55' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%')\n" +
+                "where WORKDATE='" +date+ "' and sh.FILIAL='"+filial+"' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%')\n" +
                 "ORDER BY FULLNAME, BDATE";
 
         return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
     
-    @RequestMapping(value ="/schedule/{name}/{date}")
+    @RequestMapping(value ="/schedule/{name}/{date}/{filial}")
     @ResponseBody
     public List getPacientsByName(@PathVariable(required = true) String name,
-                                  @PathVariable(required = true) String date) {
+                                  @PathVariable(required = true) String date,
+                                  @PathVariable(required = true) String filial) {
         String query = "select fil.WEBNAME, sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3, sh.clvisit from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "inner join doctor doc on (doc.dcode = sh.dcode)\n" +
                 "inner join CHAIRS ch on (ch.CHID = sh.CHID)\n" +
                 "INNER join FILIALS fil on (fil.FILID = sh.FILIAL)\n" +
-                "where WORKDATE = '" +date+ "' and sh.FILIAL = '55' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%') ";
+                "where WORKDATE = '" +date+ "' and sh.FILIAL = '"+filial+"' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%') ";
 
         return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
@@ -86,7 +88,7 @@ public class TerminalController {
         return template.query("SELECT SCHEDIDENT FROM DOCTSHEDULE WHERE WDATE = '"+date+"' and DCODE = '"+dcode+"'", new BeanPropertyRowMapper<>(Clients.class));
     }
     
-    @RequestMapping(value = "/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{shedid}/{cashid}/{chid}/{date}")
+    @RequestMapping(value = "/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{shedid}/{cashid}/{chid}/{date}/{filial}")
     @ResponseBody
     public void submitIncoming(@PathVariable(required=true) Long dcode,
                                @PathVariable(required=true) Long pcode,
@@ -97,12 +99,13 @@ public class TerminalController {
                                @PathVariable(required=true) Integer shedid,
                                @PathVariable(required=true) Long cashid,
                                @PathVariable(required = true) Long chid,
-                               @PathVariable(required = true) String date)
+                               @PathVariable(required = true) String date,
+                               @PathVariable(required = true) String filial)
     {
         List<Clients> schedident = new ArrayList<>(this.getSchedident(dcode, date+".2018"));
         System.out.println("SCHEDIDENT: "+schedident.get(0).getSCHEDIDENT());
         
-        String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','"+cashid+"','55','"+shedid+"','55','PDNTP','"+schedident.get(0).getSCHEDIDENT()+"','"+dcode+"','"+date+".2018"+"','"+chid+"','"+bhour+"','"+bmin+"','"+fhour+"','"+fmin+"','"+pcode+"',\n" +
+        String query = "SELECT * FROM CF_SCHEDULE_UPDATE('550000661','"+cashid+"','"+filial+"','"+shedid+"','"+filial+"','PDNTP','"+schedident.get(0).getSCHEDIDENT()+"','"+dcode+"','"+date+".2018"+"','"+chid+"','"+bhour+"','"+bmin+"','"+fhour+"','"+fmin+"','"+pcode+"',\n" +
                 "null,null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
                 "null,null,null,null,null,null,null,null,null,null,\n" +
