@@ -5,7 +5,7 @@
       <card no-body
             header="Выберите удобный вам способ аутентификации"
             header-text-variant="white"
-            header-bg-variant="info">
+            header-bg-variant="info" style="background: yellow">
         <tabs card>
 
           <tab title="Идентификация по номеру телефона">

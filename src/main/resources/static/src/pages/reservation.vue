@@ -1,11 +1,11 @@
 <template>
   <div class="reservation">
-    <!--<b_img class="logo" src="../photo/55/start.png"></b_img>-->
+    <b_img class="logo" src="../photo/55/start.png"></b_img>
     <div class="reservation_details">
 
       <card header="Детали приема"
             header-text-variant="white"
-            header-bg-variant="info">
+            header-bg-variant="info" style="background: yellow; width: 35%">
 
         <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>
 
@@ -17,14 +17,14 @@
           <list_group_item><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>
         </list-group>
 
+        <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
+        <button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>
+
       </card>
 
-      <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
-      <button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>
+      <div class="reservation_iframe"><b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/></div>
 
     </div>
-
-      <div class="reservation_iframe"><b_img src="../photo/55/sales/55.png"/></div>
 
   </div>
 </template>
@@ -71,12 +71,17 @@
 
 <style scoped>
   .reservation {
-    display: flex;
-  }
-  .reservation_details {
-    flex:1;
+    height: 100%;
   }
 
+  .reservation_details {
+    display:flex;
+    height:100%;
+  }
+  .reservation_iframe{
+    flex: 1;
+    height:100%;
+  }
   .logo {
     position: relative;
     right: 40%;

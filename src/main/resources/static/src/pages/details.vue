@@ -1,17 +1,17 @@
 <template>
   <div class="main_details">
-    <!--<b_img class="logo" src="../photo/55/start.png"></b_img>-->
+    <b_img class="logo" src="../photo/55/start.png"></b_img>
     <loading :show="progress" :label="label"></loading>
 
     <div class="options">
 
       <card header="Детали приема"
             header-text-variant="white"
-            header-bg-variant="info">
+            header-bg-variant="info" style="background: yellow">
 
         <a>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов</a><br/><a>{{items[0].webname}}!</a><br/>
 
-        <b_table class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
+        <b_table style="background: wheat!important;" class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
           <template slot="time" slot-scope="data">
             {{data.item.bhour}}:{{data.item.bmin}}
           </template>
@@ -23,15 +23,14 @@
           </template>
         </b_table>
 
+        <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
+        <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
       </card>
 
       <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
 
-      <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
-      <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
+      <div class="details_iframe"><b_img src="../photo/55/man/20-30/20_30.jpg" style="width: 100%; height: 100%"/></div>
     </div>
-
-    <div class="details_iframe"><b_img src="../photo/55/man/20-30/20_30.jpg"/></div>
 
   </div>
 
@@ -102,11 +101,20 @@
 </script>
 
 <style scoped>
-  .main_details {
-    display: flex;
+  card {
+    background: yellow!important;
   }
+
+  .main_details {
+    height: 100%;
+  }
+
   .options {
-    flex:1
+    display: flex;
+    height: 100%;
+  }
+  .details_iframe{
+    flex: 1;
   }
 
   .logo {
