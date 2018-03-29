@@ -27,7 +27,7 @@
 
         </tabs>
       </card>
-      <div class="registration-iframe"><img src="../assets/ded.jpg" style="width: 100%; height: 100%"/></div>
+      <div class="registration-iframe"><img src="../photo/55/ded.jpg" style="width: 100%; height: 100%"/></div>
     </div>
 
     <loading :show="progress" :label="label"></loading>

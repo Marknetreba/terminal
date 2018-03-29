@@ -7,7 +7,7 @@
             header-text-variant="white"
             header-bg-variant="info">
 
-        <b_img class="mb-3" height="375" rounded src="../assets/vrach.jpg"/>
+        <b_img class="mb-3" height="375" rounded src="../photo/55/man/vrach.jpg"/>
 
         <list-group>
           <list_group_item><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>
