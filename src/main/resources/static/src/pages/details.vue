@@ -18,6 +18,9 @@
           <template slot="chname" slot-scope="data">
             {{data.item.chname}}
           </template>
+          <template slot="clvisit" slot-scope="data">
+            {{data.item.clvisit==1? "Да":"Нет"}}
+          </template>
         </b_table>
 
       </card>
@@ -28,7 +31,7 @@
       <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
     </div>
 
-    <div class="details_iframe"><b_img src="../photo/55/man/akciya-pensionery_0.jpg"/></div>
+    <div class="details_iframe"><b_img src="../photo/55/man/20-30/20_30.jpg"/></div>
 
   </div>
 

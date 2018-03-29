@@ -7,7 +7,7 @@
             header-text-variant="white"
             header-bg-variant="info">
 
-        <b_img class="mb-3" height="375" rounded src="../photo/55/man/vrach.jpg"/>
+        <b_img class="mb-3" height="375" rounded src="../photo/55/chname/vrach.jpg"/>
 
         <list-group>
           <list_group_item><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>
@@ -24,7 +24,7 @@
 
     </div>
 
-    <div class="reservation_iframe"><b_img src="../assets/akciya-pensionery_0.jpg"/></div>
+      <div class="reservation_iframe"><b_img src="../photo/55/man/20-30/20_30.jpg"/></div>
 
   </div>
 </template>

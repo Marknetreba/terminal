@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <img src="../assets/logo_sadko.jpg">
+    <img src="../photo/55/logo.jpg">
     <h1>{{ msg }}</h1>
     <button class="btn btn-info btn-lg" @click="onClick"> Зарегистрироваться на прием</button>
   </div>
