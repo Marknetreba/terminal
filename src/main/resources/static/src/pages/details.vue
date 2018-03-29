@@ -1,6 +1,6 @@
 <template>
   <div class="main_details">
-
+    <!--<b_img class="logo" src="../photo/55/start.png"></b_img>-->
     <loading :show="progress" :label="label"></loading>
 
     <div class="options">
@@ -67,7 +67,7 @@
           label: "Пожалуйста, подождите...",
           progress: false,
           check: false,
-          macAddress: ''
+          macAddress: '55'
         }
       },
       beforeRouteEnter: (to, from, next) => {
@@ -76,7 +76,7 @@
       },
       created() {
         this.id = window.location.href;
-        this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
+        //this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
       },
       methods: {
         goBack() {
@@ -87,9 +87,10 @@
           this.$store.dispatch('reservation/data', item);
         },
         checkIncome() {
+          console.log(this.items);
           this.progress = true;
-          this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}/{filial}', {params: {dcode:this.table.dcode, pcode:this.table.pcode, bhour:this.table.bhour, bmin:this.table.bmin,
-            fhour:this.table.fhour, fmin:this.table.fmin, schedid:this.table.schedid, cashid:this.table.cashid, chid: this.table.chid, date: moment().format('DD.MM.YYYY'), filial: this.macAddress}})
+          this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}/{filial}', {params: {dcode:this.items[0].dcode, pcode:this.items[0].pcode, bhour:this.items[0].bhour, bmin:this.items[0].bmin,
+            fhour:this.items[0].fhour, fmin:this.items[0].fmin, schedid:this.items[0].schedid, cashid:this.items[0].cashid, chid: this.items[0].chid, date: moment().format('DD.MM.YYYY'), filial: this.macAddress}})
             .then(response => {
               this.progress = false;
               this.check = true;
@@ -106,5 +107,10 @@
   }
   .options {
     flex:1
+  }
+
+  .logo {
+    position: relative;
+    right: 40%;
   }
 </style>

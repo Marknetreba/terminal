@@ -1,5 +1,6 @@
 <template>
   <div class="registration">
+    <b_img class="logo" src="../photo/55/start.png"></b_img>
     <div class="registration-half">
       <card no-body
             header="Выберите удобный вам способ аутентификации"
@@ -70,7 +71,7 @@
   export default {
     data() {
       return {
-        macAddress: '',
+        macAddress: '55',
         label: "Пожалуйста, подождите...",
         progress: false,
         response: [],
@@ -112,7 +113,7 @@
     name: "Registration",
     created() {
       this.id = window.location.href;
-      this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
+      //this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
       console.log(window.location)
     },
     methods: {
@@ -139,8 +140,7 @@
         this.progress = true;
         this.pacients = [];
         this.$http.get('/schedulePhone/{phone}', {params: {phone: this.num}}).then(response => {
-          console.log(response);
-          if (response) {
+          if (response.data.length>0) {
             response.data.forEach(i => {
               this.$http.get('/pacient/{name}/{date}/{filial}', {params: {name: i.fullname, date: this.time, filial: this.macAddress}}).then(response => {
 
@@ -222,5 +222,10 @@
   .registration-iframe {
     height: 100%;
     flex: 1;
+  }
+
+  .logo {
+    position: relative;
+    right: 40%;
   }
 </style>

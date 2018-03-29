@@ -1,6 +1,6 @@
 <template>
   <div class="reservation">
-
+    <!--<b_img class="logo" src="../photo/55/start.png"></b_img>-->
     <div class="reservation_details">
 
       <card header="Детали приема"
@@ -75,5 +75,10 @@
   }
   .reservation_details {
     flex:1;
+  }
+
+  .logo {
+    position: relative;
+    right: 40%;
   }
 </style>
