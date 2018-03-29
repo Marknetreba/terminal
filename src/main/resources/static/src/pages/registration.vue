@@ -65,6 +65,7 @@
   import loading from 'vue-full-loading';
   import moment from 'moment';
   import b_img from "bootstrap-vue/es/components/image/img";
+  import config from '../config.json';
 
   export default {
     data() {
@@ -104,7 +105,8 @@
       Tabs,
       Card,
       loading,
-      b_img
+      b_img,
+      config
     },
 
     name: "Registration",
