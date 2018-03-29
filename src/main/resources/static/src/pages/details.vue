@@ -56,7 +56,8 @@
           fields:{
             time:{label: 'Время приема', sortable: true},
             chname:{label: 'Кабинет врача', sortable: true},
-            docname:{label: 'ФИО врача', sortable: true}
+            docname:{label: 'ФИО врача', sortable: true},
+            clvisit:{label: 'Пришел(ла)', sortable: true}
           },
           table:[],
           show: false,
