@@ -112,7 +112,7 @@
     name: "Registration",
     created() {
       this.id = window.location.href;
-      this.macAddress = this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'));
+      this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
       console.log(window.location)
     },
     methods: {
