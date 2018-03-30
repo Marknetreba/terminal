@@ -65,7 +65,7 @@
           label: "Пожалуйста, подождите...",
           progress: false,
           check: false,
-          macAddress: '55'
+          macAddress: ''
         }
       },
       beforeRouteEnter: (to, from, next) => {
@@ -74,7 +74,7 @@
       },
       created() {
         this.id = window.location.href;
-        //this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
+        this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
       },
       methods: {
         goBack() {

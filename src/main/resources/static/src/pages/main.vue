@@ -43,8 +43,8 @@
   }
 
   img {
-    width: 22%;
-    margin-top: 8%;
+    width: 25%;
+    margin-top: 10%;
   }
 
 </style>

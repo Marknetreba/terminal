@@ -18,7 +18,7 @@
         </list-group>
 
         <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
-        <button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>
+        <!--<button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>-->
 
       </card>
 
