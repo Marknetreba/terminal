@@ -5,7 +5,7 @@
 
       <card header="Детали приема"
             header-text-variant="white"
-            header-bg-variant="info" style="background: #ffde22; width: 49%">
+            header-bg-variant="info" style="background: #ffd310; width: 49%">
 
         <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>
 
@@ -70,6 +70,11 @@
 </script>
 
 <style scoped>
+  button {
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px #666, 0px 3px 15px rgba(0,0,0,.4);
+  }
+
   .reservation {
     height: 100%;
   }

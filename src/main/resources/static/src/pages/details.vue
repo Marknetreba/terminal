@@ -7,7 +7,7 @@
 
       <card header="Детали приема"
             header-text-variant="white"
-            header-bg-variant="info" style="background: #ffde22; width: 49%">
+            header-bg-variant="info" style="background: #ffd310; width: 49%">
 
         <a>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов</a><br/><a>{{items[0].webname}}!</a><br/>
 
@@ -100,6 +100,12 @@
 </script>
 
 <style scoped>
+
+  button {
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px #666, 0px 3px 15px rgba(0,0,0,.4);
+  }
+
   .main_details {
     height: 100%;
   }

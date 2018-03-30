@@ -3,21 +3,22 @@
     <b_img class="logo" src="../photo/55/start.png"></b_img>
     <div class="registration-half">
       <card no-body
-            header="Выберите удобный вам способ аутентификации"
+            header="Выберите удобный вам способ поиска"
+            header-strong-variant="true"
             header-text-variant="white"
-            header-bg-variant="info" style="background: #ffde22; width: 49%">
-        <tabs card>
+            header-bg-variant="info" style="background: #ffd310; width: 49%">
+        <tabs pills card v-model="tabIndex">
 
-          <tab title="Идентификация по номеру телефона">
-              <label>Введите номер телефона: </label>
+          <tab title="Поиск по номеру телефона" :title-link-class="tabTitle(0)">
+              <label>Введите ваш номер телефона: </label>
               <form-input v-model="num" type="tel" class="registration-half_phone-label" placeholder="Мобильный номер телефона"/>
-              <keyboard class="registration-half_keyboard" v-model="num" layouts="123|456|789|+0{Удалить:backspace}"></keyboard>
+              <keyboard class="registration-half_keyboard" v-model="num" :maxlength="10" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
               <button class="btn btn-info btn-lg" @click="searchByNum">Поиск</button>
           </tab>
 
-          <tab title="Идентификация по ФИО пациента">
-              <label>Введите ФИО пациента: </label>
-              <form-input v-model="text" type="text" class="registration-half_fio-label" placeholder="Иванов Иван Иванович" />
+          <tab title="Поиск по ФИО" :title-link-class="tabTitle(1)">
+              <label>Введите ваши ФИО: </label>
+              <form-input :formatter="nameFormat" v-model="text" type="text" class="registration-half_fio-label" placeholder="Иванов Иван Иванович" />
 
               <keyboard class="registration-half_keyboard" v-model="text"
                                   :layouts="[
@@ -33,7 +34,7 @@
 
     <loading :show="progress" :label="label"></loading>
 
-    <modal v-model="show" size="lg" centered title="Выберите пациента из списка">
+    <modal v-model="show" size="lg" centered title="Выберите из списка">
       <b_table striped hover :items="items" :fields="fields" @row-clicked="goDetails">
       </b_table>
       <div slot="modal-footer" class="modal-footer">
@@ -71,6 +72,7 @@
   export default {
     data() {
       return {
+        tabIndex: 0,
         macAddress: '55',
         label: "Пожалуйста, подождите...",
         progress: false,
@@ -84,7 +86,7 @@
           {bdate: ''}
           ],
         fields:{
-          fullname:{label: "Имя пациента", sortable: true},
+          fullname:{label: "Имя", sortable: true},
           bdate:{label: "Дата рождения", sortable: true}
           },
         }
@@ -117,6 +119,16 @@
       console.log(window.location)
     },
     methods: {
+      tabTitle(idx) {
+        if (this.tabIndex === idx) {
+          return ['bg-info', 'text-light']
+        } else {
+          return ['', 'text-primary']
+        }
+      },
+      nameFormat(value) {
+        return value.toUpperCase();
+      },
       searchByText() {
         this.progress=true;
         this.$http.get('/pacient/{name}/{date}/{filial}', {params: {name: this.text, date: this.time, filial: this.macAddress}}).then(response => {
@@ -184,6 +196,8 @@
   button {
     margin-top: 5px;
     font-size: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 0px #666, 0px 3px 15px rgba(0,0,0,.4);
   }
 
   label {
