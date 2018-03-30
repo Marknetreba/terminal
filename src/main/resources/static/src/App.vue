@@ -22,7 +22,7 @@ export default {
   }
   html {
     background: #ffd310;
-    touch-action: none;
+    /*touch-action: none;*/
     overflow: hidden;
   }
 </style>

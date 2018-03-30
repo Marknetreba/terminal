@@ -3,18 +3,18 @@
     <b_img class="logo" src="../photo/55/start.png"></b_img>
     <div class="reservation_details">
 
-      <card header="Детали приема"
+      <card header="ДЕТАЛИ ПРИЕМА"
             header-text-variant="white"
             header-bg-variant="info" style="background: #ffd310; width: 49%">
 
         <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>
 
         <list-group>
-          <list_group_item><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>
-          <list_group_item><strong>Дата рождения:</strong> {{table.bdate}}</list_group_item>
-          <list_group_item><strong>Ф.И.О врача:</strong> {{table.docname}}</list_group_item>
-          <list_group_item><strong>Номер кабинета:</strong> {{table.chname}}</list_group_item>
-          <list_group_item><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>
+          <list_group_item style="background-color: transparent; border: none"><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>
+          <list_group_item style="background-color: transparent; border: none"><strong>Дата рождения:</strong> {{table.bdate}}</list_group_item>
+          <list_group_item style="background-color: transparent; border: none"><strong>Ф.И.О врача:</strong> {{table.docname}}</list_group_item>
+          <list_group_item style="background-color: transparent; border: none"><strong>Номер кабинета:</strong> {{table.chname}}</list_group_item>
+          <list_group_item style="background-color: transparent; border: none"><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>
         </list-group>
 
         <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>

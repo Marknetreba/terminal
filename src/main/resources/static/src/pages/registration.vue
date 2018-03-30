@@ -3,20 +3,20 @@
     <b_img class="logo" src="../photo/55/start.png"></b_img>
     <div class="registration-half">
       <card no-body
-            header="Выберите удобный вам способ поиска"
+            header="ВЫБЕРИТЕ УДОБНЫЙ ВАМ СПОСОБ ПОИСКА"
             header-strong-variant="true"
             header-text-variant="white"
             header-bg-variant="info" style="background: #ffd310; width: 49%">
         <tabs pills card v-model="tabIndex">
 
-          <tab title="Поиск по номеру телефона" :title-link-class="tabTitle(0)">
+          <tab title="ПОИСК ПО НОМЕРУ ТЕЛЕФОНА" :title-link-class="tabTitle(0)">
               <label>Введите ваш номер телефона: </label>
               <form-input v-model="num" type="tel" class="registration-half_phone-label" placeholder="Мобильный номер телефона"/>
               <keyboard class="registration-half_keyboard" v-model="num" :maxlength="10" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
               <button class="btn btn-info btn-lg" @click="searchByNum">Поиск</button>
           </tab>
 
-          <tab title="Поиск по ФИО" :title-link-class="tabTitle(1)">
+          <tab title="ПОИСК ПО ФИО" :title-link-class="tabTitle(1)">
               <label>Введите ваши ФИО: </label>
               <form-input :formatter="nameFormat" v-model="text" type="text" class="registration-half_fio-label" placeholder="Иванов Иван Иванович" />
 

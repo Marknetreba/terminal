@@ -5,13 +5,13 @@
 
     <div class="options">
 
-      <card header="Детали приема"
+      <card header="ДЕТАЛИ ПРИЕМА"
             header-text-variant="white"
             header-bg-variant="info" style="background: #ffd310; width: 49%">
 
         <a>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов</a><br/><a>{{items[0].webname}}!</a><br/>
 
-        <b_table style="background: wheat!important;" class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
+        <b_table style="background: #ff770091!important;" class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
           <template slot="time" slot-scope="data">
             {{data.item.bhour}}:{{data.item.bmin}}
           </template>
