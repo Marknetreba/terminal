@@ -73,7 +73,7 @@
     data() {
       return {
         tabIndex: 0,
-        macAddress: '55',
+        macAddress: '',
         label: "Пожалуйста, подождите...",
         progress: false,
         response: [],
@@ -115,7 +115,7 @@
     name: "Registration",
     created() {
       this.id = window.location.href;
-      //this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
+      this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
       console.log(window.location)
     },
     methods: {
