@@ -5,7 +5,7 @@
 
       <card header="Детали приема"
             header-text-variant="white"
-            header-bg-variant="info" style="background: yellow; width: 35%">
+            header-bg-variant="info" style="background: #ffde22; width: 49%">
 
         <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>
 
@@ -79,11 +79,15 @@
     height:100%;
   }
   .reservation_iframe{
-    flex: 1;
+    width: 51%;
     height:100%;
+    position: relative;
+    top:-140px;
   }
   .logo {
     position: relative;
     right: 40%;
+    margin-top: 15px;
+    margin-bottom: 10px;
   }
 </style>

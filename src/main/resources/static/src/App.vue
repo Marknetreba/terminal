@@ -11,13 +11,18 @@ export default {
 </script>
 
 <style>
-#app {
-  background: yellow;
-  height: 100%;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+  #app {
+    background: #ffde22;
+    height: 100%;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+  }
+  html {
+    background: #ffde22;
+    touch-action: none;
+    overflow: hidden;
+  }
 </style>

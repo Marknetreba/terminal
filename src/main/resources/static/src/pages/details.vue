@@ -7,7 +7,7 @@
 
       <card header="Детали приема"
             header-text-variant="white"
-            header-bg-variant="info" style="background: yellow">
+            header-bg-variant="info" style="background: #ffde22; width: 49%">
 
         <a>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов</a><br/><a>{{items[0].webname}}!</a><br/>
 
@@ -23,13 +23,12 @@
           </template>
         </b_table>
 
+        <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
         <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
         <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
       </card>
 
-      <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
-
-      <div class="details_iframe"><b_img src="../photo/55/man/20-30/20_30.jpg" style="width: 100%; height: 100%"/></div>
+      <div class="details_iframe"><b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/></div>
     </div>
 
   </div>
@@ -101,10 +100,6 @@
 </script>
 
 <style scoped>
-  card {
-    background: yellow!important;
-  }
-
   .main_details {
     height: 100%;
   }
@@ -114,11 +109,16 @@
     height: 100%;
   }
   .details_iframe{
-    flex: 1;
+    width: 51%;
+    position: relative;
+    top:-140px;
   }
 
   .logo {
     position: relative;
     right: 40%;
+    margin-top: 15px;
+    margin-bottom: 10px;
   }
+
 </style>

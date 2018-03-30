@@ -5,7 +5,7 @@
       <card no-body
             header="Выберите удобный вам способ аутентификации"
             header-text-variant="white"
-            header-bg-variant="info" style="background: yellow">
+            header-bg-variant="info" style="background: #ffde22; width: 49%">
         <tabs card>
 
           <tab title="Идентификация по номеру телефона">
@@ -221,11 +221,15 @@
 
   .registration-iframe {
     height: 100%;
-    flex: 1;
+    width: 51%;
+    position: relative;
+    top:-140px;
   }
 
   .logo {
     position: relative;
     right: 40%;
+    margin-top: 15px;
+    margin-bottom: 10px;
   }
 </style>
