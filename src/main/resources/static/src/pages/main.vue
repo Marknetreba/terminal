@@ -1,8 +1,15 @@
 <template>
   <div class="main">
-    <img src="../photo/55/main.png">
-    <h1>{{ msg }}</h1>
-    <button class="btn btn-lg" @click="onClick"> Я пришел </button>
+    <div class="button_half">
+      <img class="img_half" src="../photo/55/main.png">
+      <card style="background: #ffd310; border: none; margin-top: 10%">
+        <h1>{{ msg }}</h1>
+        <div class="d-flex flex-column-reverse">
+        <button class="btn btn-lg" @click="onClick"> Поиск по номеру телефона </button>
+        <button class="btn btn-lg" @click="onClick"> Поиск по ФИО </button>
+        </div>
+      </card>
+    </div>
   </div>
 </template>
 
@@ -10,13 +17,15 @@
   import Button from "bootstrap-vue/es/components/button/button";
   import router from '../router/index';
   import config from '../config.json';
+  import Card from "bootstrap-vue/es/components/card/card";
+
 
   export default {
-    components: {Button, config},
+    components: {Card, Button, config},
     name: 'main',
     data() {
       return {
-        msg: ''
+        msg: 'Я пришел'
       }
     },
     methods: {
@@ -29,6 +38,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .button_half {
+    display: flex;
+  }
+
+  .img_half {
+    height: 100%;
+    width: 40%;
+  }
+
   button {
     background-color: #ff6a13;
     font-size: 40px;
