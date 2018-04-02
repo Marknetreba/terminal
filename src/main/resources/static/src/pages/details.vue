@@ -85,7 +85,6 @@
           this.$store.dispatch('reservation/data', item);
         },
         checkIncome() {
-          console.log(this.items);
           this.progress = true;
           this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}/{filial}', {params: {dcode:this.items[0].dcode, pcode:this.items[0].pcode, bhour:this.items[0].bhour, bmin:this.items[0].bmin,
             fhour:this.items[0].fhour, fmin:this.items[0].fmin, schedid:this.items[0].schedid, cashid:this.items[0].cashid, chid: this.items[0].chid, date: moment().format('DD.MM.YYYY'), filial: this.macAddress}})
@@ -94,6 +93,8 @@
               this.check = true;
               this.disabled=true;
             });
+
+          this.$http.get('/notification').then(resp => {console.log(resp)})
         }
       }
     }

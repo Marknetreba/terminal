@@ -20,8 +20,15 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.sql.DataSource;
 import java.awt.image.BufferedImage;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TerminalController {
@@ -119,7 +126,24 @@ public class TerminalController {
 
     @RequestMapping(value = "/notification", method = RequestMethod.POST)
     @ResponseBody
-    public void pushNotification(){}
+    public void pushNotification() throws IOException {
+        URL url = new URL("https://fcm.googleapis.com/fcm/send");
+
+        try {
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setDoOutput(true);
+            con.setRequestProperty("Content-Type", "application/json");
+
+            DataOutputStream out = new DataOutputStream(con.getOutputStream());
+            out.writeBytes("1");
+            out.flush();
+            out.close();
+
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @RequestMapping(value = "/photo", method = RequestMethod.GET)
