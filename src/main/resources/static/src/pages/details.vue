@@ -9,7 +9,7 @@
 
         <a><strong>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов</strong></a><br/><a><strong>{{items[0].webname}}!</strong></a><br/>
 
-        <b_table class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
+        <b_table class="mt-3" striped hover :items="items" :fields="fields" style="background-color: white" @row-clicked="itemClick">
           <template slot="time" slot-scope="data">
             {{data.item.bhour}}:{{data.item.bmin}}
           </template>
