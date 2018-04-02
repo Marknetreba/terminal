@@ -83,7 +83,7 @@
         time: moment().format('DD.MM.YYYY'),
         num: '',
         text: '',
-        show: true,
+        show: false,
         items: [
           {fullname: ''},
           {bdate: ''}
