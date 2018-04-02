@@ -27,6 +27,7 @@
                   'ЙЦУКЕНГШЩЗХЪ|ФЫВАПРОЛДЖЭ|ЯЧСМИТЬБЮ|{Очистить:clear}{Пробел:space}{Удалить:backspace}'
               ]"></keyboard>
               <button class="btn btn-lg" @click="searchByText">Поиск</button>
+            <alert :dismissed="dismissCountdown=0" variant="danger" :show="dismissCountDown" class="no_records">Записей не найдено</alert>
           </tab>
 
         </tabs>
@@ -35,6 +36,7 @@
     </div>
 
     <loading :show="progress" :label="label"></loading>
+
 
     <modal v-model="show" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
       <b_table empty-text="ЗАПИСЕЙ НЕ НАЙДЕНО" striped hover :items="items" :fields="fields" @row-clicked="goDetails">
@@ -75,7 +77,9 @@
     data() {
       return {
         tabIndex: 0,
+        noRecords: false,
         macAddress: '',
+        dismissCountDown: 0,
         activeTab: false,
         msg: "РЕГИСТРАЦИЯ ПРИЕМА",
         label: "Пожалуйста, подождите...",
@@ -125,6 +129,9 @@
       this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
     },
     methods: {
+      countDownChanged (dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+      },
       tabTitle(idx) {
         if (this.tabIndex === idx) {
           return ['bg-info', 'text-light']
@@ -142,15 +149,15 @@
             this.show = true;
             this.progress = false;
             this.items = response.data;
-            console.log(this.items)
           }
           else if (response.data.length === 0) {
+            this.dismissCountDown = 1;
             this.progress=false;
           }
         })
           .catch(error => {
+            this.dismissCountDown = 1;
             this.progress = false;
-            console.log(error)
         })
       },
 
@@ -170,17 +177,19 @@
                 }
                 else {
                   this.progress=false;
+                  this.dismissCountDown = 1;
                 }
               })
             })
           }
           else {
+            this.dismissCountDown = 1;
             this.progress=false;
           }
         })
           .catch (error=> {
             this.progress = false;
-            console.log(error)
+            this.dismissCountDown = 1;
         })
       },
 
@@ -199,6 +208,10 @@
   }
 </script>
 <style scoped>
+
+  .no_records {
+    margin-top: 15px;
+  }
 
   button {
     margin-top: 5px;
