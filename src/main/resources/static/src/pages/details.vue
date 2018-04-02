@@ -23,7 +23,7 @@
 
         <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
-        <button class="btn btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
+        <button v-bind:disabled="disabled" class="btn btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
       </div>
 
       <div class="details_iframe"><b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/></div>
@@ -52,6 +52,7 @@
       data() {
         return {
           items: [],
+          disabled: false,
           fields:{
             time:{label: 'Время приема', sortable: true},
             chname:{label: 'Кабинет врача', sortable: true},
@@ -91,7 +92,7 @@
             .then(response => {
               this.progress = false;
               this.check = true;
-              console.log("Пришел ", response);
+              this.disabled=true;
             });
         }
       }
