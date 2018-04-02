@@ -32,7 +32,8 @@
       }
     },
     methods: {
-      onClick() {
+      onClick(item) {
+        this.$store.dispatch('registration/tabAction', item.srcElement.innerHTML);
         router.push('Registration')
       }
     }

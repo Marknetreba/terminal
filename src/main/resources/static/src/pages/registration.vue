@@ -10,7 +10,7 @@
             <!--header-bg-variant="info" style="background: #ffd310; width: 49%">-->
         <tabs pills card v-model="tabIndex" style="width: 49%;">
 
-          <tab title="ПОИСК ПО НОМЕРУ ТЕЛЕФОНА" :title-link-class="tabTitle(0)">
+          <tab id="phone" title="ПОИСК ПО НОМЕРУ ТЕЛЕФОНА" :title-link-class="tabTitle(0)">
             <label><strong>Введите ваш номер телефона: </strong></label>
               <form-input v-model="num" type="tel" class="registration-half_phone-label" placeholder="Мобильный номер телефона"/>
               <keyboard class="registration-half_keyboard" v-model="num" :maxlength="10" layouts="123|456|789|0{Удалить:backspace}">
@@ -18,7 +18,7 @@
               <button class="btn btn-lg" @click="searchByNum">Поиск</button>
           </tab>
 
-          <tab title="ПОИСК ПО ФИО" :title-link-class="tabTitle(1)">
+          <tab id="fio" :active="activeTab" title="ПОИСК ПО ФИО" :title-link-class="tabTitle(1)">
             <label><strong>Введите ваши ФИО: </strong></label>
               <form-input :formatter="nameFormat" v-model="text" type="text" class="registration-half_fio-label" placeholder="Иванов Иван Иванович" />
 
@@ -37,7 +37,7 @@
     <loading :show="progress" :label="label"></loading>
 
     <modal v-model="show" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
-      <b_table striped hover :items="items" :fields="fields" @row-clicked="goDetails">
+      <b_table empty-text="ЗАПИСЕЙ НЕ НАЙДЕНО" striped hover :items="items" :fields="fields" @row-clicked="goDetails">
       </b_table>
       <div slot="modal-footer">
         <button class="btn btn-dark" @click="show = false">Закрыть</button>
@@ -76,6 +76,7 @@
       return {
         tabIndex: 0,
         macAddress: '',
+        activeTab: false,
         msg: "РЕГИСТРАЦИЯ ПРИЕМА",
         label: "Пожалуйста, подождите...",
         progress: false,
@@ -117,9 +118,11 @@
 
     name: "Registration",
     created() {
+      this.tab = this.$store.getters['registration/getTab'];
+      this.tab.includes("ФИО")? this.activeTab=true: this.activeTab=false;
+
       this.id = window.location.href;
       this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
-      console.log(window.location)
     },
     methods: {
       tabTitle(idx) {
