@@ -1,17 +1,15 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div class="main_details">
     <b_img class="logo" src="../photo/55/start.png"></b_img>
     <loading :show="progress" :label="label"></loading>
-
+    <p style="position: relative; right: 335px; color: #009800; font-size: 30px" class="mt-3 mb-4"><strong>{{msg}}</strong></p>
     <div class="options">
 
-      <card header="ДЕТАЛИ ПРИЕМА"
-            header-text-variant="white"
-            header-bg-variant="info" style="background: #ffd310; width: 49%">
+      <div style="background: #ffd310; width: 49%">
 
-        <a>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов</a><br/><a>{{items[0].webname}}!</a><br/>
+        <a><strong>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов</strong></a><br/><a><strong>{{items[0].webname}}!</strong></a><br/>
 
-        <b_table style="background: #ff770091!important;" class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
+        <b_table class="mt-3" striped hover :items="items" :fields="fields" @row-clicked="itemClick">
           <template slot="time" slot-scope="data">
             {{data.item.bhour}}:{{data.item.bmin}}
           </template>
@@ -24,9 +22,9 @@
         </b_table>
 
         <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
-        <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
-        <button class="btn btn-success btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
-      </card>
+        <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
+        <button class="btn btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
+      </div>
 
       <div class="details_iframe"><b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/></div>
     </div>
@@ -64,6 +62,7 @@
           show: false,
           label: "Пожалуйста, подождите...",
           progress: false,
+          msg: "ДЕТАЛИ ПРИЕМА",
           check: false,
           macAddress: ''
         }
@@ -103,7 +102,10 @@
 
   button {
     border-radius: 10px;
-    box-shadow: 0px 4px 0px #666, 0px 3px 15px rgba(0,0,0,.4);
+    color: white;
+    background-color: #ff6a13;
+    background-image: linear-gradient(340deg, #ff6a13, rgba(255, 237, 226, 0.34));
+    box-shadow: 0px 5px 0px #b44813, 0px 3px 15px rgba(0,0,0,.4);
   }
 
   .main_details {
@@ -117,7 +119,7 @@
   .details_iframe{
     width: 51%;
     position: relative;
-    top:-140px;
+    top:-225px;
   }
 
   .logo {

@@ -1,40 +1,43 @@
 <template>
   <div class="registration">
     <b_img class="logo" src="../photo/55/start.png"></b_img>
+    <p style="position: relative; right: 335px; color: #009800; font-size: 30px" class="mt-3 mb-4"><strong>{{msg}}</strong></p>
     <div class="registration-half">
-      <card no-body
-            header="ВЫБЕРИТЕ УДОБНЫЙ ВАМ СПОСОБ ПОИСКА"
-            header-strong-variant="true"
-            header-text-variant="white"
-            header-bg-variant="info" style="background: #ffd310; width: 49%">
-        <tabs pills card v-model="tabIndex">
+      <!--<card no-body-->
+            <!--header="ВЫБЕРИТЕ УДОБНЫЙ ВАМ СПОСОБ ПОИСКА"-->
+            <!--header-strong-variant="true"-->
+            <!--header-text-variant="white"-->
+            <!--header-bg-variant="info" style="background: #ffd310; width: 49%">-->
+        <tabs pills card v-model="tabIndex" style="width: 49%;">
 
           <tab title="ПОИСК ПО НОМЕРУ ТЕЛЕФОНА" :title-link-class="tabTitle(0)">
-              <label>Введите ваш номер телефона: </label>
+            <label><strong>Введите ваш номер телефона: </strong></label>
               <form-input v-model="num" type="tel" class="registration-half_phone-label" placeholder="Мобильный номер телефона"/>
-              <keyboard class="registration-half_keyboard" v-model="num" :maxlength="10" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
-              <button class="btn btn-info btn-lg" @click="searchByNum">Поиск</button>
+              <keyboard class="registration-half_keyboard" v-model="num" :maxlength="10" layouts="123|456|789|0{Удалить:backspace}">
+              </keyboard>
+              <button class="btn btn-lg" @click="searchByNum">Поиск</button>
           </tab>
 
           <tab title="ПОИСК ПО ФИО" :title-link-class="tabTitle(1)">
-              <label>Введите ваши ФИО: </label>
+            <label><strong>Введите ваши ФИО: </strong></label>
               <form-input :formatter="nameFormat" v-model="text" type="text" class="registration-half_fio-label" placeholder="Иванов Иван Иванович" />
 
               <keyboard class="registration-half_keyboard" v-model="text"
                                   :layouts="[
                   'ЙЦУКЕНГШЩЗХЪ|ФЫВАПРОЛДЖЭ|ЯЧСМИТЬБЮ|{Очистить:clear}{Пробел:space}{Удалить:backspace}'
               ]"></keyboard>
-              <button class="btn btn-info btn-lg" @click="searchByText">Поиск</button>
+              <button class="btn btn-lg" @click="searchByText">Поиск</button>
           </tab>
 
         </tabs>
-      </card>
+      <!--</card>-->
       <div class="registration-iframe"><img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/></div>
     </div>
 
     <loading :show="progress" :label="label"></loading>
 
-    <modal v-model="show" size="lg" centered title="Выберите из списка">
+    <modal v-model="show" size="lg" centered>
+      <div slot="modal-header" class="modal-header"></div>
       <b_table striped hover :items="items" :fields="fields" @row-clicked="goDetails">
       </b_table>
       <div slot="modal-footer" class="modal-footer">
@@ -62,7 +65,7 @@
   import modal from "bootstrap-vue/es/components/modal/_modal";
   import b_table from "bootstrap-vue/src/components/table/_table";
   import Img from "bootstrap-vue/es/components/image/img";
-  import Keyboard from "vue-keyboard";
+  import Keyboard from "../utils/keyboard";
   import router from '../router/index';
   import loading from 'vue-full-loading';
   import moment from 'moment';
@@ -74,13 +77,14 @@
       return {
         tabIndex: 0,
         macAddress: '',
+        msg: "РЕГИСТРАЦИЯ ПРИЕМА",
         label: "Пожалуйста, подождите...",
         progress: false,
         response: [],
         time: moment().format('DD.MM.YYYY'),
         num: '',
         text: '',
-        show: false,
+        show: true,
         items: [
           {fullname: ''},
           {bdate: ''}
@@ -193,11 +197,15 @@
   }
 </script>
 <style scoped>
+
   button {
     margin-top: 5px;
     font-size: 30px;
     border-radius: 10px;
-    box-shadow: 0px 4px 0px #666, 0px 3px 15px rgba(0,0,0,.4);
+    color: white;
+    background-color: #ff6a13;
+    background-image: linear-gradient(340deg, #ff6a13, rgba(255, 237, 226, 0.34));
+    box-shadow: 0px 5px 0px #b44813, 0px 3px 15px rgba(0,0,0,.4);
   }
 
   label {
@@ -208,25 +216,24 @@
     margin-left: 80px;
     width: 70%;
     font-size: 20px;
+    font-weight: bold;
   }
 
   .registration-half_fio-label {
     font-size: 20px;
+    font-weight: bold;
   }
 
   .registration-half_keyboard {
     margin-top: 10px;
     margin-bottom: 5px;
-    font-size: 25px;
+    font-size: 21px;
+    font-weight: bold;
   }
 
   .registration {
     height: 100%;
   }
-
-  /*.tab-content>.active {*/
-    /*display: flex;*/
-  /*}*/
 
   .registration-half {
     display: flex;
@@ -237,7 +244,15 @@
     height: 100%;
     width: 51%;
     position: relative;
-    top:-140px;
+    top:-225px;
+  }
+
+  .modal-footer {
+    background-color: #ffd310;
+  }
+
+  .modal-header {
+    background-color: #ffd310;
   }
 
   .logo {

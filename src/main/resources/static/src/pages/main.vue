@@ -55,7 +55,7 @@
     width: 80%;
     color: white;
     background-color: #ff6a13;
-    background-image: linear-gradient(to top, #ff6a13, rgba(255, 237, 226, 0.34));
+    background-image: linear-gradient(340deg, #ff6a13, rgba(255, 237, 226, 0.34));
     font-size: 25px;
     margin-top: 20px;
     border-radius: 20px;

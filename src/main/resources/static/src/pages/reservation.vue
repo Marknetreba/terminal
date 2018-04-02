@@ -1,11 +1,9 @@
 <template>
   <div class="reservation">
     <b_img class="logo" src="../photo/55/start.png"></b_img>
+    <p style="position: relative; right: 335px; color: #009800; font-size: 30px" class="mt-3 mb-4"><strong>{{msg}}</strong></p>
     <div class="reservation_details">
-
-      <card header="ДЕТАЛИ ПРИЕМА"
-            header-text-variant="white"
-            header-bg-variant="info" style="background: #ffd310; width: 49%">
+        <div style="background: #ffd310; width: 49%">
 
         <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>
 
@@ -17,10 +15,10 @@
           <list_group_item style="background-color: transparent; border: none"><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>
         </list-group>
 
-        <button class="btn btn-info btn-lg mt-3" @click="goBack">Назад</button>
+        <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
         <!--<button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>-->
 
-      </card>
+        </div>
 
       <div class="reservation_iframe"><b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/></div>
 
@@ -44,7 +42,8 @@
 
       data() {
         return {
-          table: []
+          table: [],
+          msg: "ДЕТАЛИ ПРИЕМА"
         }
       },
 
@@ -72,7 +71,10 @@
 <style scoped>
   button {
     border-radius: 10px;
-    box-shadow: 0px 4px 0px #666, 0px 3px 15px rgba(0,0,0,.4);
+    color: white;
+    background-color: #ff6a13;
+    background-image: linear-gradient(340deg, #ff6a13, rgba(255, 237, 226, 0.34));
+    box-shadow: 0px 5px 0px #b44813, 0px 3px 15px rgba(0,0,0,.4);
   }
 
   .reservation {
@@ -87,7 +89,7 @@
     width: 51%;
     height:100%;
     position: relative;
-    top:-140px;
+    top:-225px;
   }
   .logo {
     position: relative;
