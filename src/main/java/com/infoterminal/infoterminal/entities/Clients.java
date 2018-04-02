@@ -14,6 +14,7 @@ import java.sql.Date;
 public class Clients implements Serializable {
   @Id
   private Long pcode;
+  private String workdate;
   private String webname;
   private Long filial;
   private String lastname;
@@ -50,6 +51,14 @@ public class Clients implements Serializable {
 
   public void setPcode(Long pcode) {
     this.pcode = pcode;
+  }
+
+  public String getWorkdate() {
+    return workdate;
+  }
+
+  public void setWorkdate(String workdate) {
+    this.workdate = workdate;
   }
 
   public String getWebname() {

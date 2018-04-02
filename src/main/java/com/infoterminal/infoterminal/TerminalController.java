@@ -60,7 +60,7 @@ public class TerminalController {
     public List getPacientsByName(@PathVariable(required = true) String name,
                                   @PathVariable(required = true) String date,
                                   @PathVariable(required = true) String filial) {
-        String query = "select fil.WEBNAME, sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3, sh.clvisit from SCHEDULE sh\n" +
+        String query = "select sh.workdate,fil.WEBNAME, sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3, sh.clvisit from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "inner join doctor doc on (doc.dcode = sh.dcode)\n" +
                 "inner join CHAIRS ch on (ch.CHID = sh.CHID)\n" +

@@ -5,16 +5,15 @@
     <div class="reservation_details">
         <div style="background: #ffd310; width: 49%">
 
-        <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>
+          <p><strong>{{table.fullname}},</strong></p>
+          <p>ВАШ ПРИЕМ СОСТОИТСЯ</p>
+          <p>{{table.workdate}} В {{table.bhour}}:{{table.bmin}}</p>
+          <p>ДОКТОР {{table.docname}}</p>
+          <p>ПРИГЛАСИТ ВАС В КАБИНЕТ {{table.chname}}</p>
 
-        <list-group>
-          <list_group_item style="background-color: transparent; border: none"><strong>Имя пациента:</strong> {{table.fullname}}</list_group_item>
-          <list_group_item style="background-color: transparent; border: none"><strong>Дата рождения:</strong> {{table.bdate}}</list_group_item>
-          <list_group_item style="background-color: transparent; border: none"><strong>Ф.И.О врача:</strong> {{table.docname}}</list_group_item>
-          <list_group_item style="background-color: transparent; border: none"><strong>Номер кабинета:</strong> {{table.chname}}</list_group_item>
-          <list_group_item style="background-color: transparent; border: none"><strong>Посетил(а):</strong> {{(table.clvisit==null || table.clvisit == 0) ? 'нет' : 'да' }}</list_group_item>
-        </list-group>
+        <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/> <br/>
 
+          <p><strong>БЛАГОДАРИМ ВАС ЗА РЕГИСТРАЦИЮ ПОСЕЩЕНИЯ</strong></p>
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
         <!--<button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>-->
 
@@ -69,6 +68,11 @@
 </script>
 
 <style scoped>
+
+  p {
+    text-transform: uppercase;
+  }
+
   button {
     border-radius: 10px;
     color: white;
