@@ -36,11 +36,10 @@
 
     <loading :show="progress" :label="label"></loading>
 
-    <modal v-model="show" size="lg" centered>
-      <div slot="modal-header" class="modal-header"></div>
+    <modal v-model="show" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
       <b_table striped hover :items="items" :fields="fields" @row-clicked="goDetails">
       </b_table>
-      <div slot="modal-footer" class="modal-footer">
+      <div slot="modal-footer">
         <button class="btn btn-dark" @click="show = false">Закрыть</button>
       </div>
     </modal>
@@ -84,7 +83,7 @@
         time: moment().format('DD.MM.YYYY'),
         num: '',
         text: '',
-        show: false,
+        show: true,
         items: [
           {fullname: ''},
           {bdate: ''}
@@ -245,14 +244,6 @@
     width: 51%;
     position: relative;
     top:-225px;
-  }
-
-  .modal-footer {
-    background-color: #ffd310;
-  }
-
-  .modal-header {
-    background-color: #ffd310;
   }
 
   .logo {
