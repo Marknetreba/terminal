@@ -16,6 +16,7 @@
           <p><strong>БЛАГОДАРИМ ВАС ЗА РЕГИСТРАЦИЮ ПОСЕЩЕНИЯ</strong></p>
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
         <!--<button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>-->
+        <!--<button class="btn btn-warning btn-lg mt-3" @click="notify">Уведомление</button>-->
 
         </div>
 
@@ -61,6 +62,11 @@
         takeImage() {
           this.$http.get('/photo').then(response => {
             console.log("Photo",response)
+          })
+        },
+        notify() {
+          this.$http.get('/notification').then(response => {
+            console.log("Notification: ",response)
           })
         }
       }
