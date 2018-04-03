@@ -123,7 +123,9 @@
     name: "Registration",
     created() {
       this.tab = this.$store.getters['registration/getTab'];
-      this.tab.includes("ФИО")? this.activeTab=true: this.activeTab=false;
+      if (this.tab.toString() !== "[object Object]") {
+        this.tab.includes("ФИО") ? this.activeTab = true : this.activeTab = false;
+      }
 
       this.id = window.location.href;
       this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
