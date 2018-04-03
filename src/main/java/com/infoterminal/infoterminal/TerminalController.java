@@ -123,6 +123,7 @@ public class TerminalController {
         jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
 
+    //TODO: Remove this snippet
 
     @RequestMapping(value = "/notification", method = RequestMethod.POST)
     @ResponseBody

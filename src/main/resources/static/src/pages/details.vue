@@ -77,13 +77,27 @@
         this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
       },
       methods: {
+
         goBack() {
           router.push("Registration")
         },
+
         itemClick(item) {
           router.push('Reservation');
           this.$store.dispatch('reservation/data', item);
         },
+
+        notify() {
+          let bodyNotification = { "notification": {"title": "Уведомление о новом пациенте", "body": "К вам пришел: "+this.table.fullname},
+            "to":"c9LEn3hig4I:APA91bFuxw1N5WEhNKhrS5ThZG1d1Ujl8gIkdNMRzGUQQSfbA8FXM6TK0NdC4nrcpk_Z4gUOYbGKqPYos7CrPCAkg7TtmJ_bmZX4iS0bw4lJzPIXhoGaKxbsV4FW8nxYAhxXjJCacYfZ"
+          };
+
+          this.$http.post('https://fcm.googleapis.com/fcm/send', bodyNotification, {headers: {"Authorization": 'key=AAAAdArWtQU:APA91bEBGdgYLIUuX0_9H7MITtswX8Eu4YYMfNDUoVMfInHz0ueCtIL1JBtPRRbzievC3JhLApscOsx7zhpSNkxkJ5He8QjnXJFB5MQ6tQuhjv2zW6jUqhmBLuT7QYs0brG_73vJt5iT'}})
+            .then(response => {
+              console.log("Notification: ",response)
+            })
+        },
+
         checkIncome() {
           this.progress = true;
           this.$http.get('/submit/{dcode}/{pcode}/{bhour}/{bmin}/{fhour}/{fmin}/{schedid}/{cashid}/{chid}/{date}/{filial}', {params: {dcode:this.items[0].dcode, pcode:this.items[0].pcode, bhour:this.items[0].bhour, bmin:this.items[0].bmin,
@@ -93,8 +107,8 @@
               this.check = true;
               this.disabled=true;
             });
-
-          this.$http.get('/notification').then(resp => {console.log(resp)})
+          
+          this.notify();
         }
       }
     }
