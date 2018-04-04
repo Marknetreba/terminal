@@ -65,8 +65,8 @@
           })
         },
         notify() {
-          let bodyNotification = { "notification": {"title": "Уведомление о новом пациенте", "body": "К вам пришел: "+this.table.fullname},
-            "to":"c9LEn3hig4I:APA91bFuxw1N5WEhNKhrS5ThZG1d1Ujl8gIkdNMRzGUQQSfbA8FXM6TK0NdC4nrcpk_Z4gUOYbGKqPYos7CrPCAkg7TtmJ_bmZX4iS0bw4lJzPIXhoGaKxbsV4FW8nxYAhxXjJCacYfZ"
+          let bodyNotification = { "notification": {"title": "К вам пациент!", "body": "К вам пришел: "+this.table.fullname},
+            "to":":"
           };
 
           this.$http.post('https://fcm.googleapis.com/fcm/send', bodyNotification, {headers: {"Authorization": 'key=AAAAdArWtQU:APA91bEBGdgYLIUuX0_9H7MITtswX8Eu4YYMfNDUoVMfInHz0ueCtIL1JBtPRRbzievC3JhLApscOsx7zhpSNkxkJ5He8QjnXJFB5MQ6tQuhjv2zW6jUqhmBLuT7QYs0brG_73vJt5iT'}})
