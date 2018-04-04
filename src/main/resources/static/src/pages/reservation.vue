@@ -13,7 +13,6 @@
 
         <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/> <br/>
 
-          <p><strong>БЛАГОДАРИМ ВАС ЗА РЕГИСТРАЦИЮ ПОСЕЩЕНИЯ</strong></p>
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
         <!--<button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>-->
         <!--<button class="btn btn-warning btn-lg mt-3" @click="notify">Уведомление</button>-->
