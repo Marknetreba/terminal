@@ -10,6 +10,7 @@ import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
 import com.xuggle.xuggler.IError;
 
+import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -123,66 +124,13 @@ public class TerminalController {
         jdbcTemplate.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
 
-    //TODO: Remove this snippet
-
-    @RequestMapping(value = "/notification", method = RequestMethod.POST)
-    @ResponseBody
-    public void pushNotification() throws IOException {
-        URL url = new URL("https://fcm.googleapis.com/fcm/send");
-
-        try {
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            con.setDoOutput(true);
-            con.setRequestProperty("Content-Type", "application/json");
-
-            DataOutputStream out = new DataOutputStream(con.getOutputStream());
-            out.writeBytes("1");
-            out.flush();
-            out.close();
-
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @RequestMapping(value = "/photo", method = RequestMethod.GET)
     @ResponseBody
-    public BufferedImage takePhoto() {
+    public void takePhoto() {
+        FFmpegBuilder fFmpegBuilder = new FFmpegBuilder().setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
+                .addOutput("today.jpg").done();
 
-        BufferedImage[] image = new BufferedImage[1];
-
-        IMediaListener mediaListener = new MediaListenerAdapter() {
-            @Override
-            public void onVideoPicture(IVideoPictureEvent event) {
-                try {
-                    image[0] = event.getImage();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
-        };
-
-        IMediaReader mediaReader = ToolFactory.makeReader("rtsp://admin:admin@192.168.128.51:554/RVi/1/1");
-        mediaReader.setBufferedImageTypeToGenerate(BufferedImage.TYPE_3BYTE_BGR);
-        mediaReader.setQueryMetaData(false);
-        mediaReader.addListener(mediaListener);
-
-        while (true) {
-            IError err = mediaReader.readPacket();
-            if (err != null) {
-                System.out.println("Error: " + err);
-                break;
-            }
-        }
-
-        return image[0];
     }
 
-//    @RequestMapping(value = "/{id}")
-//    @ResponseBody
-//    public String id(@PathVariable(required = false) String id){
-//        return id;
-//    }
 }
