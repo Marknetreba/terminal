@@ -143,7 +143,7 @@ public class TerminalController {
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
                 .setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
                 .addOutput("/home/mark/projects/info-master/src/main/rtsp/"+time+"%04d.jpeg")
-                .setDuration(1, TimeUnit.MILLISECONDS)
+                .setDuration(30, TimeUnit.MILLISECONDS)
                 .done();
 
         FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
