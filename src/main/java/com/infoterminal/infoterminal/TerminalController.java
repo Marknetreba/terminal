@@ -135,8 +135,8 @@ public class TerminalController {
         RunProcessFunction func = new RunProcessFunction();
         func.setWorkingDirectory("/home/mark/Загрузки/ffmpeg");
 
-        FFmpeg ffmpeg = new FFmpeg("/home/mark/Загрузки/ffmpeg/ffmpeg", func);
-        FFprobe ffprobe = new FFprobe("/home/mark/Загрузки/ffmpeg/ffprobe", func);
+        FFmpeg ffmpeg = new FFmpeg("./ffmpeg", func);
+        FFprobe ffprobe = new FFprobe("./ffprobe", func);
 
         String time = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
         
