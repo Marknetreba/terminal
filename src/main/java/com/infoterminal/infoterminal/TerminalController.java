@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class TerminalController {
@@ -141,8 +142,8 @@ public class TerminalController {
 
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
                 .setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
-                .addOutput("img%03d.jpg")
-                .setFormat("image2")
+                .addOutput("today_%d.png")
+                .setDuration(1, TimeUnit.MILLISECONDS)
                 .done();
 
         FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
