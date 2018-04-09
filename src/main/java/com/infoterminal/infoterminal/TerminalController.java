@@ -10,6 +10,10 @@ import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
 import com.xuggle.xuggler.IError;
 
+import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.smb.SmbException;
+import jcifs.smb.SmbFile;
+import jcifs.smb.SmbFileInputStream;
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
@@ -28,9 +32,7 @@ import javax.sql.DataSource;
 import java.awt.image.BufferedImage;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.ProtocolException;
-import java.net.URL;
+import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -139,18 +141,35 @@ public class TerminalController {
         FFprobe ffprobe = new FFprobe("./ffprobe", func);
 
         String time = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
+        String output = "/home/mark/Загрузки/info-master/src/main/resources/static/src/rtsp/"+time+"%04d.jpeg";
+        String link = "src/main/resources/static/src/rtsp/"+time+"%04d.jpeg";
         
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
                 .setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
-                .addOutput("/home/mark/projects/info-master/src/main/rtsp/"+time+"%04d.jpeg")
+                .addOutput(output)
                 .setDuration(30, TimeUnit.MILLISECONDS)
                 .done();
-
+        
+        
         FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
 
         FFmpegJob job = executor.createJob(fFmpegBuilder);
         job.run();
+        
+    }
+    
+    @RequestMapping(value = "/smb", method = RequestMethod.GET)
+    @ResponseBody
+    public void shareSmb() throws MalformedURLException, UnknownHostException, SmbException {
+        String user = "";
+        String pass = "";
+        String shared = "rtsp";
+        String path = "smb://192.168.0.163/rtsp/*";
 
+        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("",user, pass);
+        SmbFile smbFile = new SmbFile(path,auth);
+        SmbFileInputStream smbIn = new SmbFileInputStream(smbFile);
+        System.out.println("SMB File: " + smbIn);
     }
 
 }

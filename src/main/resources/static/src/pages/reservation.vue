@@ -60,7 +60,7 @@
         },
         takeImage() {
           this.$http.get('/photo').then(response => {
-            console.log("Photo",response)
+            console.log(response);
           })
         },
         notify() {

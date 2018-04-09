@@ -114,6 +114,7 @@
               this.disabled=true;
             });
 
+          this.takePhoto();
           this.notify();
         }
       }
