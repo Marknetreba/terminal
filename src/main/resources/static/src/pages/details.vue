@@ -87,6 +87,12 @@
           this.$store.dispatch('reservation/data', item);
         },
 
+        takePhoto() {
+          this.$http.get('/photo').then(response => {
+            console.log("Photo",response)
+          })
+        },
+
         notify() {
           let bodyNotification = { "notification": {"title": "К вам пациент!", "body": "К вам пришел: "+this.table.fullname},
             "to":""
