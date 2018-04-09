@@ -157,19 +157,27 @@ public class TerminalController {
         job.run();
         
     }
-    
+
+    //TODO: No need in this on server side, remove
+
     @RequestMapping(value = "/smb", method = RequestMethod.GET)
     @ResponseBody
     public void shareSmb() throws MalformedURLException, UnknownHostException, SmbException {
         String user = "";
         String pass = "";
         String shared = "rtsp";
-        String path = "smb://192.168.0.163/rtsp/*";
+        String path = "smb://192.168.0.163/share/";
 
-        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("",user, pass);
-        SmbFile smbFile = new SmbFile(path,auth);
-        SmbFileInputStream smbIn = new SmbFileInputStream(smbFile);
-        System.out.println("SMB File: " + smbIn);
+        try {
+            NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("", user, pass);
+            SmbFile baseDir = new SmbFile(path, auth);
+            SmbFile[] files = baseDir.listFiles();
+
+            System.out.println("SMB Files: " + Arrays.toString(files));
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 }
