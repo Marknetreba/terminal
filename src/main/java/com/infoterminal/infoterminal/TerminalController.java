@@ -31,10 +31,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -140,9 +138,11 @@ public class TerminalController {
         FFmpeg ffmpeg = new FFmpeg("/home/mark/Загрузки/ffmpeg/ffmpeg", func);
         FFprobe ffprobe = new FFprobe("/home/mark/Загрузки/ffmpeg/ffprobe", func);
 
+        String time = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
+        
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
                 .setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
-                .addOutput("today_%d.png")
+                .addOutput("/home/mark/projects/info-master/src/main/rtsp/"+time+"%04d.jpeg")
                 .setDuration(1, TimeUnit.MILLISECONDS)
                 .done();
 
