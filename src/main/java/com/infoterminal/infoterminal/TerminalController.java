@@ -10,7 +10,12 @@ import com.xuggle.mediatool.ToolFactory;
 import com.xuggle.mediatool.event.IVideoPictureEvent;
 import com.xuggle.xuggler.IError;
 
+import net.bramp.ffmpeg.FFmpeg;
+import net.bramp.ffmpeg.FFmpegExecutor;
+import net.bramp.ffmpeg.FFprobe;
+import net.bramp.ffmpeg.RunProcessFunction;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
+import net.bramp.ffmpeg.job.FFmpegJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
@@ -127,9 +132,23 @@ public class TerminalController {
 
     @RequestMapping(value = "/photo", method = RequestMethod.GET)
     @ResponseBody
-    public void takePhoto() {
-        FFmpegBuilder fFmpegBuilder = new FFmpegBuilder().setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
-                .addOutput("today.jpg").done();
+    public void takePhoto() throws IOException {
+        RunProcessFunction func = new RunProcessFunction();
+        func.setWorkingDirectory("/home/mark/Загрузки/ffmpeg");
+
+        FFmpeg ffmpeg = new FFmpeg("/home/mark/Загрузки/ffmpeg/ffmpeg", func);
+        FFprobe ffprobe = new FFprobe("/home/mark/Загрузки/ffmpeg/ffprobe", func);
+
+        FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
+                .setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
+                .addOutput("img%03d.jpg")
+                .setFormat("image2")
+                .done();
+
+        FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
+
+        FFmpegJob job = executor.createJob(fFmpegBuilder);
+        job.run();
 
     }
 
