@@ -89,7 +89,7 @@
 
         takePhoto() {
           this.$http.get('/photo').then(response => {
-            console.log("Photo",response)
+            console.log(response)
           })
         },
 
@@ -114,8 +114,8 @@
               this.disabled=true;
             });
 
-          this.takePhoto();
-          this.notify();
+          //this.takePhoto();
+          //this.notify();
         }
       }
     }
