@@ -135,7 +135,7 @@ public class TerminalController {
     @ResponseBody
     public void takePhoto() throws IOException {
         RunProcessFunction func = new RunProcessFunction();
-        func.setWorkingDirectory("/usr/bin/ffmpeg");
+        func.setWorkingDirectory("/usr/bin");
 
         FFmpeg ffmpeg = new FFmpeg("./ffmpeg", func);
         FFprobe ffprobe = new FFprobe("./ffprobe", func);
