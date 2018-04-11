@@ -141,8 +141,8 @@ public class TerminalController {
         FFprobe ffprobe = new FFprobe("./ffprobe", func);
 
         String time = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
-        String output = "/opt/share"+time+"%04d.jpeg";
-        String link = "/opt/share"+time+"%04d.jpeg";
+        String output = "/opt/share/"+time+"%03d.jpeg";
+        String link = "/opt/share/"+time+"%03d.jpeg";
         
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
                 .setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
