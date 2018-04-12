@@ -33,6 +33,9 @@ public class InfoterminalApplication extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**")
 				.addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
+
+		registry.addResourceHandler("/files/**")
+				.addResourceLocations("file:///C:/opt/share/");
 	}
 
 	@Override

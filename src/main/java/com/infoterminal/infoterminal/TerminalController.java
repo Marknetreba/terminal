@@ -160,7 +160,7 @@ public class TerminalController {
 
     //TODO: No need in this on server side, remove
 
-    @RequestMapping(value = "/smb", method = RequestMethod.GET)
+    @RequestMapping(value = "/getPicture", method = RequestMethod.GET)
     @ResponseBody
     public void shareSmb() throws MalformedURLException, UnknownHostException, SmbException {
         String user = "";
