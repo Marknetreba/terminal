@@ -4,7 +4,7 @@
     <p style="position: relative; right: 335px; color: #009800; font-size: 30px" class="mt-3 mb-4"><strong>{{msg}}</strong></p>
     <div class="registration-half">
 
-        <tabs pills card v-model="tabIndex" style="width: 49%;">
+        <tabs pills card v-model="tabIndex" style="width: 49%;font-weight: bold">
 
           <tab id="phone" title="ПОИСК ПО НОМЕРУ ТЕЛЕФОНА" :title-link-class="tabTitle(0)">
             <label><strong>Введите ваш номер телефона: </strong></label>
@@ -23,8 +23,9 @@
                   'ЙЦУКЕНГШЩЗХЪ|ФЫВАПРОЛДЖЭ|ЯЧСМИТЬБЮ|{Очистить:clear}{Пробел:space}{Удалить:backspace}'
               ]"></keyboard>
               <button class="btn btn-lg" @click="searchByText">Поиск</button>
-            <alert :dismissed="dismissCountdown=0" variant="danger" :show="dismissCountDown" class="no_records">Записей не найдено</alert>
           </tab>
+
+          <alert dismissible variant="primary" :show="dismissCountDown" class="no_records" @dismissed="dismissCountDown=false"><strong>ЗАПИСЕЙ НЕ НАЙДЕНО</strong></alert>
 
         </tabs>
 
@@ -75,7 +76,7 @@
         tabIndex: 0,
         noRecords: false,
         macAddress: '',
-        dismissCountDown: 0,
+        dismissCountDown: false,
         activeTab: false,
         msg: "РЕГИСТРАЦИЯ ПРИЕМА",
         label: "Пожалуйста, подождите...",
@@ -127,9 +128,6 @@
       this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
     },
     methods: {
-      countDownChanged (dismissCountDown) {
-        this.dismissCountDown = dismissCountDown
-      },
       tabTitle(idx) {
         if (this.tabIndex === idx) {
           return ['bg-info', 'text-light']
@@ -143,18 +141,18 @@
       searchByText() {
         this.progress=true;
         this.$http.get('/pacient/{name}/{date}/{filial}', {params: {name: this.text, date: this.time, filial: this.macAddress}}).then(response => {
-          if (response) {
+          if (response.data.length>0) {
             this.show = true;
             this.progress = false;
             this.items = response.data;
           }
-          else if (response.data.length === 0) {
-            this.dismissCountDown = 1;
+          else {
+            this.dismissCountDown = true;
             this.progress=false;
           }
         })
           .catch(error => {
-            this.dismissCountDown = 1;
+            this.dismissCountDown = true;
             this.progress = false;
         })
       },
@@ -175,19 +173,19 @@
                 }
                 else {
                   this.progress=false;
-                  this.dismissCountDown = 1;
+                  this.dismissCountDown = true;
                 }
               })
             })
           }
           else {
-            this.dismissCountDown = 1;
+            this.dismissCountDown = true;
             this.progress=false;
           }
         })
           .catch (error=> {
             this.progress = false;
-            this.dismissCountDown = 1;
+            this.dismissCountDown = true;
         })
       },
 
@@ -208,16 +206,17 @@
 <style scoped>
 
   .no_records {
-    margin-top: 15px;
+    border-radius: 20px;
+    margin: 15px 80px;
   }
+
 
   button {
     margin-top: 5px;
     font-size: 30px;
     border-radius: 10px;
     color: white;
-    background-color: #ff6a13;
-    background-image: linear-gradient(340deg, #ff6a13, rgba(255, 237, 226, 0.34));
+    background: #ff6a13 linear-gradient(340deg, #ff6a13, rgba(255, 237, 226, 0.34));
     box-shadow: 0px 5px 0px #b44813, 0px 3px 15px rgba(0,0,0,.4);
   }
 
