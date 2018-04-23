@@ -139,17 +139,19 @@ public class TerminalController {
 
         FFmpeg ffmpeg = new FFmpeg("./ffmpeg", func);
         FFprobe ffprobe = new FFprobe("./ffprobe", func);
-
+        
+        String outputPath = "/home/mark/Загрузки/info-master/src/main/resources/static/images/";
+        
         String time = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
-        String output = "/opt/share/"+time+"%03d.jpeg";
-        String link = "/opt/share/"+time+"%03d.jpeg";
+        String output = outputPath+time+"_%03d.jpeg";
+        
+        String link = "http://localhost:8080/images/"+time+"%03d.jpeg";
         
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
                 .setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
                 .addOutput(output)
                 .setDuration(30, TimeUnit.MILLISECONDS)
                 .done();
-        
         
         FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
 
@@ -165,7 +167,7 @@ public class TerminalController {
     public void shareSmb() throws MalformedURLException, UnknownHostException, SmbException {
         String user = "";
         String pass = "";
-        String shared = "rtsp";
+        String shared = "images";
         String path = "smb://192.168.0.163/share/";
 
         try {
