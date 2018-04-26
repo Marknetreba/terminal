@@ -2,18 +2,9 @@ package com.infoterminal.infoterminal;
 
 import com.infoterminal.infoterminal.entities.Clients;
 import com.infoterminal.infoterminal.entities.Filials;
-
-import com.xuggle.mediatool.IMediaListener;
-import com.xuggle.mediatool.IMediaReader;
-import com.xuggle.mediatool.MediaListenerAdapter;
-import com.xuggle.mediatool.ToolFactory;
-import com.xuggle.mediatool.event.IVideoPictureEvent;
-import com.xuggle.xuggler.IError;
-
 import jcifs.smb.NtlmPasswordAuthentication;
 import jcifs.smb.SmbException;
 import jcifs.smb.SmbFile;
-import jcifs.smb.SmbFileInputStream;
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
@@ -26,15 +17,20 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.sql.DataSource;
-import java.awt.image.BufferedImage;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.*;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Controller
@@ -149,7 +145,6 @@ public class TerminalController {
                 .addOutput(output)
                 .setDuration(30, TimeUnit.MILLISECONDS)
                 .done();
-        
         
         FFmpegExecutor executor = new FFmpegExecutor(ffmpeg, ffprobe);
 
