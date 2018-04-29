@@ -89,16 +89,20 @@
 
         takePhoto() {
           this.$http.get('/photo').then(response => {
-            console.log(response)
+            console.log(response);
+            this.imagePath = location.origin+"/images/";
           })
         },
 
         notify() {
-          let bodyNotification = { "notification": {"title": "К вам пациент!", "body": "К вам пришел: "+this.table.fullname},
-            "to":""
+
+          console.log(this.imagePath);
+
+          let bodyNotification = { "notification": {"title": "К вам пациент!", "body": "К вам пришел(ла): "+this.table.fullname},
+            "to":"/topics/"+"55"
           };
 
-          this.$http.post('https://fcm.googleapis.com/fcm/send', bodyNotification, {headers: {"Authorization": 'key=AAAAdArWtQU:APA91bEBGdgYLIUuX0_9H7MITtswX8Eu4YYMfNDUoVMfInHz0ueCtIL1JBtPRRbzievC3JhLApscOsx7zhpSNkxkJ5He8QjnXJFB5MQ6tQuhjv2zW6jUqhmBLuT7QYs0brG_73vJt5iT'}})
+          this.$http.post('https://fcm.googleapis.com/fcm/send', bodyNotification, {headers: {"Content-Type":"application/json", "Authorization": 'key=AAAAdArWtQU:APA91bEBGdgYLIUuX0_9H7MITtswX8Eu4YYMfNDUoVMfInHz0ueCtIL1JBtPRRbzievC3JhLApscOsx7zhpSNkxkJ5He8QjnXJFB5MQ6tQuhjv2zW6jUqhmBLuT7QYs0brG_73vJt5iT'}})
             .then(response => {
               console.log("Notification: ",response)
             })
@@ -114,8 +118,8 @@
               this.disabled=true;
             });
 
-          //this.takePhoto();
-          //this.notify();
+          this.takePhoto();
+          this.notify();
         }
       }
     }

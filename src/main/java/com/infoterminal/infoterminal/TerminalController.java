@@ -2,9 +2,6 @@ package com.infoterminal.infoterminal;
 
 import com.infoterminal.infoterminal.entities.Clients;
 import com.infoterminal.infoterminal.entities.Filials;
-import jcifs.smb.NtlmPasswordAuthentication;
-import jcifs.smb.SmbException;
-import jcifs.smb.SmbFile;
 import net.bramp.ffmpeg.FFmpeg;
 import net.bramp.ffmpeg.FFmpegExecutor;
 import net.bramp.ffmpeg.FFprobe;
@@ -24,11 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.sql.DataSource;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -137,8 +131,8 @@ public class TerminalController {
         FFprobe ffprobe = new FFprobe("./ffprobe", func);
 
         String time = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
-        String output = "/opt/share/"+time+"%03d.jpeg";
-        String link = "/opt/share/"+time+"%03d.jpeg";
+        String output = "./src/main/resources/static/images/"+time+"%03d.jpeg";
+        String link = "./src/main/resources/static/images/"+time+"%03d.jpeg";
         
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
                 .setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
@@ -152,27 +146,4 @@ public class TerminalController {
         job.run();
         
     }
-
-    //TODO: No need in this on server side, remove
-
-    @RequestMapping(value = "/getPicture", method = RequestMethod.GET)
-    @ResponseBody
-    public void shareSmb() throws MalformedURLException, UnknownHostException, SmbException {
-        String user = "";
-        String pass = "";
-        String shared = "rtsp";
-        String path = "smb://192.168.0.163/share/";
-
-        try {
-            NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("", user, pass);
-            SmbFile baseDir = new SmbFile(path, auth);
-            SmbFile[] files = baseDir.listFiles();
-
-            System.out.println("SMB Files: " + Arrays.toString(files));
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
 }
