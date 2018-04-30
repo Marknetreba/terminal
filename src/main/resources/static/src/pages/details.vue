@@ -72,7 +72,7 @@
         msg: "ДЕТАЛИ ПРИЕМА",
         check: false,
         macAddress: '',
-        imagePath: location.origin+'/images/'
+        imagePath: location.origin + '/images/'
       }
     },
     beforeRouteEnter: (to, from, next) => {
@@ -104,32 +104,34 @@
       },
 
       notify() {
+        let me = this;
 
-        console.log(this.items);
-        console.log(this.imagePath);
+        this.items.forEach(function (i) {
+          console.log("Each item: ", i);
 
-        let bodyNotification = {
-          "notification": {
-            "title": "У вас новый пациент",
-            "body": "К вам пришел(ла): " + this.items[0].fullname
-          },
-          "data": {
-            "name": this.items[0].fullname,
-            "time": this.items[0].bhour+':'+this.items[0].bmin,
-            "photo": this.imagePath
-          },
-          "to": "/topics/" + "55"
-        };
+          const bodyNotification = {
+            "notification": {
+              "title": "У вас новый пациент",
+              "body": "К вам пришел(ла): " + i.fullname
+            },
+            "data": {
+              "name": i.fullname,
+              "time": i.bhour + ':' + i.bmin,
+              "photo": me.imagePath
+            },
+            "to": "/topics/" + "55"
+          };
 
-        this.$http.post('https://fcm.googleapis.com/fcm/send', bodyNotification, {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": 'key=AAAAdArWtQU:APA91bEBGdgYLIUuX0_9H7MITtswX8Eu4YYMfNDUoVMfInHz0ueCtIL1JBtPRRbzievC3JhLApscOsx7zhpSNkxkJ5He8QjnXJFB5MQ6tQuhjv2zW6jUqhmBLuT7QYs0brG_73vJt5iT'
-          }
-        })
-          .then(response => {
-            console.log("Notification: ", response)
+          me.$http.post('https://fcm.googleapis.com/fcm/send', bodyNotification, {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": 'key=AAAAdArWtQU:APA91bEBGdgYLIUuX0_9H7MITtswX8Eu4YYMfNDUoVMfInHz0ueCtIL1JBtPRRbzievC3JhLApscOsx7zhpSNkxkJ5He8QjnXJFB5MQ6tQuhjv2zW6jUqhmBLuT7QYs0brG_73vJt5iT'
+            }
           })
+            .then(response => {
+              console.log("Notification: ", response)
+            })
+        });
       },
 
       checkIncome() {

@@ -126,6 +126,7 @@
 
       this.id = window.location.href;
       this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
+      this.$store.dispatch('registration/filial', this.macAddress);
     },
     methods: {
       tabTitle(idx) {

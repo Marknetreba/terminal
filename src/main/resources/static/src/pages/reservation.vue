@@ -7,17 +7,15 @@
       <div style="background: #ffd310; width: 49%">
 
         <p><strong>{{table.fullname}},</strong></p>
-        <p>ВАШ ПРИЕМ СОСТОИТСЯ</p>
-        <p>{{table.workdate.substring(0,11)}} В {{table.bhour}}:{{table.bmin}}</p>
-        <p>ДОКТОР {{table.docname}}</p>
-        <p>ПРИГЛАСИТ ВАС В КАБИНЕТ {{table.chname}}</p>
+        <p><strong>ВАШ ПРИЕМ СОСТОИТСЯ</strong></p>
+        <p><strong>{{table.workdate.substring(0,11)}} В {{table.bhour}}:{{table.bmin}}</strong></p>
+        <p><strong>ДОКТОР {{table.docname}}</strong></p>
+        <p><strong>ПРИГЛАСИТ ВАС В КАБИНЕТ {{table.chname}}</strong></p>
 
         <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>
         <br/>
 
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
-        <!--<button class="btn btn-warning btn-lg mt-3" @click="takeImage">Фото</button>-->
-        <!--<button class="btn btn-warning btn-lg mt-3" @click="notify">Уведомление</button>-->
 
       </div>
 
@@ -45,18 +43,20 @@
     data() {
       return {
         table: [],
-        msg: "ДЕТАЛИ ПРИЕМА"
+        msg: "ДЕТАЛИ ПРИЕМА",
+        filial: ''
       }
     },
 
     beforeRouteEnter: (to, from, next) => {
       next(vm => {
           vm.table = vm.$store.getters['reservation/getData'];
+          vm.filial = vm.$store.getters['registration/getFilial'];
+          console.log(vm.filial);
           console.log(vm.table);
         }
       )
     },
-
     methods: {
       goBack() {
         router.push("Details")
@@ -67,33 +67,8 @@
 
           this.imagePath = location.origin+"/images/";
         })
-      },
-
-      //TODO: Remove it later
-      notify() {
-        let bodyNotification = {
-          "notification": {
-            "title": "У вас новый пациент",
-            "body": "К вам пришел(ла): " + this.table.fullname
-          },
-          "data": {
-            "name": this.table.fullname,
-            "time": this.table.bhour + ":" + this.table.bmin,
-            "photo": ""
-          },
-          "to": "/topics/"+"55"
-        };
-
-        this.$http.post('https://fcm.googleapis.com/fcm/send', bodyNotification, {
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": 'key=AAAAdArWtQU:APA91bEBGdgYLIUuX0_9H7MITtswX8Eu4YYMfNDUoVMfInHz0ueCtIL1JBtPRRbzievC3JhLApscOsx7zhpSNkxkJ5He8QjnXJFB5MQ6tQuhjv2zW6jUqhmBLuT7QYs0brG_73vJt5iT'
-          }
-        })
-          .then(response => {
-            console.log("Notification: ", response)
-          })
       }
+
     }
   }
 </script>
