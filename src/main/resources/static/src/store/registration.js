@@ -6,7 +6,8 @@ const registration = {
 
   state: {
     registration: {},
-    activeTab: {}
+    activeTab: {},
+    filial: {}
   },
 
   mutations: {
@@ -16,6 +17,10 @@ const registration = {
 
     setActiveTab(state, data) {
       state.activeTab = data
+    },
+
+    setFilial(filial, data) {
+      state.filial = data
     }
 
   },
@@ -27,6 +32,10 @@ const registration = {
 
     getTab: state => {
       return state.activeTab
+    },
+
+    getFilial: state => {
+      return state.filial
     }
   },
 
@@ -37,6 +46,10 @@ const registration = {
 
     tabAction({commit}, data) {
       commit('setActiveTab', data)
+    },
+
+    filial({commit}, data) {
+      commit('setFilial', data)
     }
   }
 
