@@ -26,7 +26,7 @@
         <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
         <button v-bind:disabled="disabled" class="btn btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
-        <button class="btn btn-warning btn-lg mt-3" @click="notify">Уведомление</button>
+        <!--<button class="btn btn-warning btn-lg mt-3" @click="notify">Уведомление</button>-->
 
       </div>
 
@@ -72,7 +72,8 @@
         msg: "ДЕТАЛИ ПРИЕМА",
         check: false,
         macAddress: '',
-        imagePath: location.origin + '/images/'
+        imagePath: location.origin + '/images/',
+        image: ''
       }
     },
     beforeRouteEnter: (to, from, next) => {
@@ -98,8 +99,8 @@
 
       takePhoto() {
         this.$http.get('/photo').then(response => {
-          console.log(response);
-          // this.imagePath+=response;
+          this.image = response.bodyText;
+          console.log(this.imagePath + this.image);
         })
       },
 
@@ -107,8 +108,6 @@
         let me = this;
 
         this.items.forEach(function (i) {
-          console.log("Each item: ", i);
-
           const bodyNotification = {
             "notification": {
               "title": "У вас новый пациент",
@@ -117,7 +116,7 @@
             "data": {
               "name": i.fullname,
               "time": i.bhour + ':' + i.bmin,
-              "photo": me.imagePath
+              "photo": me.imagePath + me.image
             },
             "to": "/topics/" + "55"
           };
