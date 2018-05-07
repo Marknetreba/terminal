@@ -11,18 +11,31 @@
               <form-input v-model="num" type="tel" class="registration-half_phone-label" placeholder="Мобильный номер телефона"/>
               <keyboard class="registration-half_keyboard" v-model="num" :maxlength="10" layouts="123|456|789|0{Удалить:backspace}">
               </keyboard>
+
               <button class="btn btn-lg" @click="searchByNum">Поиск</button>
           </tab>
 
           <tab id="fio" :active="activeTab" title="ПОИСК ПО ФИО" :title-link-class="tabTitle(1)">
             <label><strong>Введите ваши ФИО: </strong></label>
-              <form-input :formatter="nameFormat" v-model="text" type="text" class="registration-half_fio-label" placeholder="Иванов Иван Иванович" />
+              <form-input :formatter="nameFormat"
+                          :state="nameLength"
+                          v-model="text"
+                          type="text"
+                          class="registration-half_fio-label"
+                          aria-describedby="inputFeedback"
+                          placeholder="Иванов Иван Иванович" />
+
+              <form-invalid-feedback id="inputFeedback">
+                Введите минимум 3 символа
+              </form-invalid-feedback>
 
               <keyboard class="registration-half_keyboard" v-model="text"
                                   :layouts="[
                   'ЙЦУКЕНГШЩЗХЪ|ФЫВАПРОЛДЖЭ|ЯЧСМИТЬБЮ|{Очистить:clear}{Пробел:space}{Удалить:backspace}'
               ]"></keyboard>
-              <button class="btn btn-lg" @click="searchByText">Поиск</button>
+
+              <button :disabled="!nameLength" class="btn btn-lg" @click="searchByText">Поиск</button>
+
           </tab>
 
           <alert dismissible variant="primary" :show="dismissCountDown" class="no_records" @dismissed="dismissCountDown=false"><strong>ЗАПИСЕЙ НЕ НАЙДЕНО</strong></alert>
@@ -118,6 +131,11 @@
     },
 
     name: "Registration",
+    computed: {
+      nameLength() {
+        return this.text.length > 2
+      }
+    },
     created() {
       this.tab = this.$store.getters['registration/getTab'];
       if (this.tab.toString() !== "[object Object]") {
@@ -238,7 +256,7 @@
   }
 
   .registration-half_keyboard {
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 5px;
     font-size: 21px;
     font-weight: bold;
