@@ -50,6 +50,11 @@
 
     <modal v-model="show" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
       <b_table empty-text="ЗАПИСЕЙ НЕ НАЙДЕНО" striped hover :items="items" :fields="fields" @row-clicked="goDetails">
+
+        <template slot="fullname" slot-scope="data">
+          {{data.item.fullname.substr(0, data.item.fullname.indexOf(" ")) + data.item.fullname.substr(data.item.fullname.indexOf(" "),2)+'.'}}
+        </template>
+
       </b_table>
       <div slot="modal-footer">
         <button class="btn btn-dark" @click="show = false">Закрыть</button>
