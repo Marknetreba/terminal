@@ -123,7 +123,7 @@ public class TerminalController {
 
     @RequestMapping(value = "/photo", method = RequestMethod.GET)
     @ResponseBody
-    public void takePhoto() throws IOException {
+    public String takePhoto() throws IOException {
         RunProcessFunction func = new RunProcessFunction();
         func.setWorkingDirectory("/usr/bin");
 
@@ -131,8 +131,8 @@ public class TerminalController {
         FFprobe ffprobe = new FFprobe("./ffprobe", func);
 
         String time = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
-        String output = "./src/main/resources/static/images/"+time+"%03d.jpeg";
-        String link = "./src/main/resources/static/images/"+time+"%03d.jpeg";
+        String output = "/info-master/src/main/resources/static/images/"+time+"%03d.jpeg";
+        String link = time+"%03d.jpeg";
         
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
                 .setInput("rtsp://admin:admin@192.168.128.51:554/RVi/1/1")
@@ -145,5 +145,6 @@ public class TerminalController {
         FFmpegJob job = executor.createJob(fFmpegBuilder);
         job.run();
         
+        return link;
     }
 }
