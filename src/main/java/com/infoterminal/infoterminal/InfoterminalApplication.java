@@ -6,6 +6,7 @@ import com.infoterminal.infoterminal.jpa.FilialsRepo;
 import com.infoterminal.infoterminal.jpa.ScheduleRepo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -14,6 +15,10 @@ import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.resource.ContentVersionStrategy;
+import org.springframework.web.servlet.resource.ResourceUrlEncodingFilter;
+import org.springframework.web.servlet.resource.VersionResourceResolver;
+
 import java.util.List;
 
 
@@ -33,9 +38,6 @@ public class InfoterminalApplication extends WebMvcConfigurerAdapter {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**")
 				.addResourceLocations(CLASSPATH_RESOURCE_LOCATIONS);
-
-		registry.addResourceHandler("/files/**")
-				.addResourceLocations("file:///C:/opt/share/");
 	}
 
 	@Override
