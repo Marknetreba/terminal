@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -44,7 +46,7 @@ public class TerminalController {
     JdbcTemplate template;
 
     @Autowired
-    private ServletContext servletContext;
+    private ResourceLoader resourceLoader;
     
     @RequestMapping(value ="/schedulePhone/{phone}")
     @ResponseBody
@@ -139,7 +141,7 @@ public class TerminalController {
         FFprobe ffprobe = new FFprobe("./ffprobe", func);
 
         String time = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
-        String output = "/root/sadko-infomat.tmp/src/main/resources/images/"+time+"%03d.jpeg";
+        String output = "/root/sadko-infomat.tmp/src/main/resources/static/images/"+time+"%03d.jpeg";
         String link = time+"%03d.jpeg";
         
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
@@ -160,8 +162,15 @@ public class TerminalController {
     @ResponseBody
     public ResponseEntity<byte[]> getImage(@PathVariable(required = true) String image) throws IOException {
 
-        ClassPathResource imgFile = new ClassPathResource("images/"+image+".jpeg");
-        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
+        // Windows file system test;
+        //final Resource fileResource = resourceLoader.getResource("file:///C:/terminal/src/main/resources/static/images/"+image+".jpeg");
+
+        final Resource fileResource = resourceLoader.getResource("file:/root/sadko-infomat.tmp/src/main/resources/static/images/"+image+".jpeg");
+
+        System.out.println(fileResource.getFilename());
+        System.out.println(fileResource.getURL());
+
+        byte[] bytes = StreamUtils.copyToByteArray(fileResource.getInputStream());
 
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG)
                 .body(bytes);
