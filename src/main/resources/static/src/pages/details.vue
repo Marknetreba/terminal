@@ -101,7 +101,7 @@
         this.$http.get('/photo').then(response => {
           this.image = response.bodyText;
           console.log(this.imagePath + this.image);
-        })
+        }).then(() => this.notify())
       },
 
       notify() {
@@ -159,7 +159,6 @@
           });
 
         this.takePhoto();
-        this.notify();
       }
     }
   }
