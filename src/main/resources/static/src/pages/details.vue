@@ -106,7 +106,8 @@
 
       notify() {
         let me = this;
-        console.log(me.image);
+        console.log("This.image -> ",this.image);
+        console.log("Me.image -> ", me.image);
 
         this.items.forEach(function (i) {
           const bodyNotification = {
