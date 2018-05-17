@@ -23,7 +23,7 @@
                           type="text"
                           class="registration-half_fio-label"
                           aria-describedby="inputFeedback"
-                          placeholder="Иванов Иван Иванович" />
+                          placeholder="Фамилия Имя Отчество" />
 
               <form-invalid-feedback id="inputFeedback">
                 Введите минимум 3 символа
