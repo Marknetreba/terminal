@@ -9,7 +9,7 @@
           <tab id="phone" title="ПОИСК ПО НОМЕРУ ТЕЛЕФОНА" :title-link-class="tabTitle(0)">
             <label><strong>Введите ваш номер телефона: </strong></label>
               <form-input v-model="num" type="tel" class="registration-half_phone-label" placeholder="Мобильный номер телефона"/>
-              <keyboard class="registration-half_keyboard" v-model="num" :maxlength="10" layouts="123|456|789|0{Удалить:backspace}">
+              <keyboard class="registration-half_keyboard" v-model="num" :maxlength="11" layouts="123|456|789|0{Удалить:backspace}">
               </keyboard>
 
               <button class="btn btn-lg" @click="searchByNum">Поиск</button>
@@ -23,7 +23,7 @@
                           type="text"
                           class="registration-half_fio-label"
                           aria-describedby="inputFeedback"
-                          placeholder="Иванов Иван Иванович" />
+                          placeholder="Фамилия Имя Отчество" />
 
               <form-invalid-feedback id="inputFeedback">
                 Введите минимум 3 символа
