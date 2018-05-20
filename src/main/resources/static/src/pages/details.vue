@@ -106,8 +106,6 @@
 
       notify() {
         let me = this;
-        console.log("This.image -> ",this.image);
-        console.log("Me.image -> ", me.image);
 
         this.items.forEach(function (i) {
           const bodyNotification = {
@@ -131,6 +129,7 @@
           })
             .then(response => {
               console.log("Notification: ", response)
+              router.push('Final')
             })
         });
       },
