@@ -148,8 +148,10 @@
       }
 
       this.id = window.location.href;
-      this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))];
+      this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].id;
+      this.camera = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].camera;
       this.$store.dispatch('registration/filial', this.macAddress);
+      this.$store.dispatch('registration/camera', this.camera);
     },
     methods: {
       tabTitle(idx) {

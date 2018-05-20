@@ -33,6 +33,12 @@
       <div class="details_iframe">
         <b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/>
       </div>
+
+      <modal v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
+        <div slot="modal-footer">
+          <button class="btn btn-dark" @click="show = false">Закрыть</button>
+        </div>
+      </modal>
     </div>
 
   </div>
@@ -73,7 +79,8 @@
         check: false,
         macAddress: '',
         imagePath: location.origin + '/images/',
-        image: ''
+        image: '',
+        confirm: false
       }
     },
     beforeRouteEnter: (to, from, next) => {
@@ -85,8 +92,8 @@
     created() {
       this.id = window.location.href;
       this.macAddress = config[this.id.substring(this.id.indexOf('=') + 1, this.id.indexOf('#'))].id;
-
-      console.log(this.macAddress);
+      this.camera = this.$store.getters['registration/getCamera'];
+      this.confirm = true;
     },
     methods: {
 
@@ -100,7 +107,7 @@
       },
 
       takePhoto() {
-        this.$http.get('/photo').then(response => {
+        this.$http.get('/photo/{camera}', {params:{camera: this.camera}}).then(response => {
           this.image = response.bodyText;
           console.log(this.imagePath + this.image);
         }).then(() => this.notify())
