@@ -84,7 +84,9 @@
     },
     created() {
       this.id = window.location.href;
-      this.macAddress = config[this.id.substring(this.id.indexOf('=') + 1, this.id.indexOf('#'))];
+      this.macAddress = config[this.id.substring(this.id.indexOf('=') + 1, this.id.indexOf('#'))].id;
+
+      console.log(this.macAddress);
     },
     methods: {
 
