@@ -144,8 +144,11 @@ public class TerminalController {
         String output = "/root/sadko-infomat.tmp/src/main/resources/static/images/"+time+".jpeg";
         String link = time+".jpeg";
         
+        String input = "rtsp://admin:admin@"+camera+":554/RVi/1/1";
+        System.out.println(input);
+        
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
-                .setInput("rtsp://admin:admin@"+camera+":554/RVi/1/1")
+                .setInput(input)
                 .addOutput(output)
                 .setDuration(30, TimeUnit.MILLISECONDS)
                 .done();

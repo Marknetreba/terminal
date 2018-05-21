@@ -149,7 +149,7 @@
             }
           })
             .then(response => {
-              console.log("Notification: ", response)
+              console.log("Notification: ", response);
               router.push('Final')
             })
         });
