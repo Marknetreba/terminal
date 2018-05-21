@@ -36,7 +36,7 @@
 
       <modal v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
         <div slot="modal-footer">
-          <button class="btn btn-dark" @click="show = false">Закрыть</button>
+          <button class="btn btn-dark" @click="confirm = false">Закрыть</button>
         </div>
       </modal>
     </div>
@@ -78,6 +78,7 @@
         msg: "ДЕТАЛИ ПРИЕМА",
         check: false,
         macAddress: '',
+        camera: '',
         imagePath: location.origin + '/images/',
         image: '',
         confirm: false
@@ -92,7 +93,7 @@
     created() {
       this.id = window.location.href;
       this.macAddress = config[this.id.substring(this.id.indexOf('=') + 1, this.id.indexOf('#'))].id;
-      this.camera = this.$store.getters['registration/getCamera'];
+      this.camera = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].camera;
       this.confirm = true;
     },
     methods: {
@@ -176,9 +177,9 @@
 
   button {
     border-radius: 10px;
+    font-size: 30px;
     color: white;
-    background-color: #ff6a13;
-    background-image: linear-gradient(340deg, #ff6a13, rgba(255, 237, 226, 0.34));
+    background: #ff6a13 linear-gradient(340deg, #ff6a13, rgba(255, 237, 226, 0.34));
     box-shadow: 0px 5px 0px #b44813, 0px 3px 15px rgba(0, 0, 0, .4);
   }
 

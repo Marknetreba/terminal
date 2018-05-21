@@ -94,6 +94,7 @@
         tabIndex: 0,
         noRecords: false,
         macAddress: '',
+        camera: '',
         dismissCountDown: false,
         activeTab: false,
         msg: "РЕГИСТРАЦИЯ ПРИЕМА",

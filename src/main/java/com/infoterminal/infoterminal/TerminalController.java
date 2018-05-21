@@ -145,7 +145,7 @@ public class TerminalController {
         String link = time+".jpeg";
         
         FFmpegBuilder fFmpegBuilder = new FFmpegBuilder()
-                .setInput("rtsp://admin:admin@192.168.12.246:554/RVi/1/1")
+                .setInput("rtsp://admin:admin@"+camera+":554/RVi/1/1")
                 .addOutput(output)
                 .setDuration(30, TimeUnit.MILLISECONDS)
                 .done();

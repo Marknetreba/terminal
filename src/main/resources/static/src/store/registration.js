@@ -20,11 +20,11 @@ const registration = {
       state.activeTab = data
     },
 
-    setFilial(filial, data) {
+    setFilial(state, data) {
       state.filial = data
     },
 
-    setFilial(camera, data) {
+    setCamera(state, data) {
       state.camera = data
     }
 
