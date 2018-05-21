@@ -6,7 +6,7 @@
     <div class="reservation_details">
       <div style="background: #ffd310; width: 49%">
 
-        <p><strong>{{table.fullname}},</strong></p>
+        <p><strong>{{table.fullname.substr(0, table.fullname.indexOf(" ")) + table.fullname.substr(table.fullname.indexOf(" "),2)+'.'}},</strong></p>
         <p><strong>ВАШ ПРИЕМ СОСТОИТСЯ</strong></p>
         <p><strong>{{table.workdate.substring(0,11)}} В {{table.bhour}}:{{table.bmin}}</strong></p>
         <p><strong>ДОКТОР {{table.docname}}</strong></p>
@@ -57,6 +57,13 @@
         }
       )
     },
+
+    created() {
+      setTimeout(function(){
+        router.push("Registration")
+      }, 60000)
+    },
+
     methods: {
       goBack() {
         router.push("Details")

@@ -55,6 +55,10 @@
           {{data.item.fullname.substr(0, data.item.fullname.indexOf(" ")) + data.item.fullname.substr(data.item.fullname.indexOf(" "),2)+'.'}}
         </template>
 
+        <template slot="bdate" slot-scope="data">
+          {{"****."+data.item.bdate.slice(5).replace("-",".")}}
+        </template>
+
       </b_table>
       <div slot="modal-footer">
         <button class="btn btn-dark" @click="show = false">Закрыть</button>

@@ -15,7 +15,7 @@ export default new Router({
     { path: '/registration', name: 'Registration', component: registration },
     { path: '/details', name: 'Details', component: details},
     { path: '/reservation', name: 'Reservation', component: reservation},
-    { path: '/error', nmae: 'Error', component: error},
-    { path: '/final', nmae: 'Final', component: final}
+    { path: '/error', name: 'Error', component: error},
+    { path: '/final', name: 'Final', component: final}
   ]
 })

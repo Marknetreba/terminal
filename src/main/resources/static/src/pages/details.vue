@@ -8,12 +8,12 @@
 
       <div style="background: #ffd310; width: 49%">
 
-        <a><strong>{{items[0].fullname}}, Вам сегодня предстоит прием у специалистов</strong></a><br/><a><strong>{{items[0].webname}}!</strong></a><br/>
+        <a><strong>{{items[0].fullname.substr(0, items[0].fullname.indexOf(" ")) + items[0].fullname.substr(items[0].fullname.indexOf(" "),2)+'.'}}, Вам сегодня предстоит прием у специалистов</strong></a><br/><a><strong>{{items[0].webname}}!</strong></a><br/>
 
         <b_table class="mt-3" striped hover :items="items" :fields="fields" style="background-color: white"
                  @row-clicked="itemClick">
           <template slot="time" slot-scope="data">
-            {{data.item.bhour}}:{{data.item.bmin}}
+            {{data.item.bhour}}:{{(data.item.bmin+'0').substring(0,2)}}
           </template>
           <template slot="chname" slot-scope="data">
             {{data.item.chname}}
@@ -35,6 +35,10 @@
       </div>
 
       <modal v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
+        <p><strong>УКАЖИТЕ ВАШ ГОД РОЖДЕНИЯ</strong></p>
+
+
+
         <div slot="modal-footer">
           <button class="btn btn-dark" @click="confirm = false">Закрыть</button>
         </div>
@@ -81,7 +85,8 @@
         camera: '',
         imagePath: location.origin + '/images/',
         image: '',
-        confirm: false
+        confirm: false,
+        birth: ''
       }
     },
     beforeRouteEnter: (to, from, next) => {
@@ -95,6 +100,12 @@
       this.macAddress = config[this.id.substring(this.id.indexOf('=') + 1, this.id.indexOf('#'))].id;
       this.camera = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].camera;
       this.confirm = true;
+      this.birth = this.items[0].bdate.substring(0,4);
+      console.log(this.birth);
+
+      setTimeout(function(){
+        router.push("Registration")
+      }, 60000)
     },
     methods: {
 

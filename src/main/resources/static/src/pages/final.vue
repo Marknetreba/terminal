@@ -7,14 +7,21 @@
 
 <script>
   import b_img from "bootstrap-vue/es/components/image/img";
+  import router from '../router/index';
 
   export default {
-      components: {b_img},
-      name: "final",
+      components: {b_img, router},
+      name: "Final",
       data() {
         return {
           goodbye: 'Благодарим вас за регистрацию посещения'
         }
+      },
+
+      created(){
+        setTimeout(function(){
+          router.push("Registration")
+        }, 5000)
       }
     }
 </script>
