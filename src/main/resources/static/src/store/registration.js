@@ -7,7 +7,8 @@ const registration = {
   state: {
     registration: {},
     activeTab: {},
-    filial: {}
+    filial: {},
+    camera: {}
   },
 
   mutations: {
@@ -21,6 +22,10 @@ const registration = {
 
     setFilial(filial, data) {
       state.filial = data
+    },
+
+    setFilial(camera, data) {
+      state.camera = data
     }
 
   },
@@ -36,6 +41,10 @@ const registration = {
 
     getFilial: state => {
       return state.filial
+    },
+
+    getCamera: camera => {
+      return state.camera
     }
   },
 
@@ -50,6 +59,10 @@ const registration = {
 
     filial({commit}, data) {
       commit('setFilial', data)
+    },
+
+    camera({commit}, data) {
+      commit('setCamera', data)
     }
   }
 

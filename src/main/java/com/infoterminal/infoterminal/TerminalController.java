@@ -131,9 +131,9 @@ public class TerminalController {
     }
 
 
-    @RequestMapping(value = "/photo", method = RequestMethod.GET)
+    @RequestMapping(value = "/photo/{camera}", method = RequestMethod.GET)
     @ResponseBody
-    public String takePhoto() throws IOException {
+    public String takePhoto(@PathVariable(required=true) String camera) throws IOException {
         RunProcessFunction func = new RunProcessFunction();
         func.setWorkingDirectory("/usr/bin");
 
