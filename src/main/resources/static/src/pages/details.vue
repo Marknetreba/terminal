@@ -99,7 +99,9 @@
       this.id = window.location.href;
       this.macAddress = config[this.id.substring(this.id.indexOf('=') + 1, this.id.indexOf('#'))].id;
       this.camera = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].camera;
-      this.confirm = true;
+
+      //this.confirm = true;
+
       this.birth = this.items[0].bdate.substring(0,4);
       console.log(this.birth);
 
