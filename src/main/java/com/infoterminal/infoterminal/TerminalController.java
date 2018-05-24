@@ -71,6 +71,18 @@ public class TerminalController {
     public List getPacientsByName(@PathVariable(required = true) String name,
                                   @PathVariable(required = true) String date,
                                   @PathVariable(required = true) String filial) {
+        String newQuery = "\n" +
+                "with patr as (select c.pcode,c.fullname\n" +
+                "from clservice cls\n" +
+                "left join clients c on cls.pcode = c.pcode\n" +
+                "left join discountsprav dp on (cls.did = dp.did)\n" +
+                "left join wschema ws on (dp.schid = ws.schid)\n" +
+                "left join doctor d on d.dcode = c.dcode1\n" +
+                "where\n" +
+                "ws.speccode = 130\n" +
+                "and\n" +
+                " current_date between cls.sdate and cls.fdate";
+        
         String query = "select sh.workdate,fil.WEBNAME, sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3, sh.clvisit from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "inner join doctor doc on (doc.dcode = sh.dcode)\n" +

@@ -17,6 +17,10 @@
 			<email>mark.netreba@mail.ru</email>
 		</developer>
 	</developers>
+	
+	<organization>
+		<name>AlfaTell</name>
+	</organization>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -93,11 +97,6 @@
 			<groupId>com.google.firebase</groupId>
 			<artifactId>firebase-server-sdk</artifactId>
 			<version>3.0.3</version>
-		</dependency>
-		<dependency>
-			<groupId>jcifs</groupId>
-			<artifactId>jcifs</artifactId>
-			<version>1.3.17</version>
 		</dependency>
 	</dependencies>
 
