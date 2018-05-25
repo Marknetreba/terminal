@@ -157,6 +157,10 @@
       this.camera = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].camera;
       this.$store.dispatch('registration/filial', this.macAddress);
       this.$store.dispatch('registration/camera', this.camera);
+
+      setTimeout(function(){
+        router.push("/")
+      }, 90000)
     },
     methods: {
       tabTitle(idx) {

@@ -103,11 +103,11 @@
       //this.confirm = true;
 
       this.birth = this.items[0].bdate.substring(0,4);
-      console.log(this.birth);
-
+      console.log("Birth: ",this.birth);
+      console.log("Camera IP ->", this.camera);
       setTimeout(function(){
-        router.push("Registration")
-      }, 60000)
+        router.push("/")
+      }, 90000)
     },
     methods: {
 
@@ -152,9 +152,10 @@
           })
             .then(response => {
               console.log("Notification: ", response);
-              router.push('Final')
+              router.push('/final')
             })
         });
+        router.push('/final')
       },
 
       checkIncome() {

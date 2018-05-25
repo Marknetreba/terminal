@@ -20,7 +20,7 @@
 
       created(){
         setTimeout(function(){
-          router.push("Registration")
+          router.push("/")
         }, 5000)
       }
     }

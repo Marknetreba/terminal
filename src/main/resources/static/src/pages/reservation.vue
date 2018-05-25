@@ -60,8 +60,8 @@
 
     created() {
       setTimeout(function(){
-        router.push("Registration")
-      }, 60000)
+        router.push("/")
+      }, 90000)
     },
 
     methods: {
