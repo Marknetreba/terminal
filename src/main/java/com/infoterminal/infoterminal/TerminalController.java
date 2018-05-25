@@ -147,7 +147,7 @@ public class TerminalController {
         FFprobe ffprobe = new FFprobe("./ffprobe", func);
 
         String time = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
-        String output = "/root/sadko-infomat.tmp/src/main/resources/static/images/"+time+".jpeg";
+        String output = "/opt/infoterminal/images/"+time+".jpeg";
         String link = time+".jpeg";
         
         String input = "rtsp://admin:admin@192.168."+camera+":554/RVi/1/1";
@@ -174,7 +174,7 @@ public class TerminalController {
         // Windows file system test;
         //final Resource fileResource = resourceLoader.getResource("file:///C:/terminal/src/main/resources/static/images/"+image+".jpeg");
 
-        final Resource fileResource = resourceLoader.getResource("file:/root/sadko-infomat.tmp/src/main/resources/static/images/"+image+".jpeg");
+        final Resource fileResource = resourceLoader.getResource("file:/opt/infoterminal/images/"+image+".jpeg");
 
         System.out.println(fileResource.getFilename());
         System.out.println(fileResource.getURL());
