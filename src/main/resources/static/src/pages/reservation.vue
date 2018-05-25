@@ -8,7 +8,7 @@
 
         <p><strong>{{table.fullname.substr(0, table.fullname.indexOf(" ")) + table.fullname.substr(table.fullname.indexOf(" "),2)+'.'}},</strong></p>
         <p><strong>ВАШ ПРИЕМ СОСТОИТСЯ</strong></p>
-        <p><strong>{{table.workdate.substring(0,11)}} В {{table.bhour}}:{{table.bmin}}</strong></p>
+        <p><strong>{{table.workdate.substring(0,11)}} В {{table.bhour}}:{{(table.bmin+'0').substring(0,2)}}</strong></p>
         <p><strong>ДОКТОР {{table.docname}}</strong></p>
         <p><strong>ПРИГЛАСИТ ВАС В КАБИНЕТ {{table.chname}}</strong></p>
 
