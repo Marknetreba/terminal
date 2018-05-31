@@ -53,17 +53,29 @@ public class TerminalController {
         return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
     }
     
-    @RequestMapping(value = "/pacient/{name}/{date}/{filial}")
+    @RequestMapping(value = "/pacient/{name}/{date}/{filial}/{patron}")
     @ResponseBody
     public List getPacient(@PathVariable(required = true) String name,
                            @PathVariable(required = true) String date,
-                           @PathVariable(required = true) String filial) {
-        String query = "select DISTINCT cl.fullname,cl.bdate from SCHEDULE sh\n" +
+                           @PathVariable(required = true) String filial,
+                           @PathVariable(required = true) Boolean patron) {
+
+        String simpleQuery = "select DISTINCT cl.fullname,cl.bdate from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "where WORKDATE='" +date+ "' and sh.FILIAL='"+filial+"' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%')\n" +
                 "ORDER BY FULLNAME, BDATE";
 
-        return template.query(query, new BeanPropertyRowMapper<>(Clients.class));
+        String patronQuery = "select DISTINCT cl.fullname,cl.bdate from SCHEDULE sh\n" +
+                "inner join clients cl on (cl.pcode = sh.pcode)\n" +
+                "inner join (select c.pcode as patr,c.fullname from clservice cls\n" +
+                "inner join clients c on cls.pcode = c.pcode\n" +
+                "inner join discountsprav dp on (cls.did = dp.did)\n" +
+                "inner join wschema ws on (dp.schid = ws.schid)\n" +
+                "inner join doctor d on d.dcode = c.dcode1\n" +
+                "where ws.speccode = 130 and '"+date+"' between cls.sdate and cls.fdate) on (sh.pcode = patr)\n" +
+                "where sh.workdate = '"+date+"' and sh.FILIAL='"+filial+"' and LOWER (cl.FULLNAME) like LOWER("+"'%"+name+"%')";
+
+        return patron ? template.query(patronQuery, new BeanPropertyRowMapper<>(Clients.class)) : template.query(simpleQuery, new BeanPropertyRowMapper<>(Clients.class));
     }
     
     @RequestMapping(value ="/schedule/{name}/{date}/{filial}")
@@ -72,14 +84,7 @@ public class TerminalController {
                                   @PathVariable(required = true) String date,
                                   @PathVariable(required = true) String filial) {
         
-        String query = "with patr as (select c.pcode,c.fullname from clservice cls\n" +
-                "left join clients c on cls.pcode = c.pcode\n" +
-                "left join discountsprav dp on (cls.did = dp.did)\n" +
-                "left join wschema ws on (dp.schid = ws.schid)\n" +
-                "left join doctor d on d.dcode = c.dcode1\n" +
-                "where ws.speccode = 130 and current_date between cls.sdate and cls.fdate)" +
-                
-                "select sh.workdate,fil.WEBNAME, sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3, sh.clvisit from SCHEDULE sh\n" +
+        String query = "select sh.workdate,fil.WEBNAME, sh.SCHEDID,sh.CASHID,doc.dcode,ch.CHID,doc.fullname as docname,sh.filial,ch.chname,sh.pcode,sh.BHOUR,sh.bmin,sh.fHOUR,sh.fmin, cl.fullname,cl.bdate,cl.phone1,cl.phone2,cl.phone3, sh.clvisit from SCHEDULE sh\n" +
                 "inner join clients cl on (cl.pcode = sh.pcode)\n" +
                 "inner join doctor doc on (doc.dcode = sh.dcode)\n" +
                 "inner join CHAIRS ch on (ch.CHID = sh.CHID)\n" +

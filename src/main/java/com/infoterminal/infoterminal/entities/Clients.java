@@ -40,6 +40,8 @@ public class Clients implements Serializable {
   private Long dcode;
   private Long chid;
   private Long SCHEDIDENT;
+  private Long dcode1;
+
 
 
   public Clients() {}
@@ -243,4 +245,13 @@ public class Clients implements Serializable {
   public void setSCHEDIDENT(Long SCHEDIDENT) {
     this.SCHEDIDENT = SCHEDIDENT;
   }
+
+  public Long getDcode1() {
+    return dcode1;
+  }
+
+  public void setDcode1(Long dcode1) {
+    this.dcode1 = dcode1;
+  }
+
 }

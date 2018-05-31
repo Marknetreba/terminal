@@ -56,7 +56,7 @@
         </template>
 
         <template slot="bdate" slot-scope="data">
-          {{"****."+data.item.bdate.slice(5).replace("-",".")}}
+          {{data.item.bdate.slice(5).replace("-",".")+".****"}}
         </template>
 
       </b_table>
@@ -99,6 +99,7 @@
         noRecords: false,
         macAddress: '',
         camera: '',
+        patr: '',
         dismissCountDown: false,
         activeTab: false,
         msg: "РЕГИСТРАЦИЯ ПРИЕМА",
@@ -155,6 +156,9 @@
       this.id = window.location.href;
       this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].id;
       this.camera = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].camera;
+      this.patr = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].patr;
+      console.log("Patronaj: ", this.patr);
+
       this.$store.dispatch('registration/filial', this.macAddress);
       this.$store.dispatch('registration/camera', this.camera);
 
@@ -175,7 +179,7 @@
       },
       searchByText() {
         this.progress=true;
-        this.$http.get('/pacient/{name}/{date}/{filial}', {params: {name: this.text, date: this.time, filial: this.macAddress}}).then(response => {
+        this.$http.get('/pacient/{name}/{date}/{filial}/{patron}', {params: {name: this.text, date: this.time, filial: this.macAddress, patron: this.patr}}).then(response => {
           if (response.data.length>0) {
             this.show = true;
             this.progress = false;
@@ -198,7 +202,7 @@
         this.$http.get('/schedulePhone/{phone}', {params: {phone: this.num}}).then(response => {
           if (response.data.length>0) {
             response.data.forEach(i => {
-              this.$http.get('/pacient/{name}/{date}/{filial}', {params: {name: i.fullname, date: this.time, filial: this.macAddress}}).then(response => {
+              this.$http.get('/pacient/{name}/{date}/{filial}/{patron}', {params: {name: i.fullname, date: this.time, filial: this.macAddress, patron: this.patr}}).then(response => {
 
                 if (response.data.length>0) {
                   this.show = true;
