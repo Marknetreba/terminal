@@ -56,7 +56,7 @@
         </template>
 
         <template slot="bdate" slot-scope="data">
-          {{data.item.bdate.slice(5).replace("-",".")+".****"}}
+          {{"**.**."+data.item.bdate.slice(0,4)}}
         </template>
 
       </b_table>
