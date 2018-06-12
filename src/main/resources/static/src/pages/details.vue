@@ -36,7 +36,8 @@
 
       <modal v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
         <p><strong>УКАЖИТЕ ВАШ ГОД РОЖДЕНИЯ</strong></p>
-
+        <form-input v-model="num"/>
+        <keyboard class="keyboard" v-model="num" :maxlength="11" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
 
 
         <div slot="modal-footer">
@@ -61,13 +62,17 @@
   import moment from 'moment';
   import alert from "bootstrap-vue/es/components/alert/alert";
   import config from "../config.json";
+  import Keyboard from "../utils/keyboard";
+  import formInput from "bootstrap-vue/es/components/form-input/_form-input";
+
 
   export default {
-    components: {modal, Button, Card, b_table, b_checkbox, b_img, loading, alert, config},
+    components: {modal, Button, Card, b_table, b_checkbox, b_img, loading, alert, config, Keyboard, formInput},
     name: "Details",
     data() {
       return {
         items: [],
+        num: '',
         disabled: false,
         fields: {
           time: {label: 'Время приема', sortable: true},
@@ -100,7 +105,7 @@
       this.macAddress = config[this.id.substring(this.id.indexOf('=') + 1, this.id.indexOf('#'))].id;
       this.camera = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].camera;
 
-      //this.confirm = true;
+      this.confirm = true;
 
       this.birth = this.items[0].bdate.substring(0,4);
       console.log("Birth: ",this.birth);
@@ -217,6 +222,13 @@
     right: 40%;
     margin-top: 15px;
     margin-bottom: 10px;
+  }
+
+  .keyboard {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-size: 21px;
+    font-weight: bold;
   }
 
 </style>
