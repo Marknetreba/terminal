@@ -38,8 +38,8 @@
         <p><strong>УКАЖИТЕ ВАШУ ДАТУ РОЖДЕНИЯ</strong></p>
         <container fluid>
           <row class="my-1 stream">
-            <label>День рождения:</label>
-            <form-input v-model="day"></form-input>
+            <label class="col-3" >День рождения:</label>
+            <form-input class="col-7" v-model="day"></form-input>
           </row>
 
           <row class="my-1 stream">
