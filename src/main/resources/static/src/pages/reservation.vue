@@ -1,6 +1,6 @@
 <template>
   <div class="reservation">
-    <b_img class="logo" src="../photo/55/start.png"></b_img>
+    <b_img class="logo" src="/opt/infoterminal/photo/55/start.png"></b_img>
     <p style="position: relative; right: 335px; color: #009800; font-size: 30px" class="mt-3 mb-4">
       <strong>{{msg}}</strong></p>
     <div class="reservation_details">
@@ -12,7 +12,7 @@
         <p><strong>ДОКТОР {{table.docname}}</strong></p>
         <p><strong>ПРИГЛАСИТ ВАС В КАБИНЕТ {{table.chname}}</strong></p>
 
-        <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>
+        <b_img class="mb-3" height="375" rounded src="/opt/infoterminal/photo/55/chname/doktor.png"/>
         <br/>
 
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
@@ -20,7 +20,7 @@
       </div>
 
       <div class="reservation_iframe">
-        <b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/>
+        <b_img src="/opt/infoterminal/photo/55/sales/55.png" style="width: 100%; height: 100%"/>
       </div>
 
     </div>

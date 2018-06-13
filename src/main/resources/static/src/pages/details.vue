@@ -1,6 +1,6 @@
 <template xmlns="http://www.w3.org/1999/html">
   <div class="main_details">
-    <b_img class="logo" src="../photo/55/start.png"></b_img>
+    <b_img class="logo" src="/opt/infoterminal/photo/55/start.png"></b_img>
     <loading :show="progress" :label="label"></loading>
     <p style="position: relative; right: 335px; color: #009800; font-size: 30px" class="mt-3 mb-4">
       <strong>{{msg}}</strong></p>
@@ -31,7 +31,7 @@
       </div>
 
       <div class="details_iframe">
-        <b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/>
+        <b_img src="/opt/infoterminal/photo/55/sales/55.png" style="width: 100%; height: 100%"/>
       </div>
 
       <modal v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
