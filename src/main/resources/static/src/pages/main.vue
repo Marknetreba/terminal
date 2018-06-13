@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="button_half">
-      <img class="img_half" src="/opt/infoterminal/photo/55/main.png">
+      <img class="img_half" src="../photo/55/main.png">
       <card style="background: #ffd310; border: none; margin-top: 10%">
         <h1 style="color: #009800; font-size: 80px"><strong>{{ msg }}</strong></h1><br/>
         <h1 style="color: #009800; font-size: 45px"><strong>{{ patr }}</strong></h1><br/>
