@@ -69,6 +69,31 @@
       <a>ID филиала: {{macAddress}}</a>
     </div>
 
+    <modal v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
+      <p><strong>УКАЖИТЕ ВАШУ ДАТУ РОЖДЕНИЯ</strong></p>
+      <container fluid>
+        <row class="my-1 stream">
+          <label class="col-3">День рождения:</label>
+          <form-input class="col-7" v-model="num2"></form-input>
+        </row>
+
+        <row class="my-1 stream">
+          <label class="col-auto" >Месяц рождения:</label>
+          <form-input class="col-7" v-model="num2"/>
+        </row>
+
+        <row class="my-1 stream">
+          <label class="col-3" >Год рождения: </label>
+          <form-input class="col-7" value="1994"/>
+        </row>
+
+        <keyboard class="keyboard" v-model="num2" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
+      </container>
+      <div slot="modal-footer">
+        <button class="btn btn-dark" @click="confirm = false">Закрыть</button>
+      </div>
+    </modal>
+
   </div>
 </template>
 
@@ -95,6 +120,8 @@
   export default {
     data() {
       return {
+        confirm: false,
+        num2: '',
         tabIndex: 0,
         noRecords: false,
         macAddress: '',
@@ -148,6 +175,8 @@
       }
     },
     created() {
+      this.confirm = false;
+
       this.tab = this.$store.getters['registration/getTab'];
       if (this.tab.toString() !== "[object Object]") {
         this.tab.includes("ФИО") ? this.activeTab = true : this.activeTab = false;
@@ -243,6 +272,17 @@
   }
 </script>
 <style scoped>
+
+  .stream {
+    flex-wrap: nowrap;
+  }
+
+  .keyboard {
+    margin-top: 20px;
+    margin-bottom: 5px;
+    font-size: 21px;
+    font-weight: bold;
+  }
 
   .no_records {
     border-radius: 20px;

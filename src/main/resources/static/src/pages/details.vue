@@ -35,9 +35,25 @@
       </div>
 
       <modal v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
-        <p><strong>УКАЖИТЕ ВАШ ГОД РОЖДЕНИЯ</strong></p>
-        <form-input v-model="num"/>
-        <keyboard class="keyboard" v-model="num" :maxlength="11" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
+        <p><strong>УКАЖИТЕ ВАШУ ДАТУ РОЖДЕНИЯ</strong></p>
+        <container fluid>
+          <row class="my-1 stream">
+            <label>День рождения:</label>
+            <form-input v-model="day"></form-input>
+          </row>
+
+          <row class="my-1 stream">
+            <label class="col-auto" >Месяц рождения:</label>
+            <form-input class="col-7" v-model="month"/>
+          </row>
+
+          <row class="my-1 stream">
+            <label class="col-3" >Год рождения:</label>
+            <form-input class="col-7" value=""/>
+          </row>
+
+          <keyboard class="keyboard" v-model="day" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
+        </container>
 
         <div slot="modal-footer">
           <button class="btn btn-dark" @click="confirm = false">Закрыть</button>
@@ -63,15 +79,19 @@
   import config from "../config.json";
   import Keyboard from "../utils/keyboard";
   import formInput from "bootstrap-vue/es/components/form-input/_form-input";
+  import Row from "bootstrap-vue/es/components/layout/row";
+  import Container from "bootstrap-vue/es/components/layout/container";
+  import Col from "bootstrap-vue/src/components/layout/col";
 
 
   export default {
-    components: {modal, Button, Card, b_table, b_checkbox, b_img, loading, alert, config, Keyboard, formInput},
+    components: {modal, Button, Card, b_table, b_checkbox, b_img, loading, alert, config, Keyboard, formInput, Col, Container, Row},
     name: "Details",
     data() {
       return {
         items: [],
-        num: '',
+        day: '',
+        month: '',
         disabled: false,
         fields: {
           time: {label: 'Время приема', sortable: true},
@@ -228,6 +248,9 @@
     margin-bottom: 5px;
     font-size: 21px;
     font-weight: bold;
+  }
+  .stream {
+    flex-wrap: unset;
   }
 
 </style>
