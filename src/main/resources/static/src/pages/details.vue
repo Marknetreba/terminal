@@ -39,7 +39,6 @@
         <form-input v-model="num"/>
         <keyboard class="keyboard" v-model="num" :maxlength="11" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
 
-
         <div slot="modal-footer">
           <button class="btn btn-dark" @click="confirm = false">Закрыть</button>
         </div>
