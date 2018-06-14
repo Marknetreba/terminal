@@ -34,7 +34,7 @@
         <b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/>
       </div>
 
-      <modal v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
+      <modal hide-header-close="true" v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
         <p><strong>УКАЖИТЕ ВАШУ ДАТУ РОЖДЕНИЯ</strong></p>
         <container fluid>
           <row class="my-1 stream">
