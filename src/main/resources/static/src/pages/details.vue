@@ -25,7 +25,7 @@
 
         <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
-        <button v-bind:disabled="disabled" class="btn btn-lg mt-3" @click="checkIncome">Я пришел(ла)</button>
+        <button v-bind:disabled="disabled" class="btn btn-lg mt-3" @click="checkIncome">ЗАРЕГИСТРИРОВАТЬСЯ НА ВСЕ ПРИЕМЫ</button>
         <!--<button class="btn btn-warning btn-lg mt-3" @click="notify">Уведомление</button>-->
 
       </div>
