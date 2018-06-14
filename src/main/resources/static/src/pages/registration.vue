@@ -12,7 +12,7 @@
               <keyboard class="registration-half_keyboard" v-model="num" :maxlength="11" layouts="123|456|789|0{Удалить:backspace}">
               </keyboard>
 
-              <button class="btn btn-lg" @click="searchByNum">Поиск</button>
+              <button class="btn btn-lg" @click="searchByNum">Ввести</button>
           </tab>
 
           <tab id="fio" :active="activeTab" title="ПОИСК ПО ФИО" :title-link-class="tabTitle(1)">
@@ -34,7 +34,7 @@
                   'ЙЦУКЕНГШЩЗХЪ|ФЫВАПРОЛДЖЭ|ЯЧСМИТЬБЮ|{Очистить:clear}{Пробел:space}{Удалить:backspace}'
               ]"></keyboard>
 
-              <button :disabled="!nameLength" class="btn btn-lg" @click="searchByText">Поиск</button>
+              <button :disabled="!nameLength" class="btn btn-lg" @click="searchByText">Ввести</button>
 
           </tab>
 
@@ -89,7 +89,7 @@
           <form-input class="col-7" v-model="year"/>
         </row>
 
-        <keyboard class="keyboard" v-model="day" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
+        <keyboard class="keyboard" v-model="listen" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
       </container>
       <div slot="modal-footer">
         <button class="btn btn-dark" @click="">Подтвердить</button>
@@ -174,6 +174,21 @@
 
     name: "Registration",
     computed: {
+      listen: {
+        get() {
+          return this.day.length < 2 ? this.day : this.month;
+        },
+        set(value) {
+          if (document.getElementsByName('day')['0'].value.length < 2) {
+            document.getElementsByName('day')['0'].value += value;
+          }
+          else {
+            if (document.getElementsByName('month')['0'].value.length < 2) {
+              document.getElementsByName('month')['0'].value += value;
+            }
+          }
+        }
+      },
       nameLength() {
         return this.text.length > 2
       }

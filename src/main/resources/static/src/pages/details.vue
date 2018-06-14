@@ -52,7 +52,7 @@
             <form-input class="col-7" v-model="year"/>
           </row>
 
-          <keyboard class="keyboard" v-model="day" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
+          <keyboard class="keyboard" v-model="listen" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
         </container>
 
         <div slot="modal-footer">
@@ -121,6 +121,23 @@
         }
       )
     },
+    computed: {
+      listen: {
+        get() {
+          return this.day.length < 2 ? this.day : this.month;
+        },
+        set(value) {
+          if (document.getElementsByName('day')['0'].value.length < 2) {
+            document.getElementsByName('day')['0'].value += value;
+          }
+          else {
+            if (document.getElementsByName('month')['0'].value.length < 2) {
+              document.getElementsByName('month')['0'].value += value;
+            }
+          }
+        }
+      }
+    },
     created() {
       this.id = window.location.href;
       this.macAddress = config[this.id.substring(this.id.indexOf('=') + 1, this.id.indexOf('#'))].id;
@@ -136,12 +153,15 @@
     methods: {
 
       submit() {
-        this.firstDay = this.items[0].bdate.slice(5,7)
-        this.firstMonth = this.items[0].bdate.slice(8,10)
-        if(this.day === this.firstDay && this.month === this.firstMonth) {
-          console.log("Совпадение")
+        this.firstMonth = this.items[0].bdate.slice(5,7)
+        this.firstDay = this.items[0].bdate.slice(8,10)
+        console.log("First month: ",this.firstMonth)
+        console.log("First day: ", this.firstDay)
+        console.log("Day: ", document.getElementsByName('day')['0'].value)
+        console.log("Month: ", document.getElementsByName('month')['0'].value)
+        if (document.getElementsByName('day')['0'].value === this.firstDay && document.getElementsByName('month')['0'].value === this.firstMonth) {
+          this.confirm = false;
         }
-        console.log(this.firstMonth)
       },
 
       goBack() {
