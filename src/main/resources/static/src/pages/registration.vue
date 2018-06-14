@@ -70,27 +70,27 @@
     </div>
 
     <modal v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
-      <p><strong>УКАЖИТЕ ВАШУ ДАТУ РОЖДЕНИЯ</strong></p>
+      <p><strong>УКАЖИТЕ ВАШУ ДАТУ РОЖДЕНИЯ РЕБЕНКА</strong></p>
       <container fluid>
         <row class="my-1 stream">
-          <label class="col-3">День рождения:</label>
-          <form-input class="col-7" v-model="num2"></form-input>
+          <label class="col-3" >День рождения:</label>
+          <form-input name="day" class="col-7" v-model="day"></form-input>
         </row>
 
         <row class="my-1 stream">
           <label class="col-auto" >Месяц рождения:</label>
-          <form-input class="col-7" v-model="num2"/>
+          <form-input name="month" class="col-7" v-model="month"/>
         </row>
 
         <row class="my-1 stream">
-          <label class="col-3" >Год рождения: </label>
-          <form-input class="col-7" value="1994"/>
+          <label class="col-3" >Год рождения:</label>
+          <form-input class="col-7" v-model="year"/>
         </row>
 
-        <keyboard class="keyboard" v-model="num2" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
+        <keyboard class="keyboard" v-model="day" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
       </container>
       <div slot="modal-footer">
-        <button class="btn btn-dark" @click="confirm = false">Закрыть</button>
+        <button class="btn btn-dark" @click="">Подтвердить</button>
       </div>
     </modal>
 
@@ -121,7 +121,7 @@
     data() {
       return {
         confirm: false,
-        num2: '',
+        day: '',
         tabIndex: 0,
         noRecords: false,
         macAddress: '',
@@ -186,7 +186,6 @@
       this.macAddress = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].id;
       this.camera = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].camera;
       this.patr = config[this.id.substring(this.id.indexOf('=')+1,this.id.indexOf('#'))].patr;
-      console.log("Patronaj: ", this.patr);
 
       this.$store.dispatch('registration/filial', this.macAddress);
       this.$store.dispatch('registration/camera', this.camera);

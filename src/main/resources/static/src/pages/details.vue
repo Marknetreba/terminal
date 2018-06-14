@@ -39,24 +39,24 @@
         <container fluid>
           <row class="my-1 stream">
             <label class="col-3" >День рождения:</label>
-            <form-input class="col-7" v-model="day"></form-input>
+            <form-input name="day" class="col-7" v-model="day"></form-input>
           </row>
 
           <row class="my-1 stream">
             <label class="col-auto" >Месяц рождения:</label>
-            <form-input class="col-7" v-model="month"/>
+            <form-input name="month" class="col-7" v-model="month"/>
           </row>
 
           <row class="my-1 stream">
             <label class="col-3" >Год рождения:</label>
-            <form-input class="col-7" value=""/>
+            <form-input class="col-7" v-model="year"/>
           </row>
 
           <keyboard class="keyboard" v-model="day" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
         </container>
 
         <div slot="modal-footer">
-          <button class="btn btn-dark" @click="confirm = false">Закрыть</button>
+          <button class="btn btn-dark" @click="submit">Подтвердить</button>
         </div>
       </modal>
     </div>
@@ -92,6 +92,7 @@
         items: [],
         day: '',
         month: '',
+        year: '',
         disabled: false,
         fields: {
           time: {label: 'Время приема', sortable: true},
@@ -116,6 +117,7 @@
     beforeRouteEnter: (to, from, next) => {
       next(vm => {
           vm.items = vm.$store.getters['registration/getData'];
+          vm.year = vm.$store.getters['registration/getData'][0].bdate.slice(0,4);
         }
       )
     },
@@ -134,6 +136,10 @@
       }, 90000)
     },
     methods: {
+
+      submit() {
+
+      },
 
       goBack() {
         router.push("Registration")
@@ -213,6 +219,10 @@
 
 <style scoped>
 
+  label {
+    font-size: 20px;
+  }
+
   button {
     border-radius: 10px;
     font-size: 30px;
@@ -250,7 +260,7 @@
     font-weight: bold;
   }
   .stream {
-    flex-wrap: unset;
+    flex-wrap: nowrap;
   }
 
 </style>

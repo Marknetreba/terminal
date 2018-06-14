@@ -3,9 +3,9 @@
     <div class="button_half">
       <img class="img_half" src="../photo/55/main.png">
       <card style="background: #ffd310; border: none; margin-top: 10%">
-        <h1 style="color: #009800; font-size: 80px"><strong>{{ msg }}</strong></h1><br/>
-        <h1 style="color: #009800; font-size: 45px"><strong>{{ patr }}</strong></h1><br/>
-        <h1 style="color: #009800; font-size: 40px"><strong>{{ regMsg }}</strong></h1><br/>
+        <h1 style="color: #009800; font-size: 70px"><strong>{{ msg }}</strong></h1><br/>
+        <h1 style="color: #383c4a; font-size: 30px"><strong>{{ patr }}</strong></h1><br/>
+        <br/>
         <h1 style="font-size: 30px"><strong>{{ choose }}</strong></h1><br/>
 
         <div class="d-flex flex-column-reverse">
@@ -27,7 +27,7 @@
     name: 'main',
     data() {
       return {
-        msg: 'Я пришёл!',
+        msg: 'ЗАРЕГИСТРИРОВАТЬСЯ НА ПРИЕМ',
         regMsg: 'РЕГИСТРАЦИЯ ПРИЕМА',
         patr: 'СЕРВИС ДЛЯ ПАТРОНАЖНЫХ ПАЦИЕНТОВ',
         choose: 'ВЫБЕРИТЕ УДОБНЫЙ ДЛЯ ВАС СПОСОБ ИДЕНТИФИКАЦИИ'
