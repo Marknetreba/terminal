@@ -74,7 +74,9 @@
       <container fluid>
         <row class="my-1 stream">
           <label class="col-3" >День рождения:</label>
-          <form-input name="day" class="col-7" v-model="day"></form-input>
+          <form-input name="day"
+                      class="col-7"
+                      v-model="day"></form-input>
         </row>
 
         <row class="my-1 stream">
@@ -122,6 +124,8 @@
       return {
         confirm: false,
         day: '',
+        month: '',
+        year: '',
         tabIndex: 0,
         noRecords: false,
         macAddress: '',
@@ -195,9 +199,6 @@
       }, 90000)
     },
     methods: {
-      listen() {
-        console.log("Hi!")
-      },
 
       tabTitle(idx) {
         if (this.tabIndex === idx) {
