@@ -195,6 +195,10 @@
       }, 90000)
     },
     methods: {
+      listen() {
+        console.log("Hi!")
+      },
+
       tabTitle(idx) {
         if (this.tabIndex === idx) {
           return ['bg-info', 'text-light']

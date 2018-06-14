@@ -1,7 +1,7 @@
 <template>
     <div>
       <h1 style="color: #009800; font-size: 40px; position: relative; top: 300px; text-transform: uppercase"><strong>{{ goodbye }}</strong></h1><br/>
-      <b_img class="logo" width="375" src="../photo/55/start.png"></b_img>
+      <b_img class="logo" width="375" src="../photo/55/zver.png"></b_img>
     </div>
 </template>
 

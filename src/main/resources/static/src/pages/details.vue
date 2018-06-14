@@ -129,16 +129,19 @@
       this.confirm = true;
 
       this.birth = this.items[0].bdate.substring(0,4);
-      console.log("Birth: ",this.birth);
-      console.log("Camera IP ->", this.camera);
-      setTimeout(function(){
+      setTimeout(function() {
         router.push("/")
       }, 90000)
     },
     methods: {
 
       submit() {
-
+        this.firstDay = this.items[0].bdate.slice(5,7)
+        this.firstMonth = this.items[0].bdate.slice(8,10)
+        if(this.day === this.firstDay && this.month === this.firstMonth) {
+          console.log("Совпадение")
+        }
+        console.log(this.firstMonth)
       },
 
       goBack() {
