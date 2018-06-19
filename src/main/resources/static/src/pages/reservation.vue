@@ -11,10 +11,8 @@
         <p><strong>{{table.workdate.substring(0,11)}} В {{table.bhour}}:{{(table.bmin+'0').substring(0,2)}}</strong></p>
         <p><strong>ДОКТОР {{table.docname}}</strong></p>
         <p><strong>ПРИГЛАСИТ ВАС В КАБИНЕТ {{table.chname}}</strong></p>
-
-        <b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>
+        <!--<b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>-->
         <br/>
-
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
 
       </div>
@@ -83,10 +81,12 @@
 <style scoped>
 
   p {
+    font-size: 20px;
     text-transform: uppercase;
   }
 
   button {
+    font-size: 30px;
     border-radius: 10px;
     color: white;
     background-color: #ff6a13;
