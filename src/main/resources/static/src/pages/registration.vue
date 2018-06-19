@@ -1,7 +1,7 @@
 <template>
   <div class="registration">
     <b_img class="logo" src="../photo/55/start.png"></b_img>
-    <p style="position: relative; right: 335px; color: #009800; font-size: 30px" class="mt-3 mb-4"><strong>{{msg}}</strong></p>
+    <p style="position: relative; right: 50px; color: #009800; font-size: 45px" class="mt-3 mb-5"><strong>{{msg}}</strong></p>
     <div class="registration-half">
 
         <tabs pills card v-model="tabIndex" style="width: 49%;font-weight: bold">
@@ -42,7 +42,10 @@
 
         </tabs>
 
-      <div class="registration-iframe"><img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/></div>
+      <!--<div class="registration-iframe">-->
+        <!--<img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/>-->
+      <!--</div>-->
+
     </div>
 
     <loading :show="progress" :label="label"></loading>
@@ -92,7 +95,8 @@
         <keyboard class="keyboard" v-model="listen" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
       </container>
       <div slot="modal-footer">
-        <button class="btn btn-dark" @click="">Подтвердить</button>
+        <button class="btn btn-lg" @click="">Назад</button>
+        <button class="btn btn-lg" @click="">Подтвердить</button>
       </div>
     </modal>
 
@@ -211,7 +215,10 @@
 
       setTimeout(function(){
         router.push("/")
-      }, 90000)
+      }, 90000);
+
+      let modal = document.getElementsByClassName('modal-backdrop')[0];
+      console.log(modal)
     },
     methods: {
 
@@ -348,6 +355,8 @@
   .registration-half {
     display: flex;
     height: 100%;
+    position: relative;
+    left: 22%;
   }
 
   .registration-iframe {

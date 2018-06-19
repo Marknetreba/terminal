@@ -8,7 +8,7 @@
 
       <div style="background: #ffd310; width: 49%">
 
-        <a><strong>{{items[0].fullname.substr(0, items[0].fullname.indexOf(" ")) + items[0].fullname.substr(items[0].fullname.indexOf(" "),2)+'.'}}, Вам сегодня предстоит прием у специалистов</strong></a><br/><a><strong>{{items[0].webname}}!</strong></a><br/>
+        <a><strong>Вам сегодня предстоит прием у специалистов</strong></a><br/><a><strong>{{items[0].webname}}!</strong></a><br/>
 
         <b_table class="mt-3" striped hover :items="items" :fields="fields" style="background-color: white"
                  @row-clicked="itemClick">
@@ -26,7 +26,6 @@
         <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
         <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
         <button v-bind:disabled="disabled" class="btn btn-lg mt-3" @click="checkIncome">ЗАРЕГИСТРИРОВАТЬСЯ НА ВСЕ ПРИЕМЫ</button>
-        <!--<button class="btn btn-warning btn-lg mt-3" @click="notify">Уведомление</button>-->
 
       </div>
 
@@ -34,7 +33,7 @@
         <b_img src="../photo/55/sales/55.png" style="width: 100%; height: 100%"/>
       </div>
 
-      <modal hide-header-close="true" v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
+      <modal no-close-on-backdrop="true" hide-header-close="true" v-model="confirm" size="lg" centered headerBgVariant="warning" footerBgVariant="warning">
         <p><strong>УКАЖИТЕ ВАШУ ДАТУ РОЖДЕНИЯ</strong></p>
         <container fluid>
           <row class="my-1 stream">
@@ -52,11 +51,12 @@
             <form-input class="col-7" v-model="year"/>
           </row>
 
-          <keyboard class="keyboard" v-model="listen" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
+          <keyboard class="keyboard" v-model="listen" :maxlength="2" layouts="123|456|789|0{Очистить:clear}"></keyboard>
         </container>
 
         <div slot="modal-footer">
-          <button class="btn btn-dark" @click="submit">Подтвердить</button>
+          <button class="btn btn-lg" @click="goBack">Назад</button>
+          <button class="btn btn-lg" @click="submit">Подтвердить</button>
         </div>
       </modal>
     </div>
@@ -149,6 +149,9 @@
       setTimeout(function() {
         router.push("/")
       }, 90000)
+
+      let modal = document.getElementsByClassName('modal-backdrop')[0]
+      console.log(modal)
     },
     methods: {
 
@@ -284,6 +287,11 @@
   }
   .stream {
     flex-wrap: nowrap;
+  }
+
+  .modal-backdrop {
+    background-color: white;
+    opacity: 1!important;
   }
 
 </style>
