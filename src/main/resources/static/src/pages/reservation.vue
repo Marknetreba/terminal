@@ -13,7 +13,7 @@
         <p><strong>ПРИГЛАСИТ ВАС В КАБИНЕТ {{table.chname}}</strong></p>
         <!--<b_img class="mb-3" height="375" rounded src="../photo/55/chname/doktor.png"/>-->
         <br/>
-        <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
+        <button class="mybutton btn btn-lg mt-3" @click="goBack">Назад</button>
 
       </div>
 
@@ -85,7 +85,7 @@
     text-transform: uppercase;
   }
 
-  button {
+  .mybutton {
     font-size: 30px;
     border-radius: 10px;
     color: white;

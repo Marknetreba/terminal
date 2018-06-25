@@ -9,8 +9,8 @@
         <h1 style="font-size: 30px"><strong>{{ choose }}</strong></h1><br/>
 
         <div class="d-flex flex-column-reverse">
-          <button class="btn btn-lg" @click="onClick"><strong> ПО НОМЕРУ ТЕЛЕФОНА </strong></button><br/>
-          <button class="btn btn-lg" style="" @click="onClick"><strong> ПО ФИО ПАЦИЕНТА </strong></button>
+          <button class="mybutton btn btn-lg" @click="onClick"><strong> ПО НОМЕРУ ТЕЛЕФОНА </strong></button><br/>
+          <button class="mybutton btn btn-lg" style="" @click="onClick"><strong> ПО ФИО ПАЦИЕНТА </strong></button>
         </div>
       </card>
     </div>
@@ -50,7 +50,7 @@
     height: 1025px;
     width: 950px;
   }
-  button {
+  .mybutton {
     position: relative;
     left: 60px;
     height: 90px;

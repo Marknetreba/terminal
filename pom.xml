@@ -17,10 +17,6 @@
 			<email>mark.netreba@mail.ru</email>
 		</developer>
 	</developers>
-	
-	<organization>
-		<name>AlfaTell</name>
-	</organization>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

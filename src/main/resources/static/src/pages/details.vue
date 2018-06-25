@@ -24,8 +24,8 @@
         </b_table>
 
         <alert variant="success" :show="check">Благодарим вас за регистрацию посещения</alert>
-        <button class="btn btn-lg mt-3" @click="goBack">Назад</button>
-        <button v-bind:disabled="disabled" class="btn btn-lg mt-3" @click="checkIncome">ЗАРЕГИСТРИРОВАТЬСЯ НА ВСЕ ПРИЕМЫ</button>
+        <button class="mybutton btn btn-lg mt-3" @click="goBack">Назад</button>
+        <button v-bind:disabled="disabled" class="mybutton btn btn-lg mt-3" @click="checkIncome">ЗАРЕГИСТРИРОВАТЬСЯ НА ВСЕ ПРИЕМЫ</button>
 
       </div>
 
@@ -38,12 +38,12 @@
         <container fluid>
           <row class="my-1 stream">
             <label class="col-3" >День рождения:</label>
-            <form-input name="day" class="col-7" v-model="day"></form-input>
+            <form-input state="null" name="day" class="col-7" v-model="day"></form-input>
           </row>
 
           <row class="my-1 stream">
             <label class="col-auto" >Месяц рождения:</label>
-            <form-input name="month" class="col-7" v-model="month"/>
+            <form-input state="null" name="month" class="col-7" v-model="month"/>
           </row>
 
           <row class="my-1 stream">
@@ -52,11 +52,12 @@
           </row>
 
           <keyboard class="keyboard" v-model="listen" :maxlength="2" layouts="123|456|789|0{Очистить:clear}"></keyboard>
+          <button class="clearButt" @click="clear">Очистить</button>
         </container>
 
         <div slot="modal-footer">
-          <button class="btn btn-lg" @click="goBack">Назад</button>
-          <button class="btn btn-lg" @click="submit">Подтвердить</button>
+          <button class="mybutton btn btn-lg" @click="goBack">Назад</button>
+          <button class="mybutton btn btn-lg" @click="submit">Подтвердить</button>
         </div>
       </modal>
     </div>
@@ -155,6 +156,11 @@
     },
     methods: {
 
+      clear() {
+        document.getElementsByName('day')['0'].value = [];
+        document.getElementsByName('month')['0'].value = [];
+      },
+
       submit() {
         this.firstMonth = this.items[0].bdate.slice(5,7)
         this.firstDay = this.items[0].bdate.slice(8,10)
@@ -164,6 +170,10 @@
         console.log("Month: ", document.getElementsByName('month')['0'].value)
         if (document.getElementsByName('day')['0'].value === this.firstDay && document.getElementsByName('month')['0'].value === this.firstMonth) {
           this.confirm = false;
+        }
+        else {
+          console.log("Invalid1", document.getElementsByName('day')['0']);
+          console.log("Invalid2", document.getElementsByName('month')['0']);
         }
       },
 
@@ -245,11 +255,24 @@
 
 <style scoped>
 
+  .clearButt {
+    border: none;
+    position: relative;
+    line-height: 40px;
+    bottom: 53px;
+    left: 24px;
+    background-color: white;
+    color: #666;
+    font-size: 21px;
+    border-radius: 7px;
+    font-weight: bold;
+  }
+
   label {
     font-size: 20px;
   }
 
-  button {
+  .mybutton {
     border-radius: 10px;
     font-size: 30px;
     color: white;

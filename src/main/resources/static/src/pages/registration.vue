@@ -12,7 +12,7 @@
               <keyboard class="registration-half_keyboard" v-model="num" :maxlength="11" layouts="123|456|789|0{Удалить:backspace}">
               </keyboard>
 
-              <button class="btn btn-lg" @click="searchByNum">Ввести</button>
+              <button class="mybutton btn btn-lg" @click="searchByNum">Ввести</button>
           </tab>
 
           <tab id="fio" :active="activeTab" title="ПОИСК ПО ФИО" :title-link-class="tabTitle(1)">
@@ -22,19 +22,19 @@
                           v-model="text"
                           type="text"
                           class="registration-half_fio-label"
-                          aria-describedby="inputFeedback"
                           placeholder="Фамилия Имя Отчество" />
+                          <!--aria-describedby="inputFeedback"-->
 
-              <form-invalid-feedback id="inputFeedback">
-                Введите минимум 3 символа
-              </form-invalid-feedback>
+              <!--<form-invalid-feedback id="inputFeedback">-->
+                <!--Введите минимум 3 символа-->
+              <!--</form-invalid-feedback>-->
 
               <keyboard class="registration-half_keyboard" v-model="text"
                                   :layouts="[
                   'ЙЦУКЕНГШЩЗХЪ|ФЫВАПРОЛДЖЭ|ЯЧСМИТЬБЮ|{Очистить:clear}{Пробел:space}{Удалить:backspace}'
               ]"></keyboard>
 
-              <button :disabled="!nameLength" class="btn btn-lg" @click="searchByText">Ввести</button>
+              <button class="mybutton btn btn-lg" @click="searchByText">Ввести</button>
 
           </tab>
 
@@ -64,7 +64,7 @@
 
       </b_table>
       <div slot="modal-footer">
-        <button class="btn btn-dark" @click="show = false">Закрыть</button>
+        <button class="mybutton btn btn-dark" @click="show = false">Закрыть</button>
       </div>
     </modal>
 
@@ -95,8 +95,8 @@
         <keyboard class="keyboard" v-model="listen" :maxlength="2" layouts="123|456|789|0{Удалить:backspace}"></keyboard>
       </container>
       <div slot="modal-footer">
-        <button class="btn btn-lg" @click="">Назад</button>
-        <button class="btn btn-lg" @click="">Подтвердить</button>
+        <button class="mybutton btn btn-lg" @click="">Назад</button>
+        <button class="mybutton btn btn-lg" @click="">Подтвердить</button>
       </div>
     </modal>
 
@@ -193,9 +193,9 @@
           }
         }
       },
-      nameLength() {
-        return this.text.length > 2
-      }
+      // nameLength() {
+      //   return this.text.length > 2
+      // }
     },
     created() {
       this.confirm = false;
@@ -316,7 +316,7 @@
   }
 
 
-  button {
+  .mybutton {
     margin-top: 5px;
     font-size: 30px;
     border-radius: 10px;
