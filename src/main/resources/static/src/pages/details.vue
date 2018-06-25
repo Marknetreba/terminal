@@ -38,12 +38,12 @@
         <container fluid>
           <row class="my-1 stream">
             <label class="col-3" >День рождения:</label>
-            <form-input state="null" name="day" class="col-7" v-model="day"></form-input>
+            <form-input :state="invalid" name="day" class="col-7" v-model="day"></form-input>
           </row>
 
           <row class="my-1 stream">
             <label class="col-auto" >Месяц рождения:</label>
-            <form-input state="null" name="month" class="col-7" v-model="month"/>
+            <form-input :state="invalid" name="month" class="col-7" v-model="month"/>
           </row>
 
           <row class="my-1 stream">
@@ -90,6 +90,7 @@
     name: "Details",
     data() {
       return {
+        invalid: null,
         items: [],
         day: '',
         month: '',
@@ -172,8 +173,7 @@
           this.confirm = false;
         }
         else {
-          console.log("Invalid1", document.getElementsByName('day')['0']);
-          console.log("Invalid2", document.getElementsByName('month')['0']);
+          this.invalid = false;
         }
       },
 
